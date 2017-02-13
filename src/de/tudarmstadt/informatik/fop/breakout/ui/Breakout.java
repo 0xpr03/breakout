@@ -61,9 +61,10 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	}
 
 	public static void main(String[] args) throws SlickException {
+		logger.info("Starting Breakout..");
 		// () -> lambda: don't do "Arrays.toString.." when the info level isn't even logged
 		// -> only do this when the string returned is actually used
-		logger.info("Starting game, args: {}", () -> Arrays.toString(args));
+		logger.debug("args: {}", () -> Arrays.toString(args));
 		logger.info("==== Logging test ====");
 		loggerTest("Arg");
 		logger.info("==== Test end ====");
