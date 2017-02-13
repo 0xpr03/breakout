@@ -60,7 +60,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		return ret;
 	}
 
-	public static void main(String[] args) throws SlickException {
+	public static void main(String[] args){
 		logger.info("Starting Breakout..");
 		// () -> lambda: don't do "Arrays.toString.." when the info level isn't even logged
 		// -> only do this when the string returned is actually used
@@ -85,15 +85,19 @@ public class Breakout extends StateBasedGame implements GameParameters {
 							+ System.getProperty("os.name").toLowerCase());
 		}
 
-		// Add this StateBasedGame to an AppGameContainer
-		AppGameContainer app = new AppGameContainer(new Breakout(false));
-
-		// Set the display mode and frame rate
-		app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
-		app.setTargetFrameRate(FRAME_RATE);
-
-		// now start the game!
-		app.start();
+		try{
+			// Add this StateBasedGame to an AppGameContainer
+			AppGameContainer app = new AppGameContainer(new Breakout(false));
+	
+			// Set the display mode and frame rate
+			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
+			app.setTargetFrameRate(FRAME_RATE);
+	
+			// now start the game!
+			app.start();
+		}catch(SlickException e){
+			logger.fatal("Crash in main process: ",e);
+		}
 	}
 
 	@Override
