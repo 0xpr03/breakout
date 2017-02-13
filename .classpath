@@ -10,5 +10,20 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Breakout/lwjgl-2.9.3/native"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="log4j-api-2.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/fop_17/log4j-api-2.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="log4j-core-2.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/fop_17/log4j-core-2.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="log4j-iostreams-2.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/fop_17/log4j-iostreams-2.5-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
