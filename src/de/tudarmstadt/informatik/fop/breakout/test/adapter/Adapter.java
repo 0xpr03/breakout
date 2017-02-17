@@ -5,7 +5,6 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
-import de.tudarmstadt.informatik.fop.breakout.interfaces.IHitable;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import eea.engine.entity.Entity;
 import eea.engine.entity.StateBasedEntityManager;

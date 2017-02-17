@@ -1,4 +1,4 @@
-package de.tudarmstadt.informatik.fop.breakout.interfaces;
+package de.tudarmstadt.informatik.fop.breakout.test.adapter;
 
 /**
  * Interface for degradable Entities 

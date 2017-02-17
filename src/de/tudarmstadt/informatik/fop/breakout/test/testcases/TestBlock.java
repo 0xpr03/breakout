@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.tudarmstadt.informatik.fop.breakout.interfaces.IHitable;
 import de.tudarmstadt.informatik.fop.breakout.test.adapter.Adapter;
+import de.tudarmstadt.informatik.fop.breakout.test.adapter.IHitable;
 
 public class TestBlock {
 

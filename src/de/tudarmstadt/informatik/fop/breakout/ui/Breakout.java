@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.AppGameContainer;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,40 +18,48 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	// This has to be created in every class which wants to log smth
 	// It doesn't have to be static
 	private static Logger logger = LogManager.getLogger(Breakout.class);
-	
+
 	// Remember if the game runs in debug mode
 	private static boolean debug = false;
 
 	/**
 	 * Creates a new Breakout instance
 	 * 
-	 * @param debug if true, runs in debug mode
+	 * @param debug
+	 *            if true, runs in debug mode
 	 */
 	public Breakout(boolean debug) {
 		super("Breakout");
-		logger.trace("Debug: {}",debug);
+		logger.trace("Debug: {}", debug);
 		Breakout.debug = debug;
 	}
 
+	/**
+	 * Returns current debug state
+	 * 
+	 * @return true on debug
+	 */
 	public static boolean getDebug() {
 		return debug;
 	}
-	
+
 	/**
 	 * Logger demonstration class<br>
 	 * Demonstrating multiple log levels, arguments etc
-	 * @param arg An argument to be printed
+	 * 
+	 * @param arg
+	 *            An argument to be printed
 	 */
-	private static boolean loggerTest(String arg){
+	private static boolean loggerTest(String arg) {
 		logger.entry(arg); // log function entry and args
 		logger.trace(arg); // lowest log priority
 		// second lowest
-		logger.debug("Multiple {} INfos {} To {} Print {}","asd",45,true,new Exception("asd"));
+		logger.debug("Multiple {} INfos {} To {} Print {}", "asd", 45, true, new Exception("asd"));
 		// third lowest
 		// we will probably disable everything below info in production
-		logger.info("Info MSG {}",true);
+		logger.info("Info MSG {}", true);
 		// fourth, warning
-		logger.warn("Some warning stuff {}",4645L);
+		logger.warn("Some warning stuff {}", 4645L);
 		// fith
 		logger.error("Error Test: {}", new Exception("My Exception"));
 		// highest
@@ -60,9 +69,10 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		return ret;
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		logger.info("Starting Breakout..");
-		// () -> lambda: don't do "Arrays.toString.." when the info level isn't even logged
+		// () -> lambda: don't do "Arrays.toString.." when the info level isn't
+		// even logged
 		// -> only do this when the string returned is actually used
 		logger.debug("args: {}", () -> Arrays.toString(args));
 		logger.info("==== Logging test ====");
@@ -72,47 +82,40 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		// Set the library path depending on the operating system
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			logger.trace("detected windows");
-			System.setProperty("org.lwjgl.librarypath",
-					System.getProperty("user.dir") + "/native/windows");
+			System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/native/windows");
 		} else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
 			logger.trace("detected macos");
-			System.setProperty("org.lwjgl.librarypath",
-					System.getProperty("user.dir") + "/native/macosx");
+			System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/native/macosx");
 		} else {
 			logger.trace("detected linux");
-			System.setProperty("org.lwjgl.librarypath",
-					System.getProperty("user.dir") + "/native/"
-							+ System.getProperty("os.name").toLowerCase());
+			System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/native/"
+					+ System.getProperty("os.name").toLowerCase());
 		}
 
-		try{
+		try {
 			// Add this StateBasedGame to an AppGameContainer
-			AppGameContainer app = new AppGameContainer(new Breakout(false));
-	
+			AppGameContainer app = new AppGameContainer(
+					new ScalableGame(new Breakout(false), WINDOW_WIDTH, WINDOW_HEIGHT, true));
+
 			// Set the display mode and frame rate
 			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 			app.setTargetFrameRate(FRAME_RATE);
-	
+
 			// now start the game!
 			app.start();
-		}catch(SlickException e){
-			logger.fatal("Crash in main process: ",e);
+		} catch (SlickException e) {
+			logger.fatal("Crash in main process: ", e);
 		}
 	}
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
 		// Add the game states (the first added state will be started initially)
-	  // This may look as follows, assuming you use the associated class names and constants:
-	  /*
-	    addState(new MainMenuState(MAINMENU_STATE));
-		  addState(new GameplayState(GAMEPLAY_STATE));
-		  addState(new HighscoreState(HIGHSCORE_STATE));
+		// This may look as follows, assuming you use the associated class names
+		// and constants:
 
-		  // Add the states to the StateBasedEntityManager
-		  StateBasedEntityManager.getInstance().addState(MAINMENU_STATE);
-		  StateBasedEntityManager.getInstance().addState(GAMEPLAY_STATE);
-		  StateBasedEntityManager.getInstance().addState(HIGHSCORE_STATE);
-    */
+		addState(new MainMenuState(MAINMENU_STATE));
+		addState(new GameplayState(GAMEPLAY_STATE));
+		addState(new HighscoreState(HIGHSCORE_STATE));
 	}
 }

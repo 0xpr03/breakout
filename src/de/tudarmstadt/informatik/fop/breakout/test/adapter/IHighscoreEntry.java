@@ -1,4 +1,4 @@
-package de.tudarmstadt.informatik.fop.breakout.interfaces;
+package de.tudarmstadt.informatik.fop.breakout.test.adapter;
 
 public interface IHighscoreEntry {
   public String getPlayerName();

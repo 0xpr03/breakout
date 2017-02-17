@@ -3,8 +3,6 @@ package de.tudarmstadt.informatik.fop.breakout.test.adapter;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.tudarmstadt.informatik.fop.breakout.interfaces.IHighscoreEntry;
-
 public class AdapterExtended extends Adapter {
 
   //TODO you probably should declare a highscore object of the "proper type" here...
