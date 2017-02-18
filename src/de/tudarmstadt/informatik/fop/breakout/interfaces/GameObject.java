@@ -25,6 +25,8 @@ public abstract class GameObject {
 	private float height;
 
 	private Image image;
+
+	private boolean collideable = false;
 	private boolean visible = false;
 	private boolean animated = false;
 
@@ -151,5 +153,24 @@ public abstract class GameObject {
 	 */
 	public void setAnimated(final boolean animated) {
 		this.animated = animated;
+	}
+
+	/**
+	 * Returns whether the object is collideable or not
+	 * 
+	 * @return Whether the object is collideable or not
+	 */
+	public boolean isCollideable() {
+		return collideable;
+	}
+
+	/**
+	 * Set whether the object is collideable or not
+	 * 
+	 * @param Whether
+	 *            the object should be collideable or not
+	 */
+	public void setCollideable(boolean collideable) {
+		this.collideable = collideable;
 	}
 }
