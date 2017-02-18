@@ -37,7 +37,7 @@ public class MainMenuState extends GameState {
     @Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
     	// Hintergrund laden
-    	Entity background = new Entity("menu");	// Entitaet fuer Hintergrund
+    	GameObject background = new GameObject("menu");	// Entitaet fuer Hintergrund
     	background.setPosition(new Vector2f(400,300));	// Startposition des Hintergrunds
     	background.addComponent(new ImageRenderComponent(new Image("/assets/menu.png"))); // Bildkomponente
     	
