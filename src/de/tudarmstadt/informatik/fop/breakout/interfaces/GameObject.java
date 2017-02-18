@@ -6,7 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
@@ -20,8 +20,7 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  */
 public abstract class GameObject {
 
-	private float centerX;
-	private float centerY;
+	private Vector2f position;
 	private float width;
 	private float height;
 	
@@ -59,8 +58,29 @@ public abstract class GameObject {
 	 *            The y coordinate of the center
 	 */
 	public void setLocation(final float centerX, final float centerY) {
-		this.centerX = centerX;
-		this.centerY = centerY;
+		this.position.x = centerX;
+		this.position.y = centerY;
+	}
+	
+	/**
+	 * Set the location of the game object
+	 * 
+	 * @param centerX
+	 *            The x coordinate of the center
+	 * @param centerY
+	 *            The y coordinate of the center
+	 */
+	public void setLocation(Vector2f pos) {
+		this.position = pos;
+	}
+	
+	/**
+	 * Returns the location of the game object
+	 * 
+	 * @return Vec2f with center x & y coordinates
+	 */
+	public Vector2f getLocation() {
+		return position;
 	}
 
 	/**
@@ -75,6 +95,22 @@ public abstract class GameObject {
 		this.width = width;
 		this.height = height;
 	}
+	
+	/**
+	 * Returns the dimensional height of this game object
+	 * @return Height
+	 */
+	public float getDimHeight(){
+		return this.height;
+	}
+	
+	/**
+	 * Returns the dimensional width of this game object
+	 * @return Width
+	 */
+	public float getDimWidth(){
+		return this.width;
+	}
 
 	/**
 	 * Update method that shall be called from the game loop
@@ -86,7 +122,7 @@ public abstract class GameObject {
 	 */
 	public void render(final Graphics g) {
 		if (visible)
-			image.draw(centerX - width / 2, centerY - height / 2, width, height);
+			image.draw(position.x - width / 2, position.y - height / 2, width, height);
 	}
 
 	/**
