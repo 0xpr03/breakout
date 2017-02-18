@@ -3,6 +3,7 @@ package de.tudarmstadt.informatik.fop.breakout.interfaces;
 import java.io.File;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -83,7 +84,7 @@ public abstract class GameObject {
 	/**
 	 * Render method that shall be called from the game loop
 	 */
-	public void render() {
+	public void render(final Graphics g) {
 		if (visible)
 			image.draw(centerX - width / 2, centerY - height / 2, width, height);
 	}

@@ -97,7 +97,8 @@ public class MainMenuState extends GameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, 
 												Graphics g) throws SlickException {
-		
+		for(GameObject go : objects)
+			go.render(g);
 	}
 
 	@Override
