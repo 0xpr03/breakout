@@ -15,7 +15,7 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * Basic class for every possible object in the game.<b> This includes the ball,
  * stick, items and everything updateable.<br>
  * 
- * @author Aron Heinecke
+ * @author Aron Heinecke, Simon Kohaut
  *
  */
 public abstract class GameObject {
@@ -23,11 +23,11 @@ public abstract class GameObject {
 	private Vector2f position;
 	private float width;
 	private float height;
-	
+
 	private Image image;
 	private boolean visible = false;
 	private boolean animated = false;
-	
+
 	/**
 	 * Set the image that will be rendered
 	 * 
@@ -61,7 +61,7 @@ public abstract class GameObject {
 		this.position.x = centerX;
 		this.position.y = centerY;
 	}
-	
+
 	/**
 	 * Set the location of the game object
 	 * 
@@ -73,7 +73,7 @@ public abstract class GameObject {
 	public void setLocation(Vector2f pos) {
 		this.position = pos;
 	}
-	
+
 	/**
 	 * Returns the location of the game object
 	 * 
@@ -84,31 +84,40 @@ public abstract class GameObject {
 	}
 
 	/**
-	 * Set the width and height of the game object
+	 * Set the width of the game object
 	 * 
 	 * @param width
 	 *            The new width
+	 */
+	public void setWidth(final float width) {
+		this.width = width;
+	}
+
+	/**
+	 * Set the height of the game object
+	 * 
 	 * @param height
 	 *            The new height
 	 */
-	public void setDimension(final float width, final float height) {
-		this.width = width;
+	public void setHeight(final float height) {
 		this.height = height;
 	}
-	
+
 	/**
-	 * Returns the dimensional height of this game object
-	 * @return Height
+	 * Returns the height of this game object
+	 * 
+	 * @return The height of this game object
 	 */
-	public float getDimHeight(){
+	public float getHeight() {
 		return this.height;
 	}
-	
+
 	/**
-	 * Returns the dimensional width of this game object
-	 * @return Width
+	 * Returns the width of this game object
+	 * 
+	 * @return The width of this game object
 	 */
-	public float getDimWidth(){
+	public float getWidth() {
 		return this.width;
 	}
 
@@ -136,7 +145,9 @@ public abstract class GameObject {
 
 	/**
 	 * Sets whether the object is animated or not
-	 * @param animated whether the object should be animated or not
+	 * 
+	 * @param animated
+	 *            whether the object should be animated or not
 	 */
 	public void setAnimated(final boolean animated) {
 		this.animated = animated;
