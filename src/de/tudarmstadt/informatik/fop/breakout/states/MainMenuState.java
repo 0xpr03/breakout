@@ -10,6 +10,8 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import de.tudarmstadt.informatik.fop.breakout.interfaces.GameObject;
+
 /**
  * @author Timo Bähr
  *
@@ -17,10 +19,10 @@ import org.newdawn.slick.state.StateBasedGame;
  * Spiel gestartet werden kann und das gesamte Spiel beendet 
  * werden kann.
  */
-public class MainMenuState extends BasicGameState {
+public class MainMenuState extends GameState {
 	private int stateID; 							// Identifier von diesem BasicGameState
 	
-	private ArrayList<> objects = new ArrayList<>();
+	private ArrayList<GameObject> objects = new ArrayList<>();
 	
 	private final int distance = 100;
     private final int start_Position = 180;
@@ -85,7 +87,8 @@ public class MainMenuState extends BasicGameState {
     @Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		entityManager.updateEntities(container, game, delta);
+		for(GameObject go : objects)
+			go.update(container, game, this, delta);
 	}
     
     /**
@@ -94,17 +97,18 @@ public class MainMenuState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, 
 												Graphics g) throws SlickException {
-		entityManager.renderEntities(container, game, g);
 		
-		int counter = 0;
-		
-		g.drawString("Neues Spiel", 110, start_Position+counter*distance); counter++;
-		g.drawString("Beenden", 110, start_Position+counter*distance); counter++;
 	}
 
 	@Override
 	public int getID() {
 		return stateID;
+	}
+
+	@Override
+	public ArrayList<GameObject> getStateObjects() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

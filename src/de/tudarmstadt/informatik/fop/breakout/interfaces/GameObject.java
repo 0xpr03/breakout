@@ -2,19 +2,32 @@ package de.tudarmstadt.informatik.fop.breakout.interfaces;
 
 import java.io.File;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.state.StateBasedGame;
 
+import de.tudarmstadt.informatik.fop.breakout.states.GameState;
+
+/**
+ * Basic class for every possible object in the game.<b> This includes the ball,
+ * stick, items and everything updateable.<br>
+ * 
+ * @author Aron Heinecke
+ *
+ */
 public abstract class GameObject {
 
 	private float centerX;
 	private float centerY;
 	private float width;
 	private float height;
-
+	
 	private Image image;
 	private boolean visible = false;
-
+	private boolean animated = false;
+	
 	/**
 	 * Set the image that will be rendered
 	 * 
@@ -65,7 +78,7 @@ public abstract class GameObject {
 	/**
 	 * Update method that shall be called from the game loop
 	 */
-	public abstract void update();
+	public abstract void update(GameContainer container, StateBasedGame game, GameState state, int delta);
 
 	/**
 	 * Render method that shall be called from the game loop
@@ -73,5 +86,22 @@ public abstract class GameObject {
 	public void render() {
 		if (visible)
 			image.draw(centerX - width / 2, centerY - height / 2, width, height);
+	}
+
+	/**
+	 * Returns whether the object is animated or not
+	 * 
+	 * @return Whether the object is animated or not
+	 */
+	public boolean isAnimated() {
+		return animated;
+	}
+
+	/**
+	 * Sets whether the object is animated or not
+	 * @param animated whether the object should be animated or not
+	 */
+	public void setAnimated(final boolean animated) {
+		this.animated = animated;
 	}
 }

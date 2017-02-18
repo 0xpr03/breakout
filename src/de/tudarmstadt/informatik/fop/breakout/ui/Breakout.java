@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
+import de.tudarmstadt.informatik.fop.breakout.states.MainMenuState;
 
 public class Breakout extends StateBasedGame implements GameParameters {
 
@@ -96,7 +97,6 @@ public class Breakout extends StateBasedGame implements GameParameters {
 			// Add this StateBasedGame to an AppGameContainer
 			AppGameContainer app = new AppGameContainer(
 					new ScalableGame(new Breakout(false), WINDOW_WIDTH, WINDOW_HEIGHT, true));
-
 			// Set the display mode and frame rate
 			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 			app.setTargetFrameRate(FRAME_RATE);
@@ -115,7 +115,5 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		// and constants:
 
 		addState(new MainMenuState(MAINMENU_STATE));
-		addState(new GameplayState(GAMEPLAY_STATE));
-		addState(new HighscoreState(HIGHSCORE_STATE));
 	}
 }
