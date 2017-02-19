@@ -2,7 +2,11 @@ package de.tudarmstadt.informatik.fop.breakout.states;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.interfaces.GameObject;
 
@@ -35,12 +39,24 @@ public abstract class GameState extends BasicGameState {
 	}
 
 	/**
-	 * Adds the game object
+	 * Adds the specified game object
 	 * 
 	 * @param go
 	 *            GameObject to be added
 	 */
 	public void addObject(GameObject go) {
 		objects.add(go);
+	}
+
+	@Override
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		for (GameObject go : objects)
+			go.update(container, game, this, delta);
+	}
+
+	@Override
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		for (GameObject go : objects)
+			go.render(g);
 	}
 }
