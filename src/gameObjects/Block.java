@@ -12,8 +12,9 @@ public class Block extends GameObject{
 	
 	private Image image;        // TODO:: Put the right image for Block here
 
-	public Block(Vector2f position, float width, float height, boolean collideable) {
-		super(position, width, height, collideable);
+	public Block(Vector2f position, float width, float height, Image image) {
+		super(position, width, height, true);
+		this.image = image;
 	}
 
 	@Override
@@ -26,4 +27,11 @@ public class Block extends GameObject{
 		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
 	}
 
+	/**
+	 * @author Tim Jäger
+	 * @param image
+	 */
+	public void setImage(Image image){
+		this.image = image;
+	}
 }

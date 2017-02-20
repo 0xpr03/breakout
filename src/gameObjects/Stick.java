@@ -14,8 +14,9 @@ public class Stick extends GameObject{
 	private Image image;          // TODO:: Put the right image for Stick here
 	private double speed;
 
-	public Stick(Vector2f position, float width, float height, boolean collideable) {
-		super(position, width, height, collideable);
+	public Stick(Vector2f position, float width, float height, Image image) {
+		super(position, width, height, true);
+		this.image = image;
 	}
 
 	@Override
@@ -52,5 +53,13 @@ public class Stick extends GameObject{
 	 */
 	public double getSpeed(){
 		return speed;
+	}
+	
+	/**
+	 * @author Tim Jäger
+	 * @param image
+	 */
+	public void setImage(Image image){
+		this.image = image;
 	}
 }

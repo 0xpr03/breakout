@@ -12,8 +12,9 @@ public class Ball extends GameObject{
 	
 	private Image image;   // TODO:: Put the right image of Ball here
 
-	public Ball(Vector2f position, float width, float height, boolean collideable) {
-		super(position, width, height, collideable);
+	public Ball(Vector2f position, float width, float height, Image image) {
+		super(position, width, height, true);
+		this.image = image;
 	}
 
 	@Override
@@ -25,5 +26,13 @@ public class Ball extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
+	}
+	
+	/**
+	 * @author Tim Jäger
+	 * @param image
+	 */
+	public void setImage(Image image){
+		this.image = image;
 	}
 }
