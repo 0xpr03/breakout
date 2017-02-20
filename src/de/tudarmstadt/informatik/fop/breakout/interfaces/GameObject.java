@@ -19,35 +19,29 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  */
 public abstract class GameObject {
 
-	private Vector2f position;
-	private float width;
-	private float height;
-
-	private Image image;
+	protected Vector2f position;
+	protected float width;
+	protected float height;
 
 	private boolean collideable = false;
-	private boolean visible = false;
-	private boolean animated = false;
 
 	/**
-	 * Set the image that will be rendered
+	 * Create a new instance of GameObject
 	 * 
-	 * @param file
-	 *            The image source
-	 * @throws SlickException
+	 * @param position
+	 *            The position of the GameObject
+	 * @param width
+	 *            The width of the GameObject
+	 * @param height
+	 *            The height of the GameObject
+	 * @param collideable
+	 *            If the GameObject is collideable or not
 	 */
-	public void setImage(final File file) throws SlickException {
-		image = new Image(file.getPath());
-	}
-
-	/**
-	 * Set a flag to determine if the object will be rendered or not
-	 * 
-	 * @param visible
-	 *            The visibility flag
-	 */
-	public void setVisibility(final boolean visible) {
-		this.visible = visible;
+	public GameObject(Vector2f position, float width, float height, boolean collideable) {
+		this.position = position;
+		this.width = width;
+		this.height = height;
+		this.collideable = collideable;
 	}
 
 	/**
@@ -130,29 +124,7 @@ public abstract class GameObject {
 	/**
 	 * Render method that shall be called from the game loop
 	 */
-	public void render(final Graphics g) {
-		if (visible)
-			image.draw(position.x - width / 2, position.y - height / 2, width, height);
-	}
-
-	/**
-	 * Returns whether the object is animated or not
-	 * 
-	 * @return Whether the object is animated or not
-	 */
-	public boolean isAnimated() {
-		return animated;
-	}
-
-	/**
-	 * Sets whether the object is animated or not
-	 * 
-	 * @param animated
-	 *            whether the object should be animated or not
-	 */
-	public void setAnimated(final boolean animated) {
-		this.animated = animated;
-	}
+	public abstract void render(Graphics g);
 
 	/**
 	 * Returns whether the object is collideable or not
