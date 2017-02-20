@@ -59,7 +59,7 @@ public class Button extends GameObject {
 		else
 			mouseOverButton = false;
 		
-		if(mouseOverButton && in.isKeyDown(Input.MOUSE_LEFT_BUTTON))
+		if(mouseOverButton && in.isKeyPressed(Input.MOUSE_LEFT_BUTTON))
 			clicked = true;
 		else 
 			clicked = false;
