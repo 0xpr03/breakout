@@ -57,8 +57,8 @@ public class MainMenuState extends GameState {
 		// entityManager.addEntity(stateID, background);
 
 		/* Neues Spiel starten-Entitaet */
-		bNewGame = new Button(new Vector2f(0, 0), 500, 500, new Image("images/entry.png"),
-				new Image("images/entry.png"));
+		bNewGame = new Button(new Vector2f(400, 300), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"));
 		objects.add(bNewGame);
 
 		// // Setze Position und Bildkomponente
