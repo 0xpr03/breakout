@@ -1,5 +1,7 @@
 package de.tudarmstadt.informatik.fop.breakout.gui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -50,7 +52,7 @@ public class Button extends GameObject {
 		Input in = container.getInput();
 		int mx = in.getMouseX();
 		int my = in.getMouseY();
-
+		
 		Vector2f topLeft = new Vector2f(position.x - width / 2, position.y + height / 2);
 		Vector2f bottomRight = new Vector2f(position.x + width / 2, position.y - height / 2);
 
@@ -59,7 +61,7 @@ public class Button extends GameObject {
 		else
 			mouseOverButton = false;
 		
-		if(mouseOverButton && in.isKeyPressed(Input.MOUSE_LEFT_BUTTON))
+		if(mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 			clicked = true;
 		else 
 			clicked = false;
