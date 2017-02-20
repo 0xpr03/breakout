@@ -42,6 +42,7 @@ public class Button extends GameObject {
 		super(position, width, height, false);
 		this.defaultImage = defaultImage;
 		this.mouseOverImage = mouseOverImage;
+		this.mouseOverButton = false;
 	}
 
 	@Override
