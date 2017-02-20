@@ -57,14 +57,16 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		}
 
 		try {
+			Breakout breakout = new Breakout(true);
 			AppGameContainer app = new AppGameContainer(
-					new ScalableGame(new Breakout(true), WINDOW_WIDTH, WINDOW_HEIGHT, true));
+					new ScalableGame(breakout, WINDOW_WIDTH, WINDOW_HEIGHT, true));
 			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 			app.setTargetFrameRate(FRAME_RATE);
-			app.setResizable(true);
-			app.setMaximumLogicUpdateInterval(150);
-			app.setTitle("Breakout");
+//			app.setResizable(true);
+//			app.setMaximumLogicUpdateInterval(150);
+//			app.setTitle("Breakout");
 			app.start();
+			breakout.enterState(MAINMENU_STATE);
 		} catch (SlickException e) {
 			logger.fatal("Crash escalation in main process: ", e);
 		}
