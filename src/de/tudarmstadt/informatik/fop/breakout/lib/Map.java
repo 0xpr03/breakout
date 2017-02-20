@@ -93,12 +93,21 @@ public class Map {
 	}
 	
 	/**
+	 * Delete the file of this map
+	 */
+	public void deleteFile(){
+		synchronized(map){
+			this.file.delete();
+		}
+	}
+	
+	/**
 	 * Write map to file
 	 * @return true on success
 	 */
 	public boolean write(){
 		synchronized(map) {
-			try	(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
+			try	(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false)))) {
 				// map data
 				for(ArrayList<Integer> row : map){
 					bw.write(row.stream().map((s) -> Integer.toString(s)).reduce("", (x,y) -> x +","+ y));
@@ -111,8 +120,8 @@ public class Map {
 				
 				String[] cData = new String[3];
 				cData[POS_GRAV] = Float.toString(this.getGravity());
-				cData[POS_GRAV] = Float.toString(this.getBallVelocity());
-				cData[POS_GRAV] = Integer.toString(this.getTheme());
+				cData[POS_VEL] = Float.toString(this.getBallVelocity());
+				cData[POS_THEME] = Integer.toString(this.getTheme());
 				for(String s : cData){
 					bw.write(s);
 				}
