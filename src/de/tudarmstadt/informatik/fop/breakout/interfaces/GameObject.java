@@ -16,7 +16,6 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * stick, items and everything updateable.<br>
  * 
  * @author Aron Heinecke, Simon Kohaut
- *
  */
 public abstract class GameObject {
 
