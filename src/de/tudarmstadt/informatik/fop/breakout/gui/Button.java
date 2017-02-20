@@ -7,8 +7,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import de.tudarmstadt.informatik.fop.breakout.interfaces.GameObject;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
+import gameObjects.GameObject;
 
 
 /**

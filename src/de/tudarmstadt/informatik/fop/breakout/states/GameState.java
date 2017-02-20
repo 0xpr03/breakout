@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import de.tudarmstadt.informatik.fop.breakout.interfaces.GameObject;
+import gameObjects.GameObject;
 
 /**
  * Extended version of BasicGameState providing a getter for the GameObjects

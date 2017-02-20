@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import de.tudarmstadt.informatik.fop.breakout.interfaces.GameObject;
+import gameObjects.GameObject;
 
 /**
  * Class representing the main menu state of the game

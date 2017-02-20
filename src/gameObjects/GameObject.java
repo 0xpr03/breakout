@@ -1,4 +1,4 @@
-package de.tudarmstadt.informatik.fop.breakout.interfaces;
+package gameObjects;
 
 import java.io.File;
 
