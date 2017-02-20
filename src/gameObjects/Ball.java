@@ -24,6 +24,6 @@ public class Ball extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		image.draw()
+		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
 	}
 }

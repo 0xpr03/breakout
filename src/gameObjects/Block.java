@@ -18,14 +18,12 @@ public class Block extends GameObject{
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
-		// TODO Auto-generated method stub
-		
+		// Has to be empty, because he shell not move!
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
 	}
 
 }
