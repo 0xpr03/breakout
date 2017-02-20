@@ -2,12 +2,15 @@ package gameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
 public class Ball extends GameObject{
+	
+	private Image image;   // TODO:: Put the right image of Ball here
 
 	public Ball(Vector2f position, float width, float height, boolean collideable) {
 		super(position, width, height, collideable);
@@ -21,7 +24,6 @@ public class Ball extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		image.draw()
 	}
-
 }
