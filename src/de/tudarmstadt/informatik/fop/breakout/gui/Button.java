@@ -1,7 +1,5 @@
 package de.tudarmstadt.informatik.fop.breakout.gui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

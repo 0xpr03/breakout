@@ -1,21 +1,16 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
-import java.util.ArrayList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
-import gameObjects.GameObject;
 
 /**
  * Class representing the main menu state of the game
