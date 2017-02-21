@@ -48,8 +48,7 @@ public class MainMenuState extends GameState {
 						logger.trace("NewGame clicked");
 						game.enterState(GameParameters.GAMEPLAY_STATE);
 					}
-				})
-		);
+				}));
 
 		objects.add(new Button(new Vector2f(200, 250), 60, 10, new Image("images/stick.png"),
 				new Image("images/stick.png"), new ButtonAction() {
@@ -57,35 +56,31 @@ public class MainMenuState extends GameState {
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Stats clicked");
 					}
-				})
-		);
-		
+				}));
+
 		objects.add(new Button(new Vector2f(200, 300), 60, 10, new Image("images/stick.png"),
 				new Image("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Editor clicked");
 					}
-				})
-		);
-		
+				}));
+
 		objects.add(new Button(new Vector2f(200, 350), 60, 10, new Image("images/stick.png"),
 				new Image("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Editor clicked");
 					}
-				})
-		);
-		
+				}));
+
 		objects.add(new Button(new Vector2f(200, 400), 60, 10, new Image("images/stick.png"),
 				new Image("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Options clicked");
 					}
-				})
-		);
+				}));
 
 		objects.add(new Button(new Vector2f(200, 450), 60, 10, new Image("images/stick.png"),
 				new Image("images/stick.png"), new ButtonAction() {
@@ -93,18 +88,16 @@ public class MainMenuState extends GameState {
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("About clicked");
 					}
-				})
-		);
+				}));
 
-		objects.add(new Button(new Vector2f(200, 500), 60, 10, new Image("images/stick.png"), new Image("images/stick.png"),
-				new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 500), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Exit clicked");
 						container.exit();
 					}
-				})
-		);
+				}));
 
 		logger.exit();
 	}

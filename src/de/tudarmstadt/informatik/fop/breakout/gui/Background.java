@@ -9,10 +9,24 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 import gameObjects.GameObject;
 
+/**
+ * Background object
+ * 
+ * @author Aron Heinecke
+ *
+ */
 public class Background extends GameObject {
 
 	private Image image;
-	
+
+	/**
+	 * New Background object
+	 * 
+	 * @param image
+	 *            Image for background
+	 * @param app
+	 *            GameContainer
+	 */
 	public Background(Image image, GameContainer app) {
 		super(new Vector2f(app.getWidth() / 2, app.getHeight() / 2), app.getWidth(), app.getHeight(), false);
 		this.image = image;
