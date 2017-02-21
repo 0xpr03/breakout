@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
+import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
 import de.tudarmstadt.informatik.fop.breakout.states.MainMenuState;
 
 /**
@@ -69,7 +70,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 			app.setTitle("Breakout");
 			app.start();
 			breakout.enterState(MAINMENU_STATE);
-		} catch (SlickException e) {
+		} catch (Exception e) {
 			logger.fatal("Crash escalation in main process: ", e);
 		}
 	}
@@ -132,5 +133,6 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
 		addState(new MainMenuState(MAINMENU_STATE));
+		addState(new InGameState(GAMEPLAY_STATE));
 	}
 }
