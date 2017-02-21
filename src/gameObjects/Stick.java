@@ -16,7 +16,19 @@ public class Stick extends GameObject{
 	private Logger logger = LogManager.getLogger(this);
 	
 	private Image image;          // TODO:: Put the right image for Stick here
-	private double speed;
+	/**
+	 *  current speed from the Stick
+	 */
+	private int speed;
+	/**
+	 *  Can be -1 for Moving left or 1 for Moving right
+	 */
+	private int direction;           
+	/**
+	 *  Magicnumber how fast the Stick moves (can be changed for better Gameflow)
+	 */
+	private final int movementSpeed = 7;          
+	
 
 	public Stick(Vector2f position, float width, float height, Image image) {
 		super(position, width, height, true);
@@ -26,21 +38,24 @@ public class Stick extends GameObject{
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
-		if(in.isKeyPressed(Input.KEY_LEFT)){                                     // checks if the left-arrow-key is pressed
+		in.enableKeyRepeat();                                         
+		if(in.isKeyPressed(Input.KEY_LEFT)){                         // checks if the left-arrow-key is pressed
 			logger.debug("Pressed: left");
 			if(position.getX() - (width / 2) > 0){                   // checks if the Stick can move to the left side
-				position.set(position.getX() - 1, position.getY());  // TODO:: The Magic number has to be set by Gameflow
-				speed = -1;
+				position.set(position.getX() - movementSpeed, position.getY());
+				speed = movementSpeed;
+				direction = -1;
 			}
 			else{
 				speed = 0;                                           // Resets the speed if there is no Movement
 			}
 		}
-		else if(in.isKeyPressed(Input.KEY_RIGHT)){                                 // checks if the right-arrow-key is pressed
+		else if(in.isKeyPressed(Input.KEY_RIGHT)){                   // checks if the right-arrow-key is pressed
 			logger.debug("Pressed: right");
 			if(position.getX() + (width / 2) < container.getWidth()){ // checks if the Stick can move to the right side
-				position.set(position.getX() + 1, position.getY());   // TODO:: The Magic number has to be set by Gemflow
-				speed = 1;
+				position.set(position.getX() + movementSpeed, position.getY());
+				speed = movementSpeed;
+				direction = 1;
 			}
 			else{
 				speed = 0;                                            // Resets the speed if there is no Movement
@@ -57,7 +72,7 @@ public class Stick extends GameObject{
 	 * @author Tim Jäger
 	 * @return The speed from the Stick
 	 */
-	public double getSpeed(){
+	public int getSpeed(){
 		return speed;
 	}
 	
@@ -67,5 +82,22 @@ public class Stick extends GameObject{
 	 */
 	public void setImage(Image image){
 		this.image = image;
+	}
+	
+	/**
+	 * @author Tim Jäger
+	 * @return the maximum movement Speed from the Stick
+	 */
+	public int getCurrentSpeed(){
+		return speed;
+	}
+	
+	/**
+	 * Direction can be -1 for Moving left and 1 for Moving right
+	 * @author Tim Jäger
+	 * @return direction from the Stick
+	 */
+	public int getDirection(){
+		return direction;
 	}
 }
