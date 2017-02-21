@@ -12,7 +12,9 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
+import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import gameObjects.GameObject;
 
 /**
@@ -25,10 +27,6 @@ public class MainMenuState extends GameState {
 
 	private final int distance = 100;
 	private final int start_Position = 180;
-
-	private Button bNewGame;
-	private Button bAbout;
-	private Button bExit;
 
 	private Logger logger = LogManager.getLogger(this);
 
@@ -45,71 +43,78 @@ public class MainMenuState extends GameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
-		// Hintergrund laden
-		// GameObject background = new GameObject("menu"); // Entitaet fuer
-		// // Hintergrund
-		// background.setPosition(new Vector2f(400, 300)); // Startposition des
-		// // Hintergrunds
-		// background.addComponent(new ImageRenderComponent(new
-		// Image("/assets/menu.png"))); // Bildkomponente
+		objects.add(new Background(new Image("images/menu.png"), container));
 
-		// Hintergrund-Entitaet an StateBasedEntityManager uebergeben
-		// entityManager.addEntity(stateID, background);
+		objects.add(new Button(new Vector2f(200, 200), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("NewGame clicked");
+					}
+				})
+		);
 
-		/* Neues Spiel starten-Entitaet */
-		bNewGame = new Button(new Vector2f(400, 300), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"));
-		objects.add(bNewGame);
+		objects.add(new Button(new Vector2f(200, 250), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Stats clicked");
+					}
+				})
+		);
+		
+		objects.add(new Button(new Vector2f(200, 300), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Editor clicked");
+					}
+				})
+		);
+		
+		objects.add(new Button(new Vector2f(200, 350), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Editor clicked");
+					}
+				})
+		);
+		
+		objects.add(new Button(new Vector2f(200, 400), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Options clicked");
+					}
+				})
+		);
 
-		// // Setze Position und Bildkomponente
-		// new_Game_Entity.setPosition(new Vector2f(218, 190));
-		// new_Game_Entity.setScale(0.28f);
-		// new_Game_Entity.addComponent(new ImageRenderComponent(new
-		// Image("assets/entry.png")));
-		//
-		// // Erstelle das Ausloese-Event und die zugehoerige Action
-		// ANDEvent mainEvents = new ANDEvent(new MouseEnteredEvent(), new
-		// MouseClickedEvent());
-		// Action new_Game_Action = new
-		// ChangeStateInitAction(Launch.GAMEPLAY_STATE);
-		// mainEvents.addAction(new_Game_Action);
-		// new_Game_Entity.addComponent(mainEvents);
-		//
-		// // Fuege die Entity zum StateBasedEntityManager hinzu
-		// entityManager.addEntity(this.stateID, new_Game_Entity);
-		//
-		// /* Beenden-Entitaet */
-		// Entity quit_Entity = new Entity("Beenden");
-		//
-		// // Setze Position und Bildkomponente
-		// quit_Entity.setPosition(new Vector2f(218, 290));
-		// quit_Entity.setScale(0.28f);
-		// quit_Entity.addComponent(new ImageRenderComponent(new
-		// Image("assets/entry.png")));
-		//
-		// // Erstelle das Ausloese-Event und die zugehoerige Action
-		// ANDEvent mainEvents_q = new ANDEvent(new MouseEnteredEvent(), new
-		// MouseClickedEvent());
-		// Action quit_Action = new QuitAction();
-		// mainEvents_q.addAction(quit_Action);
-		// quit_Entity.addComponent(mainEvents_q);
-		//
-		// // Fuege die Entity zum StateBasedEntityManager hinzu
-		// entityManager.addEntity(this.stateID, quit_Entity);
+		objects.add(new Button(new Vector2f(200, 450), 60, 10, new Image("images/stick.png"),
+				new Image("images/stick.png"), new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("About clicked");
+					}
+				})
+		);
 
+		objects.add(new Button(new Vector2f(200, 500), 60, 10, new Image("images/stick.png"), new Image("images/stick.png"),
+				new ButtonAction() {
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Exit clicked");
+						container.exit();
+					}
+				})
+		);
+
+		logger.exit();
 	}
 
 	@Override
 	public int getID() {
 		return stateID;
-	}
-
-	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		super.update(container, game, delta);
-		if (bNewGame.isClicked()) {
-			logger.trace("NewGame clicked");
-		}
 	}
 
 }
