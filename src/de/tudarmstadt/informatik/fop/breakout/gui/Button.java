@@ -23,7 +23,7 @@ public class Button extends GameObject {
 	private Image defaultImage;
 	private Image mouseOverImage;
 	private boolean mouseOverButton;
-	private boolean clicked;
+	private ButtonAction action;
 	
 	/**
 	 * Create a new Button
@@ -40,11 +40,12 @@ public class Button extends GameObject {
 	 *            The Image to represent the Button if the cursor is hovering
 	 *            over the Button
 	 */
-	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage) {
+	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage, ButtonAction action) {
 		super(position, width, height, false);
 		this.defaultImage = defaultImage;
 		this.mouseOverImage = mouseOverImage;
 		this.mouseOverButton = false;
+		this.action = action;
 	}
 
 	@Override
@@ -55,16 +56,14 @@ public class Button extends GameObject {
 		
 		Vector2f topLeft = new Vector2f(position.x - width / 2, position.y + height / 2);
 		Vector2f bottomRight = new Vector2f(position.x + width / 2, position.y - height / 2);
-
+		
 		if (mx > topLeft.x && mx < bottomRight.x && my < topLeft.y && my > bottomRight.y)
 			mouseOverButton = true;
 		else
 			mouseOverButton = false;
 		
 		if(mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
-			clicked = true;
-		else 
-			clicked = false;
+			action.action(container, game, state, delta);
 	}
 
 	@Override
@@ -74,14 +73,21 @@ public class Button extends GameObject {
 		else
 			defaultImage.draw(position.x - width / 2, position.y - height / 2, width, height);
 	}
-
+	
 	/**
-	 * Returns if the button was clicked in this frame
-	 * 
-	 * @return if the button was clicked in this frame
+	 * Button action class
+	 * @author Aron Heinecke
+	 *
 	 */
-	public boolean isClicked() {
-		return clicked;
+	public static abstract class ButtonAction {
+		/**
+		 * Action on button click
+		 * @param container GameContainer
+		 * @param game StateBasedGame
+		 * @param state GameState
+		 * @param delta Delta
+		 */
+		public abstract void action(GameContainer container, StateBasedGame game, GameState state, int delta);
 	}
 	
 }
