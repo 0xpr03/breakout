@@ -34,6 +34,8 @@ public class Map {
 	// default ball velocity for this map
 	private float ballVelocity = 1;
 	
+	private boolean readOnly;
+	
 	private static final int POS_VEL = 0;
 	private static final int POS_THEME = 1;
 	private static final int POS_GRAV = 2;
@@ -42,16 +44,17 @@ public class Map {
 	 * Creates a new Map
 	 * @param path Path to file
 	 */
-	public Map(final String path){
-		this(new File(path));
+	public Map(final String path, boolean readOnly){
+		this(new File(path),readOnly);
 	}
 	
 	/**
 	 * Creates a new Map
 	 * @param file File
 	 */
-	public Map(final File file){
+	public Map(final File file, boolean readOnly){
 		this.file = file;
+		this.readOnly = readOnly;
 	}
 	
 	/**
@@ -106,11 +109,15 @@ public class Map {
 	 * @return true on success
 	 */
 	public boolean write(){
+		if(this.readOnly){
+			return false;
+		}
 		synchronized(map) {
 			try	(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false)))) {
 				// map data
 				for(ArrayList<Integer> row : map){
-					bw.write(row.stream().map((s) -> Integer.toString(s)).reduce("", (x,y) -> x +","+ y));
+					int start = row.remove(0);
+					bw.write(row.stream().map((s) -> Integer.toString(s)).reduce(Integer.toString(start), (x,y) -> x +","+ y));
 					bw.newLine();
 				}
 				
@@ -124,6 +131,7 @@ public class Map {
 				cData[POS_THEME] = Integer.toString(this.getTheme());
 				for(String s : cData){
 					bw.write(s);
+					bw.write(",");
 				}
 				
 				bw.flush();
@@ -245,5 +253,13 @@ public class Map {
 	 */
 	public void setBallVelocity(final float ballVelocity) {
 		this.ballVelocity = ballVelocity;
+	}
+
+	/**
+	 * Returns whether is map is read only or not
+	 * @return is read only
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
 	}
 }
