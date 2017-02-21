@@ -1,5 +1,7 @@
 package gameObjects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,6 +12,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
 public class Stick extends GameObject{
+	
+	private Logger logger = LogManager.getLogger(this);
 	
 	private Image image;          // TODO:: Put the right image for Stick here
 	private double speed;
@@ -22,7 +26,8 @@ public class Stick extends GameObject{
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
-		if(in.isKeyPressed(37)){                                     // checks if the left-arrow-key is pressed
+		if(in.isKeyPressed(Input.KEY_LEFT)){                                     // checks if the left-arrow-key is pressed
+			logger.debug("Pressed: left");
 			if(position.getX() - (width / 2) > 0){                   // checks if the Stick can move to the left side
 				position.set(position.getX() - 1, position.getY());  // TODO:: The Magic number has to be set by Gameflow
 				speed = -1;
@@ -31,7 +36,8 @@ public class Stick extends GameObject{
 				speed = 0;                                           // Resets the speed if there is no Movement
 			}
 		}
-		else if(in.isKeyPressed(39)){                                 // checks if the right-arrow-key is pressed
+		else if(in.isKeyPressed(Input.KEY_RIGHT)){                                 // checks if the right-arrow-key is pressed
+			logger.debug("Pressed: right");
 			if(position.getX() + (width / 2) < container.getWidth()){ // checks if the Stick can move to the right side
 				position.set(position.getX() + 1, position.getY());   // TODO:: The Magic number has to be set by Gemflow
 				speed = 1;
