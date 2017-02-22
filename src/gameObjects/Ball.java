@@ -2,9 +2,12 @@ package gameObjects;
 
 import java.sql.Array;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -20,6 +23,9 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 public class Ball extends Sprite {
 
 	private Vector2f direction = new Vector2f(0, 0);
+	
+	private Logger logger = LogManager.getLogger(this);
+	
 
 	/**
 	 * Create a new Ball instance
@@ -44,9 +50,14 @@ public class Ball extends Sprite {
 
 		// The physics will calculate here
 		for (GameObject object : state.getStateObjects()) {
+			
+			// Game has not started
+			if(direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)){
+				direction.set(0, -2);		
+			}
 
 			// Calculation for Block-Collision
-			if (object instanceof Block) {
+			else if (object instanceof Block) {
 
 			}
 
@@ -58,23 +69,19 @@ public class Ball extends Sprite {
 			// Calculation for Background-Collision
 			else if (object instanceof Background) {
 				if (position.getY() - radius <= 0) {
-					direction.set(direction.getX(), (-1) * direction.getY()); // Colliding
-																				// with
-																				// top
-																				// border
-																				// and
-																				// bounzing
-																				// back
+					// Colliding with top border and bouncing back
+					direction.set(direction.getX(), (-1) * direction.getY()); 
 					position.set(posX + direction.getX(), posY + direction.getY());
 				} else if (posY - radius >= container.getHeight()) {
 					state.removeObject(this); // Ball falling off-Screen and
 												// gets removed
 				} else if (posX + radius >= container.getWidth() || posX - radius <= 0) {
 					direction.set((-1) * direction.getX(), direction.getY());
-					// Colliding with right or left border and bounzing back
+					// Colliding with right or left border and bouncing back
 				}
 			}
 		}
+		logger.debug("X-Position: " + posX + " and Y-Position: "+ posY);
 		position.set(posX + direction.getX(), posY + direction.getY());
 	}
 

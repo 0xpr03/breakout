@@ -18,11 +18,11 @@ public class Sprite extends GameObject {
 	}
 
 	public Vector2f getTopLeft() {
-		return new Vector2f(position.x - width / 2, position.y + height / 2);
+		return new Vector2f(position.x - width / 2, position.y - height / 2);
 	}
 	
 	public Vector2f getBottomRight() {
-		return new Vector2f(position.x + width / 2, position.y - height / 2);
+		return new Vector2f(position.x + width / 2, position.y + height / 2);
 	}
 	
 	@Override
