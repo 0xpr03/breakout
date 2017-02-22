@@ -16,11 +16,10 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * 
  * @author Tim Jäger
  */
-public class Stick extends GameObject {
+public class Stick extends Sprite {
 
 	private Logger logger = LogManager.getLogger(this);
-
-	private Image image; // TODO:: Put the right image for Stick here
+	
 	/**
 	 * current speed from the Stick
 	 */
@@ -47,8 +46,7 @@ public class Stick extends GameObject {
 	 *            The Image to represent the Stick on screen
 	 */
 	public Stick(Vector2f position, float width, float height, Image image) {
-		super(position, width, height, true);
-		this.image = image;
+		super(image, position, width, height, true);
 	}
 
 	@Override
@@ -87,11 +85,6 @@ public class Stick extends GameObject {
 		}
 	}
 
-	@Override
-	public void render(Graphics g) {
-		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
-	}
-
 	/**
 	 * Returns the speed of the Stick
 	 * 
@@ -100,16 +93,7 @@ public class Stick extends GameObject {
 	public int getSpeed() {
 		return speed;
 	}
-
-	/**
-	 * Set the Image to represent the Stick on screen
-	 * 
-	 * @param image
-	 */
-	public void setImage(Image image) {
-		this.image = image;
-	}
-
+	
 	/**
 	 * Returns the current speed
 	 * 

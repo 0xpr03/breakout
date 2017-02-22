@@ -13,9 +13,8 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * 
  * @author Tim Jäger
  */
-public class Block extends GameObject {
+public class Block extends Sprite {
 
-	private Image image; // TODO:: Put the right image for Block here
 	private int life;
 
 	/**
@@ -33,29 +32,13 @@ public class Block extends GameObject {
 	 *            The Image to represent the Block on screen
 	 */
 	public Block(Vector2f position, float width, float height, int life, Image image) {
-		super(position, width, height, true);
-		this.image = image;
+		super(image, position, width, height, true);
 		this.life = life;
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		// Has to be empty, because he shell not move!
-	}
-
-	@Override
-	public void render(Graphics g) {
-		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
-	}
-
-	/**
-	 * Set the Image to represent the Block on screen
-	 * 
-	 * @param image
-	 *            The new Image to represent the Block on screen
-	 */
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	/**
