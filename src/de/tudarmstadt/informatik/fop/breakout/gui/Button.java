@@ -55,7 +55,7 @@ public class Button extends Sprite {
 		Vector2f topLeft = getTopLeft();
 		Vector2f bottomRight = getBottomRight();
 		
-		if (mx > topLeft.x && mx < bottomRight.x && my < topLeft.y && my > bottomRight.y) {
+		if (mx > topLeft.x && mx < bottomRight.x && my > topLeft.y && my < bottomRight.y) {
 			image = mouseOverImage;
 			mouseOverButton = true;
 		}
