@@ -43,8 +43,8 @@ public class MainMenuState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.get("images/menu.png"), container));
 
-		objects.add(new Button(new Vector2f(200, 200), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 200), 200, 50, am.get("images/newgame_btn_d.png"),
+				am.get("images/newgame_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("NewGame clicked");
