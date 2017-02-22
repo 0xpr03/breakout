@@ -8,11 +8,30 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
-public class Block extends GameObject{
-	
-	private Image image;        // TODO:: Put the right image for Block here
+/**
+ * Class to abstract a Block with life
+ * 
+ * @author Tim Jäger
+ */
+public class Block extends GameObject {
+
+	private Image image; // TODO:: Put the right image for Block here
 	private int life;
 
+	/**
+	 * Create a new instance of Block
+	 * 
+	 * @param position
+	 *            The center position of the Block
+	 * @param width
+	 *            The width of the Block
+	 * @param height
+	 *            The height of the Block
+	 * @param life
+	 *            The life of the Block
+	 * @param image
+	 *            The Image to represent the Block on screen
+	 */
 	public Block(Vector2f position, float width, float height, int life, Image image) {
 		super(position, width, height, true);
 		this.image = image;
@@ -30,26 +49,28 @@ public class Block extends GameObject{
 	}
 
 	/**
-	 * @author Tim Jäger
+	 * Set the Image to represent the Block on screen
+	 * 
 	 * @param image
+	 *            The new Image to represent the Block on screen
 	 */
-	public void setImage(Image image){
+	public void setImage(Image image) {
 		this.image = image;
 	}
-	
+
 	/**
-	 * @author Tim Jäger
-	 * @return the life from the Block
+	 * Returns the life the Block has left
+	 * 
+	 * @return the life the Blick has left
 	 */
-	public int getLife(){
+	public int getLife() {
 		return life;
 	}
-	
+
 	/**
-	 * @author Tim Jäger
-	 * decreases the life by 1
+	 * Decrement the life by 1
 	 */
-	public void decreaseLife(){
+	public void decreaseLife() {
 		life--;
 	}
 }
