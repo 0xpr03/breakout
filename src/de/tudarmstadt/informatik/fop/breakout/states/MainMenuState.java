@@ -12,6 +12,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
@@ -39,10 +40,11 @@ public class MainMenuState extends GameState<Breakout> {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
-		objects.add(new Background(new Image("images/menu.png"), container));
+		AssetManager am = stateData.getAssetManager();
+		objects.add(new Background(am.get("images/menu.png"), container));
 
-		objects.add(new Button(new Vector2f(200, 200), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 200), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("NewGame clicked");
@@ -50,8 +52,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 250), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 250), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Stats clicked");
@@ -59,40 +61,40 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 300), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 300), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Editor clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 350), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 350), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Editor clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 400), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 400), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Options clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 450), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 450), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("About clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 500), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 500), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Exit clicked");

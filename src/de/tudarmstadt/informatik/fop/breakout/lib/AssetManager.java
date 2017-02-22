@@ -1,5 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.lib;
 
+import java.util.HashMap;
 import java.util.TreeMap;
 
 import org.newdawn.slick.Image;
@@ -12,7 +13,7 @@ import org.newdawn.slick.SlickException;
  */
 public class AssetManager {
 
-	private TreeMap<String, Image> images = new TreeMap<String, Image>();
+	private HashMap<String, Image> images = new HashMap<String, Image>();
 
 	/**
 	 * Get the Image at the specified path

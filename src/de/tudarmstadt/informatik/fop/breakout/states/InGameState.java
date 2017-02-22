@@ -14,6 +14,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
 import gameObjects.Block;
@@ -54,16 +55,16 @@ public class InGameState extends GameState<Breakout> {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
+		AssetManager am = stateData.getAssetManager();
+		objects.add(new Stick(new Vector2f(400, 550), 60, 20,am.get("images/stick.png")));
 
-		objects.add(new Stick(new Vector2f(400, 550), 60, 20, new Image("images/stick.png")));
+		objects.add(new Ball(new Vector2f(400, 500), 25, am.get("images/ball.png")));
 
-		objects.add(new Ball(new Vector2f(400, 500), 25, new Image("images/ball.png")));
-
-		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, new Image("images/block_1.png")));
+		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, am.get("images/block_1.png")));
 
 		bPaused = new Background(new Image("images/pause.png"), container);
-		bResume = new Button(new Vector2f(400, 100), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		bResume = new Button(new Vector2f(400, 100), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -71,8 +72,8 @@ public class InGameState extends GameState<Breakout> {
 						isPaused = false;
 					}
 				});
-		bMainScreen = new Button(new Vector2f(400, 200), 60, 10, new Image("images/stick.png"),
-				new Image("images/stick.png"), new ButtonAction() {
+		bMainScreen = new Button(new Vector2f(400, 200), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Back to MainMenu pressed");
