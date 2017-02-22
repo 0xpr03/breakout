@@ -55,6 +55,7 @@ public class MainMenuState extends GameState {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Stats clicked");
+						game.enterState(GameParameters.HIGHSCORE_STATE);
 					}
 				}));
 
