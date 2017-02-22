@@ -38,8 +38,7 @@ public class Stick extends GameObject{
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
-		in.enableKeyRepeat();                                         
-		if(in.isKeyPressed(Input.KEY_LEFT)){                         // checks if the left-arrow-key is pressed
+		if(in.isKeyDown(Input.KEY_LEFT)) {
 			logger.debug("Pressed: left");
 			if(position.getX() - (width / 2) > 0){                   // checks if the Stick can move to the left side
 				position.set(position.getX() - movementSpeed, position.getY());
@@ -50,7 +49,7 @@ public class Stick extends GameObject{
 				speed = 0;                                           // Resets the speed if there is no Movement
 			}
 		}
-		else if(in.isKeyPressed(Input.KEY_RIGHT)){                   // checks if the right-arrow-key is pressed
+		else if(in.isKeyDown(Input.KEY_RIGHT)){                   // checks if the right-arrow-key is pressed
 			logger.debug("Pressed: right");
 			if(position.getX() + (width / 2) < container.getWidth()){ // checks if the Stick can move to the right side
 				position.set(position.getX() + movementSpeed, position.getY());

@@ -57,7 +57,7 @@ public class InGameState extends GameState {
 
 		objects.add(new Stick(new Vector2f(400, 550), 60, 20, new Image("images/stick.png")));
 
-		objects.add(new Ball(new Vector2f(400, 500), 50, 50, new Image("images/ball.png")));
+		objects.add(new Ball(new Vector2f(400, 500), 25, new Image("images/ball.png")));
 
 		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, new Image("images/block_1.png")));
 
