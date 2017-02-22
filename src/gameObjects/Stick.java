@@ -11,25 +11,41 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
-public class Stick extends GameObject{
-	
+/**
+ * Class representing a Stick
+ * 
+ * @author Tim Jäger
+ */
+public class Stick extends GameObject {
+
 	private Logger logger = LogManager.getLogger(this);
-	
-	private Image image;          // TODO:: Put the right image for Stick here
+
+	private Image image; // TODO:: Put the right image for Stick here
 	/**
-	 *  current speed from the Stick
+	 * current speed from the Stick
 	 */
 	private int speed;
 	/**
-	 *  Can be -1 for Moving left or 1 for Moving right
+	 * Can be -1 for Moving left or 1 for Moving right
 	 */
-	private int direction;           
+	private int direction;
 	/**
-	 *  Magicnumber how fast the Stick moves (can be changed for better Gameflow)
+	 * Magicnumber how fast the Stick moves (can be changed for better Gameflow)
 	 */
-	private final int movementSpeed = 7;          
-	
+	private final int movementSpeed = 7;
 
+	/**
+	 * Create a new instance of Stick
+	 * 
+	 * @param position
+	 *            The position of the center of the Stick
+	 * @param width
+	 *            The width of the Stick
+	 * @param height
+	 *            The height of the Stick
+	 * @param image
+	 *            The Image to represent the Stick on screen
+	 */
 	public Stick(Vector2f position, float width, float height, Image image) {
 		super(position, width, height, true);
 		this.image = image;
@@ -38,27 +54,35 @@ public class Stick extends GameObject{
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
-		in.enableKeyRepeat();                                         
-		if(in.isKeyPressed(Input.KEY_LEFT)){                         // checks if the left-arrow-key is pressed
+		if (in.isKeyDown(Input.KEY_LEFT)) {
 			logger.debug("Pressed: left");
-			if(position.getX() - (width / 2) > 0){                   // checks if the Stick can move to the left side
+			if (position.getX() - (width / 2) > 0) { // checks if the Stick can
+														// move to the left side
 				position.set(position.getX() - movementSpeed, position.getY());
 				speed = movementSpeed;
 				direction = -1;
+			} else {
+				speed = 0; // Resets the speed if there is no Movement
 			}
-			else{
-				speed = 0;                                           // Resets the speed if there is no Movement
-			}
-		}
-		else if(in.isKeyPressed(Input.KEY_RIGHT)){                   // checks if the right-arrow-key is pressed
+		} else if (in.isKeyDown(Input.KEY_RIGHT)) { // checks if the
+													// right-arrow-key is
+													// pressed
 			logger.debug("Pressed: right");
-			if(position.getX() + (width / 2) < container.getWidth()){ // checks if the Stick can move to the right side
+			if (position.getX() + (width / 2) < container.getWidth()) { // checks
+																		// if
+																		// the
+																		// Stick
+																		// can
+																		// move
+																		// to
+																		// the
+																		// right
+																		// side
 				position.set(position.getX() + movementSpeed, position.getY());
 				speed = movementSpeed;
 				direction = 1;
-			}
-			else{
-				speed = 0;                                            // Resets the speed if there is no Movement
+			} else {
+				speed = 0; // Resets the speed if there is no Movement
 			}
 		}
 	}
@@ -67,37 +91,40 @@ public class Stick extends GameObject{
 	public void render(Graphics g) {
 		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
 	}
-	
+
 	/**
-	 * @author Tim Jäger
+	 * Returns the speed of the Stick
+	 * 
 	 * @return The speed from the Stick
 	 */
-	public int getSpeed(){
+	public int getSpeed() {
 		return speed;
 	}
-	
+
 	/**
-	 * @author Tim Jäger
+	 * Set the Image to represent the Stick on screen
+	 * 
 	 * @param image
 	 */
-	public void setImage(Image image){
+	public void setImage(Image image) {
 		this.image = image;
 	}
-	
+
 	/**
-	 * @author Tim Jäger
-	 * @return the maximum movement Speed from the Stick
+	 * Returns the current speed
+	 * 
+	 * @return the current speed
 	 */
-	public int getCurrentSpeed(){
+	public int getCurrentSpeed() {
 		return speed;
 	}
-	
+
 	/**
 	 * Direction can be -1 for Moving left and 1 for Moving right
-	 * @author Tim Jäger
-	 * @return direction from the Stick
+	 * 
+	 * @return The movement direction direction from the Stick
 	 */
-	public int getDirection(){
+	public int getDirection() {
 		return direction;
 	}
 }
