@@ -60,7 +60,7 @@ public class Button extends Sprite {
 			mouseOverButton = true;
 		}
 		else {
-			image = mouseOverImage;
+			image = defaultImage;
 			mouseOverButton = false;
 		}
 		
