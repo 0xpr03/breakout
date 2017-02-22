@@ -16,8 +16,20 @@ import gameObjects.GameObject;
  * @author Aron Heinecke
  *
  */
-public abstract class GameState extends BasicGameState {
+public abstract class GameState<T> extends BasicGameState {
 	protected ArrayList<GameObject> objects = new ArrayList<>();
+	protected T stateData;
+	private int stateID;
+	
+	/**
+	 * Creates a new GameState
+	 * @param stateID
+	 * @param stateData
+	 */
+	public GameState(int stateID, T stateData){
+		this.stateID = stateID;
+		this.stateData = stateData;
+	}
 
 	/**
 	 * Returns the GameObjects of this state at the time it's called
@@ -58,5 +70,10 @@ public abstract class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		for (GameObject go : objects)
 			go.render(g);
+	}
+	
+	@Override
+	public int getID() {
+		return stateID;
 	}
 }

@@ -14,6 +14,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
 import gameObjects.Block;
 import gameObjects.GameObject;
@@ -24,8 +25,7 @@ import gameObjects.Stick;
  * 
  * @author Aron Heinecke
  */
-public class InGameState extends GameState {
-	private int stateID; // Identifier von diesem BasicGameState
+public class InGameState extends GameState<Breakout> {
 
 	private Logger logger = LogManager.getLogger(this);
 
@@ -38,13 +38,13 @@ public class InGameState extends GameState {
 	/**
 	 * Creates a new instance of MainMenuState
 	 * 
-	 * @param sid
-	 *            StateID for this state
+	 * @param stateID
+	 * @param stateData
 	 */
-	public InGameState(int sid) {
-		stateID = sid;
+	public InGameState(int stateID, Breakout stateData) {
+		super(stateID, stateData);
 	}
-
+	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
@@ -91,11 +91,6 @@ public class InGameState extends GameState {
 			bResume.render(g);
 			bMainScreen.render(g);
 		}
-	}
-
-	@Override
-	public int getID() {
-		return stateID;
 	}
 
 	@Override

@@ -115,7 +115,7 @@ public abstract class GameObject {
 	/**
 	 * Update method that shall be called from the game loop
 	 */
-	public abstract void update(GameContainer container, StateBasedGame game, GameState state, int delta);
+	public abstract void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta);
 
 	/**
 	 * Render method that shall be called from the game loop

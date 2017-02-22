@@ -133,8 +133,8 @@ public class Breakout extends StateBasedGame implements GameParameters {
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
-		addState(new MainMenuState(MAINMENU_STATE));
-		addState(new InGameState(GAMEPLAY_STATE));
-		addState(new HighscoreState(HIGHSCORE_STATE));
+		addState(new MainMenuState(MAINMENU_STATE, this));
+		addState(new InGameState(GAMEPLAY_STATE, this));
+		addState(new HighscoreState(HIGHSCORE_STATE, this));
 	}
 }

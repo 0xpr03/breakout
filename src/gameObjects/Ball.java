@@ -42,7 +42,7 @@ public class Ball extends Sprite {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 		// usefull shortcuts
 		float radius = width / 2;
 		float posX = position.getX();

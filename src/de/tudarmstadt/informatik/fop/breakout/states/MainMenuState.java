@@ -12,14 +12,14 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
  * Class representing the main menu state of the game
  * 
  * @author Aron Heinecke
  */
-public class MainMenuState extends GameState {
-	private int stateID; // Identifier von diesem BasicGameState
+public class MainMenuState extends GameState<Breakout> {
 
 	private final int distance = 100;
 	private final int start_Position = 180;
@@ -29,13 +29,13 @@ public class MainMenuState extends GameState {
 	/**
 	 * Creates a new instance of MainMenuState
 	 * 
-	 * @param sid
-	 *            StateID for this state
+	 * @param stateID
+	 * @param stateData
 	 */
-	public MainMenuState(int sid) {
-		stateID = sid;
+	public MainMenuState(int stateID, Breakout stateData) {
+		super(stateID, stateData);
 	}
-
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
@@ -101,11 +101,6 @@ public class MainMenuState extends GameState {
 				}));
 
 		logger.exit();
-	}
-
-	@Override
-	public int getID() {
-		return stateID;
 	}
 
 }

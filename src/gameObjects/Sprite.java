@@ -73,7 +73,7 @@ public class Sprite extends GameObject {
 	 * Just to be real
 	 */
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 	}
 
 }

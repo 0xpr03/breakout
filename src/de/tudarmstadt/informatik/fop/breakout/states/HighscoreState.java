@@ -12,14 +12,14 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
  * Class representing the main menu state of the game
  * 
  * @author Aron Heinecke
  */
-public class HighscoreState extends GameState {
-	private int stateID; // Identifier von diesem BasicGameState
+public class HighscoreState extends GameState<Breakout> {
 
 	private final int distance = 100;
 	private final int start_Position = 180;
@@ -27,13 +27,13 @@ public class HighscoreState extends GameState {
 	private Logger logger = LogManager.getLogger(this);
 
 	/**
-	 * Creates a new instance of MainMenuState
+	 * Create a new instance of HighscoreState
 	 * 
-	 * @param sid
-	 *            StateID for this state
+	 * @param stateID
+	 * @param stateData
 	 */
-	public HighscoreState(int sid) {
-		stateID = sid;
+	public HighscoreState(int stateID, Breakout stateData) {
+		super(stateID, stateData);
 	}
 
 	@Override
@@ -51,11 +51,6 @@ public class HighscoreState extends GameState {
 				}));
 
 		logger.exit();
-	}
-
-	@Override
-	public int getID() {
-		return stateID;
 	}
 
 }
