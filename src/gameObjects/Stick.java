@@ -53,7 +53,6 @@ public class Stick extends Sprite {
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
 		if (in.isKeyDown(Input.KEY_LEFT)) {
-			logger.debug("Pressed: left");
 			if (position.getX() - (width / 2) > 0) { // checks if the Stick can
 														// move to the left side
 				position.set(position.getX() - movementSpeed, position.getY());
@@ -65,7 +64,6 @@ public class Stick extends Sprite {
 		} else if (in.isKeyDown(Input.KEY_RIGHT)) { // checks if the
 													// right-arrow-key is
 													// pressed
-			logger.debug("Pressed: right");
 			if (position.getX() + (width / 2) < container.getWidth()) { // checks
 																		// if
 																		// the

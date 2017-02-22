@@ -1,5 +1,7 @@
 package gameObjects;
 
+import java.awt.Container;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -55,5 +57,5 @@ public class Block extends Sprite {
 	 */
 	public void decreaseLife() {
 		life--;
+		}
 	}
-}

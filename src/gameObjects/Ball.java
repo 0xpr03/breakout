@@ -1,7 +1,5 @@
 package gameObjects;
 
-import java.sql.Array;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
@@ -41,20 +39,39 @@ public class Ball extends Sprite {
 		super(image, position, radius * 2, radius * 2, true);
 	}
 
+	// Have fun Niko :D
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
-		// usefull shortcuts
+		// Useful shortcuts
 		float radius = width / 2;
 		float posX = position.getX();
 		float posY = position.getY();
+		float dirX = direction.getX();
+		float dirY = direction.getY();
 
-		// The physics will calculate here
+		// Calculation for Background-Collision
+		if (position.getY() - radius <= 0) {
+			// Colliding with top border and bouncing back
+			direction.set(dirX,  -dirY); 
+		} else if (posY - radius >= container.getHeight()) {
+				state.removeObject(this);   // Ball falling off-Screen and gets removed
+		} else if (posX + radius >= container.getWidth() || posX - radius <= 0) {
+			// Colliding with right or left border and bouncing back
+				direction.set(-dirX, dirY);
+		}
+
 		for (GameObject object : state.getStateObjects()) {
+			float obY = object.getLocation().getY();
+			float obX = object.getLocation().getX();
+			float obHHeight = object.getHeight() / 2;
+			float obHWidth = object.getWidth() / 2;
 			
 			// Game has not started
 			if(direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)){
 				direction.set(0, -2);		
 			}
+			
+			// The Physics will calculate here
 
 			// Calculation for Block-Collision
 			else if (object instanceof Block) {
@@ -63,25 +80,11 @@ public class Ball extends Sprite {
 
 			// Calculation for Stick-Collision
 			else if (object instanceof Stick) {
-
-			}
-
-			// Calculation for Background-Collision
-			else if (object instanceof Background) {
-				if (position.getY() - radius <= 0) {
-					// Colliding with top border and bouncing back
-					direction.set(direction.getX(), (-1) * direction.getY()); 
-					position.set(posX + direction.getX(), posY + direction.getY());
-				} else if (posY - radius >= container.getHeight()) {
-					state.removeObject(this); // Ball falling off-Screen and
-												// gets removed
-				} else if (posX + radius >= container.getWidth() || posX - radius <= 0) {
-					direction.set((-1) * direction.getX(), direction.getY());
-					// Colliding with right or left border and bouncing back
+				if(posY + radius >=  obY - obHHeight && posX >= obX - obHWidth && posX <= obX + obHHeight){
+					direction.set(dirX, -dirY);;
 				}
 			}
 		}
-		logger.debug("X-Position: " + posX + " and Y-Position: "+ posY);
 		position.set(posX + direction.getX(), posY + direction.getY());
 	}
 
