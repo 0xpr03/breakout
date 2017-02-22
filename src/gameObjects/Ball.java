@@ -49,7 +49,7 @@ public class Ball extends GameObject{
 					position.set(posX + direction.getX(), posY + direction.getY());
 				}
 				else if(posY - radius >= container.getHeight()){
-					state.removeObject(Ball);                                                                  // Ball falling off-Screen and gets removed
+					state.removeObject(this);                                                                  // Ball falling off-Screen and gets removed
 				}
 				else if(posX + radius >= container.getWidth() || posX - radius <= 0){
 					direction.set((-1) * direction.getX(), direction.getY());
@@ -57,9 +57,7 @@ public class Ball extends GameObject{
 				}
 			}
 		}
-		if(Ball != null){
-			position.set(posX + direction.getX(), posY + direction.getY());
-		}
+		position.set(posX + direction.getX(), posY + direction.getY());
 	}
 
 	@Override
