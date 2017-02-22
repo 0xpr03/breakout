@@ -9,6 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 import gameObjects.GameObject;
+import gameObjects.Sprite;
 
 
 /**
@@ -16,7 +17,7 @@ import gameObjects.GameObject;
  * 
  * @author Simon Kohaut 
  */
-public class Button extends GameObject {
+public class Button extends Sprite {
 
 	private Image defaultImage;
 	private Image mouseOverImage;
@@ -39,10 +40,9 @@ public class Button extends GameObject {
 	 *            over the Button
 	 */
 	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage, ButtonAction action) {
-		super(position, width, height, false);
+		super(defaultImage, position, width, height, false);
 		this.defaultImage = defaultImage;
 		this.mouseOverImage = mouseOverImage;
-		this.mouseOverButton = false;
 		this.action = action;
 	}
 
@@ -52,30 +52,26 @@ public class Button extends GameObject {
 		int mx = in.getMouseX();
 		int my = in.getMouseY();
 		
-		Vector2f topLeft = new Vector2f(position.x - width / 2, position.y + height / 2);
-		Vector2f bottomRight = new Vector2f(position.x + width / 2, position.y - height / 2);
+		Vector2f topLeft = getTopLeft();
+		Vector2f bottomRight = getBottomRight();
 		
-		if (mx > topLeft.x && mx < bottomRight.x && my < topLeft.y && my > bottomRight.y)
+		if (mx > topLeft.x && mx < bottomRight.x && my < topLeft.y && my > bottomRight.y) {
+			image = mouseOverImage;
 			mouseOverButton = true;
-		else
+		}
+		else {
+			image = mouseOverImage;
 			mouseOverButton = false;
+		}
 		
 		if(mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 			action.action(container, game, state, delta);
 	}
-
-	@Override
-	public void render(Graphics g) {
-		if (mouseOverButton)
-			mouseOverImage.draw(position.x - width / 2, position.y - height / 2, width, height);
-		else
-			defaultImage.draw(position.x - width / 2, position.y - height / 2, width, height);
-	}
 	
 	/**
 	 * Button action class
+	 * 
 	 * @author Aron Heinecke
-	 *
 	 */
 	public static abstract class ButtonAction {
 		/**

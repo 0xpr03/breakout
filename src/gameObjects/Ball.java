@@ -17,9 +17,8 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  *
  * Class to abstract the Ball
  */
-public class Ball extends GameObject {
+public class Ball extends Sprite {
 
-	private Image image; // TODO:: Put the right image of Ball here
 	private Vector2f direction = new Vector2f(0, 0);
 
 	/**
@@ -33,8 +32,7 @@ public class Ball extends GameObject {
 	 *            The image to represent the Ball on screen
 	 */
 	public Ball(Vector2f position, float radius, Image image) {
-		super(position, radius * 2, radius * 2, true);
-		this.image = image;
+		super(image, position, radius * 2, radius * 2, true);
 	}
 
 	@Override
@@ -78,21 +76,6 @@ public class Ball extends GameObject {
 			}
 		}
 		position.set(posX + direction.getX(), posY + direction.getY());
-	}
-
-	@Override
-	public void render(Graphics g) {
-		image.draw(position.getX() - (width / 2), position.getY() - (height / 2), width, height);
-	}
-
-	/**
-	 * Set the new Image to represent the Ball on screen
-	 * 
-	 * @param image
-	 *            The new Image to represent the Ball on screen
-	 */
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	/**
