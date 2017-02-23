@@ -23,6 +23,7 @@ public class Ball extends Sprite {
 	private Vector2f direction = new Vector2f(0, 0);
 	
 	private Logger logger = LogManager.getLogger(this);
+	private float basicVelocity;
 	
 
 	/**
@@ -35,8 +36,9 @@ public class Ball extends Sprite {
 	 * @param image
 	 *            The image to represent the Ball on screen
 	 */
-	public Ball(Vector2f position, float radius, Image image) {
+	public Ball(Vector2f position, float radius, Image image, float velocity) {
 		super(image, position, radius * 2, radius * 2, true);
+		this.basicVelocity = basicVelocity;
 	}
 
 	// Have fun Niko :D
@@ -65,24 +67,50 @@ public class Ball extends Sprite {
 			float obX = object.getLocation().getX();
 			float obHHeight = object.getHeight() / 2;
 			float obHWidth = object.getWidth() / 2;
+			float deltaX = Math.abs(posX - obX);
+			float deltaY = Math.abs(posY - obY);
+			Vector2f colVec = new Vector2f(posX - obX, obY - posY);
 			
 			// Game has not started
 			if(direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)){
-				direction.set(0, -2);		
+				direction.set(0 , delta/3 );		
 			}
 			
 			// The Physics will calculate here
 
 			// Calculation for Block-Collision
 			else if (object instanceof Block) {
-
+				//Collision with top or bottom side
+				if ((deltaX < obHWidth) && (deltaY < obHHeight + radius))
+				{direction.set(dirX , -dirY );}
+				//Collision with side
+				else if ((deltaX < obHWidth  + radius) && (deltaY < obHHeight))
+				{direction.set( -dirX , dirY );}
+				//Collision with corner
+				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
+				{
+					direction.setTheta( (direction.negate()).getTheta() - 2*( colVec.getTheta() ) ) ;
+				}
+			
 			}
 
 			// Calculation for Stick-Collision
 			else if (object instanceof Stick) {
-				if(posY + radius >=  obY - obHHeight && posX >= obX - obHWidth && posX <= obX + obHHeight){
-					direction.set(dirX, -dirY);;
+				Stick stick = (Stick) object;
+				float speed = stick.getCurrentSpeed() * stick.getDirection();
+				//Collision with top or bottom side
+				if ((deltaX < obHWidth) && (deltaY < obHHeight + radius))
+				{direction.set(dirX , -dirY + speed );}
+				//Collision with side
+				else if ((deltaX < obHWidth  + radius) && (deltaY < obHHeight))
+				{direction.set( -dirX , dirY + speed);}
+				//Collision with corner
+				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
+                {
+					direction.setTheta(  (direction.negate()).getTheta() - 2*( colVec.getTheta() ) ) ;
+					
 				}
+			
 			}
 		}
 		position.set(posX + direction.getX(), posY + direction.getY());

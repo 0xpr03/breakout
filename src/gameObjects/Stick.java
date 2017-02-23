@@ -31,7 +31,7 @@ public class Stick extends Sprite {
 	/**
 	 * Magicnumber how fast the Stick moves (can be changed for better Gameflow)
 	 */
-	private final int movementSpeed = 7;
+	private final int movementSpeed = 2;
 
 	/**
 	 * Create a new instance of Stick
@@ -55,11 +55,12 @@ public class Stick extends Sprite {
 		if (in.isKeyDown(Input.KEY_LEFT)) {
 			if (position.getX() - (width / 2) > 0) { // checks if the Stick can
 														// move to the left side
-				position.set(position.getX() - movementSpeed, position.getY());
+				position.set(position.getX() - movementSpeed*(delta/3), position.getY());
 				speed = movementSpeed;
 				direction = -1;
 			} else {
 				speed = 0; // Resets the speed if there is no Movement
+				direction = 0; // Resets the direction if there is no Movement
 			}
 		} else if (in.isKeyDown(Input.KEY_RIGHT)) { // checks if the
 													// right-arrow-key is
@@ -74,10 +75,11 @@ public class Stick extends Sprite {
 																		// the
 																		// right
 																		// side
-				position.set(position.getX() + movementSpeed, position.getY());
+				position.set(position.getX() + movementSpeed*(delta/3), position.getY());
 				speed = movementSpeed;
 				direction = 1;
 			} else {
+				direction = 0; // Resets the direction if there is no Movement
 				speed = 0; // Resets the speed if there is no Movement
 			}
 		}
