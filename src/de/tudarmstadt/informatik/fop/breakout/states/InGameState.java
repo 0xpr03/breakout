@@ -58,7 +58,7 @@ public class InGameState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Stick(new Vector2f(400, 550), 60, 20,am.get("images/stick.png")));
 
-		objects.add(new Ball(new Vector2f(400, 500), 25, am.get("images/ball.png")));
+		objects.add(new Ball(new Vector2f(400, 500), 25, am.get("images/ball.png"), 2));
 
 		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, am.get("images/block_1.png")));
 
