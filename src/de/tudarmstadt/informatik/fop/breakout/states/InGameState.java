@@ -96,13 +96,14 @@ public class InGameState extends GameState<Breakout> {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		super.update(container, game, delta);
 		Input input = container.getInput();
-		if (input.isKeyPressed(Input.KEY_ESCAPE))
+		if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_P))
 			isPaused = !isPaused;
-		if (isPaused) {
+		if(isPaused){
 			bMainScreen.update(container, game, this, delta);
 			bResume.update(container, game, this, delta);
+		}else{
+			super.update(container, game, delta);
 		}
 	}
 }
