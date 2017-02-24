@@ -68,9 +68,10 @@ public class Breakout extends StateBasedGame implements GameParameters {
 			app = new AppGameContainer(
 					new ScalableGame(breakout, WINDOW_WIDTH, WINDOW_HEIGHT, true));
 			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
-			app.setTargetFrameRate(FRAME_RATE);
+//			app.setTargetFrameRate(FRAME_RATE);
 			app.setResizable(true);
-			app.setMaximumLogicUpdateInterval(150);
+			app.setMaximumLogicUpdateInterval(50);
+			app.setMinimumLogicUpdateInterval(1);
 			app.setTitle("Breakout");
 			app.start();
 			breakout.enterState(MAINMENU_STATE);
