@@ -24,6 +24,7 @@ public class Ball extends Sprite {
 	
 	private Logger logger = LogManager.getLogger(this);
 	private float basicVelocity;
+	private float gravity;
 	
 
 	/**
@@ -36,9 +37,10 @@ public class Ball extends Sprite {
 	 * @param image
 	 *            The image to represent the Ball on screen
 	 */
-	public Ball(Vector2f position, float radius, Image image, float velocity) {
+	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity) {
 		super(image, position, radius * 2, radius * 2, true);
 		this.basicVelocity = basicVelocity;
+		this.gravity = gravity;
 	}
 
 	// Have fun Niko :D
