@@ -56,12 +56,12 @@ public class Ball extends Sprite {
 		// Calculation for Background-Collision
 		if (position.getY() - radius <= 0) {
 			// Colliding with top border and bouncing back
-			direction.set(dirX,  -dirY); 
+			direction.set(dirX, -dirY);
 		} else if (posY - radius >= container.getHeight()) {
-				state.removeObject(this);   // Ball falling off-Screen and gets removed
+			state.removeObject(this); // Ball falling off-Screen and gets removed
 		} else if (posX + radius >= container.getWidth() || posX - radius <= 0) {
 			// Colliding with right or left border and bouncing back
-				direction.set(-dirX, dirY);
+			direction.set(-dirX, dirY);
 		}
 
 		for (GameObject object : state.getStateObjects()) {
@@ -109,10 +109,12 @@ public class Ball extends Sprite {
 				//Collision with corner
 				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
                 {
+					long d = System.nanoTime();
 					direction.setTheta(  (direction.negate()).getTheta() - 2*( colVec.getTheta() ) ) ;
+					logger.debug("Time required: {}",System.nanoTime() - d);
 					
 				}
-			
+				logger.debug("Delta: {} Speed: {} Direction: {} dirY: {} deltaY: {}",delta, speed,stick.getDirection(), dirY, deltaY);
 			}
 		}
 		position.set(posX + direction.getX(), posY + direction.getY());
