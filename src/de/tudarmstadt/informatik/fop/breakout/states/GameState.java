@@ -1,6 +1,7 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,6 +19,7 @@ import gameObjects.GameObject;
  */
 public abstract class GameState<T> extends BasicGameState {
 	protected ArrayList<GameObject> objects = new ArrayList<>();
+	private ArrayList<GameObject> clearList = new ArrayList<>();
 	protected T stateData;
 	private int stateID;
 	
@@ -47,7 +49,7 @@ public abstract class GameState<T> extends BasicGameState {
 	 *            GameObject to be removed
 	 */
 	public void removeObject(GameObject go) {
-		objects.remove(go);
+		clearList.add(go);
 	}
 
 	/**
@@ -62,8 +64,11 @@ public abstract class GameState<T> extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		for (GameObject go : objects)
-			go.update(container, game, this, delta);
+		for(GameObject obj : objects)
+		    obj.update(container, game, this, delta);
+		for(GameObject obj : clearList)
+			objects.remove(obj);
+		clearList.clear();
 	}
 
 	@Override
