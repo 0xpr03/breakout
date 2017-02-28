@@ -33,6 +33,8 @@ public class Stick extends Sprite {
 	 */
 	private final int movementSpeed = 2;
 
+	private final float pixelPerSecond = 400f;
+	
 	/**
 	 * Create a new instance of Stick
 	 * 
@@ -52,35 +54,15 @@ public class Stick extends Sprite {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();
-		if (in.isKeyDown(Input.KEY_LEFT)) {
-			if (position.getX() - (width / 2) > 0) { // checks if the Stick can
-														// move to the left side
-				position.set(position.getX() - movementSpeed*(delta/3), position.getY());
-				speed = movementSpeed;
-				direction = -1;
-			} 
-		} else if (in.isKeyDown(Input.KEY_RIGHT)) { // checks if the
-													// right-arrow-key is
-													// pressed
-			if (position.getX() + (width / 2) < container.getWidth()) { // checks
-																		// if
-																		// the
-																		// Stick
-																		// can
-																		// move
-																		// to
-																		// the
-																		// right
-																		// side
-				position.set(position.getX() + movementSpeed*(delta/3), position.getY());
-				speed = movementSpeed;
-				direction = 1;
-			} 
-		}
-		else {
-			direction = 0; // Resets the direction if there is no Movement
-			speed = 0; // Resets the speed if there is no Movement
-		}
+		Vector2f topLeft = getTopLeft();
+		Vector2f bottomRight = getBottomRight();
+		if (in.isKeyDown(Input.KEY_LEFT) && topLeft.x > 0) {
+			position.x -= (delta / 1000.0f) * pixelPerSecond;
+			direction = -1;
+		} else if (in.isKeyDown(Input.KEY_RIGHT) && bottomRight.x < container.getWidth()) {
+			position.x += (delta / 1000.0f) * pixelPerSecond;
+			direction = 1;
+		} else direction = 0;
 	}
 
 	/**
