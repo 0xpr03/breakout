@@ -58,10 +58,7 @@ public class Stick extends Sprite {
 				position.set(position.getX() - movementSpeed*(delta/3), position.getY());
 				speed = movementSpeed;
 				direction = -1;
-			} else {
-				speed = 0; // Resets the speed if there is no Movement
-				direction = 0; // Resets the direction if there is no Movement
-			}
+			} 
 		} else if (in.isKeyDown(Input.KEY_RIGHT)) { // checks if the
 													// right-arrow-key is
 													// pressed
@@ -78,10 +75,11 @@ public class Stick extends Sprite {
 				position.set(position.getX() + movementSpeed*(delta/3), position.getY());
 				speed = movementSpeed;
 				direction = 1;
-			} else {
-				direction = 0; // Resets the direction if there is no Movement
-				speed = 0; // Resets the speed if there is no Movement
-			}
+			} 
+		}
+		else {
+			direction = 0; // Resets the direction if there is no Movement
+			speed = 0; // Resets the speed if there is no Movement
 		}
 	}
 

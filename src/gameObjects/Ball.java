@@ -100,18 +100,26 @@ public class Ball extends Sprite {
 			else if (object instanceof Stick) {
 				Stick stick = (Stick) object;
 				float speed = stick.getCurrentSpeed() * stick.getDirection();
+				
 				//Collision with top or bottom side
 				if ((deltaX < obHWidth) && (deltaY < obHHeight + radius))
-				{direction.set(dirX , -dirY + speed );}
+				{
+					//position.add( direction.negateLocal());
+					direction.set(dirX + speed, -dirY );
+				}
 				//Collision with side
 				else if ((deltaX < obHWidth  + radius) && (deltaY < obHHeight))
-				{direction.set( -dirX , dirY + speed);}
+				{
+					//position.add( direction.negateLocal());
+					direction.set( -dirX + speed, dirY );
+				 }
 				//Collision with corner
 				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
                 {
-					long d = System.nanoTime();
-					direction.setTheta(  (direction.negate()).getTheta() - 2*( colVec.getTheta() ) ) ;
-					logger.debug("Time required: {}",System.nanoTime() - d);
+
+					//position.add( direction.negateLocal());
+					direction.setTheta(  (direction.negateLocal()).getTheta() - 2*( colVec.getTheta() ) ) ;
+                    
 					
 				}
 				logger.debug("Delta: {} Speed: {} Direction: {} dirY: {} deltaY: {}",delta, speed,stick.getDirection(), dirY, deltaY);
