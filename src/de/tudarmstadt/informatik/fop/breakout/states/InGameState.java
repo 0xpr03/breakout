@@ -14,6 +14,8 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
+import de.tudarmstadt.informatik.fop.breakout.gui.Label;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
@@ -56,13 +58,15 @@ public class InGameState extends GameState<Breakout> {
 		objects.add(new Ball(new Vector2f(400, 500), 25, am.get("images/ball.png"), 2, 0));
 
 		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, am.get("images/block_1.png")));
+		
+		objects.add(new Clock(new Vector2f(5, 580)));
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-
+		
 		bPaused = new Background(new Image("images/pause.png"), container);
 		bResume = new Button(new Vector2f(400, 100), 60, 10, am.get("images/stick.png"),
 				am.get("images/stick.png"), new ButtonAction() {
