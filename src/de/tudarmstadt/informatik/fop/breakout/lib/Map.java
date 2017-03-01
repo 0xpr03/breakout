@@ -34,6 +34,8 @@ public class Map {
 	private int theme = 0;
 	// default ball velocity for this map
 	private float ballVelocity = 1;
+	// maximum elements per row, this map has
+	private int maxRowLength = 0;
 
 	private boolean readOnly;
 
@@ -71,6 +73,7 @@ public class Map {
 		synchronized (map) {
 			String line = "";
 			map.clear();
+			maxRowLength = 0;
 			try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 				boolean passedData = false;
 				while ((line = br.readLine()) != null) {
@@ -88,7 +91,10 @@ public class Map {
 					} else if (line.equals(";")) { // detect custom data switch
 						passedData = true;
 					} else { // parse normal map data
-						map.add(parseIntDataLine(line));
+						ArrayList<Integer> pRow = parseIntDataLine(line);
+						map.add(pRow);
+						if(maxRowLength < pRow.size())
+							maxRowLength = pRow.size();
 					}
 				}
 				return true;
@@ -216,12 +222,14 @@ public class Map {
 			if (col.size() < row) {
 				for (int i = col.size(); i <= row; i++) {
 					col.add(0);
+					if(col.size() > maxRowLength)
+						maxRowLength = col.size();
 				}
 			}
 			col.set(row, value);
 		}
 	}
-
+	
 	/**
 	 * Returns the gravity for this map
 	 * 
@@ -287,4 +295,21 @@ public class Map {
 	public boolean isReadOnly() {
 		return readOnly;
 	}
+
+	/**
+	 * Returns the maximum amount of elements per Row, this map has
+	 * @return the maxRowLength
+	 */
+	public int getMaxRowLength() {
+		return maxRowLength;
+	}
+	
+	/**
+	 * Returns the absolute path of this Map
+	 * @return String absolute path
+	 */
+	public String getAbsolutePath() {
+		return file.getAbsolutePath();
+	}
+	
 }

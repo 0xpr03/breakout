@@ -1,5 +1,7 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
+import java.io.File;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
@@ -15,11 +17,12 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
-import de.tudarmstadt.informatik.fop.breakout.gui.Label;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
+import de.tudarmstadt.informatik.fop.breakout.lib.Map;
+import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
+import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
-import gameObjects.Block;
 import gameObjects.Stick;
 
 /**
@@ -31,10 +34,15 @@ public class InGameState extends GameState<Breakout> {
 
 	private Logger logger = LogManager.getLogger(this);
 
+	private MapLoader mapLoader;
+	
 	private Button bResume;
 	private Button bMainScreen;
 	private Background bPaused;
-
+	
+	private int level = 1;
+	private int lives = 3;
+	
 	boolean isPaused = false;
 
 	/**
@@ -45,20 +53,35 @@ public class InGameState extends GameState<Breakout> {
 	 */
 	public InGameState(int stateID, Breakout stateData) {
 		super(stateID, stateData);
+		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(), stateData.getAppGameContainer().getHeight(), this, stateData.getAssetManager());
 	}
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
 		this.isPaused = false;
+		initLevel(container);
+	}
+	
+	/**
+	 * Load (next) level
+	 * @param GameContainer
+	 */
+	private void initLevel(GameContainer container){
 		objects.clear();
-		AssetManager am = stateData.getAssetManager();
-		objects.add(new Stick(new Vector2f(400, 550), 60, 20,am.get("images/stick.png")));
-
-		objects.add(new Ball(new Vector2f(400, 500), 25, am.get("images/ball.png"), 2, 0));
-
-		objects.add(new Block(new Vector2f(100, 100), 50, 20, 1, am.get("images/block_1.png")));
-		
+		try {
+			objects.add(0, null);
+			Map map = new Map(new File("maps/level1.map"), true);
+			LoadData ld = mapLoader.loadMap(map);
+			
+			objects.set(0,new Background(ld.pBackground, container));
+			objects.add(new Stick(new Vector2f(400, 550), 60, 20,ld.pStick));
+	
+			objects.add(new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0));
+	
+		} catch (SlickException e) {
+			logger.error("Error at loading Map: ",e);
+		}
 		objects.add(new Clock(new Vector2f(5, 580)));
 	}
 
