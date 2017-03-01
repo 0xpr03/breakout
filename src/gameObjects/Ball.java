@@ -12,20 +12,20 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
-
 /**
  * @author Tim Jäger
  *
- * Class to abstract the Ball
+ *         Class to abstract the Ball
  */
 public class Ball extends Sprite {
 
 	private Vector2f direction = new Vector2f(0, 0);
-	
+
 	private Logger logger = LogManager.getLogger(this);
 	private float basicVelocity;
 	private float gravity;
-	
+	private float radius;
+	private int delta;
 
 	/**
 	 * Create a new Ball instance
@@ -38,9 +38,39 @@ public class Ball extends Sprite {
 	 *            The image to represent the Ball on screen
 	 */
 	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity) {
-		super(image, position, radius * 2, radius * 2, true);
+		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = basicVelocity;
 		this.gravity = gravity;
+		this.radius = radius;
+	}
+
+	/**
+	 * Detect if the Ball collides with a GameObject and act according to it
+	 * 
+	 * @param o
+	 *            The object which may be colliding with the Ball
+	 * @return If the Ball collides with the object
+	 */
+	public void collide(GameObject o) {
+		if(!o.isCollideable())
+			return;
+		
+		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);	
+		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), 
+				Math.abs(position.y - o.position.y));
+		Vector2f delta = new Vector2f(distance.x - half.y, distance.y - half.x);
+		
+		if(distance.x > (half.x + radius) || distance.y > (half.y + radius))
+			return;
+		// Left/Right
+		if(distance.x <= half.x + radius && distance.y <= half.y)
+			direction.x = -direction.x;
+		// Top/Bottom
+		else if(distance.x <= half.x && distance.y <= half.y + radius)
+			direction.y = -direction.y;
+		// Corner
+		else if(delta.x * delta.x + delta.y * delta.y <= radius * radius)
+			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, position.y - o.position.y).getTheta());
 	}
 
 	// Have fun Niko :D
@@ -48,84 +78,26 @@ public class Ball extends Sprite {
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 		// Useful shortcuts
 		float radius = width / 2;
-		float posX = position.getX();
-		float posY = position.getY();
-		float dirX = direction.getX();
-		float dirY = direction.getY();
 
 		// Calculation for Background-Collision
-		if (position.getY() - radius <= 0) {
+		if (position.y - radius <= 0) {
 			// Colliding with top border and bouncing back
-			direction.set(dirX, -dirY);
-		} else if (posY - radius >= container.getHeight()) {
-			state.removeObject(this); // Ball falling off-Screen and gets removed
-		} else if (posX + radius >= container.getWidth() || posX - radius <= 0) {
+			direction.set(direction.x, -direction.y);
+		} else if (position.y - radius >= container.getHeight()) {
+			state.removeObject(this); // Ball falling off-Screen and gets
+										// removed
+		} else if (position.x + radius >= container.getWidth() || position.x - radius <= 0) {
 			// Colliding with right or left border and bouncing back
-			direction.set(-dirX, dirY);
+			direction.set(-direction.x, direction.y);
 		}
-
-		for (GameObject object : state.getStateObjects()) {
-			float obY = object.getLocation().getY();
-			float obX = object.getLocation().getX();
-			float obHHeight = object.getHeight() / 2;
-			float obHWidth = object.getWidth() / 2;
-			float deltaX = Math.abs(posX - obX);
-			float deltaY = Math.abs(posY - obY);
-			Vector2f colVec = new Vector2f(posX - obX, obY - posY);
+		
+		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
+			direction.set(0, delta/3);				
 			
-			// Game has not started
-			if(direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)){
-				direction.set(0 , delta/3 );		
-			}
-			
-			// The Physics will calculate here
+		for (GameObject object : state.getStateObjects())			
+			collide(object);
 
-			// Calculation for Block-Collision
-			else if (object instanceof Block) {
-				//Collision with top or bottom side
-				if ((deltaX < obHWidth) && (deltaY < obHHeight + radius))
-				{direction.set(dirX , -dirY );}
-				//Collision with side
-				else if ((deltaX < obHWidth  + radius) && (deltaY < obHHeight))
-				{direction.set( -dirX , dirY );}
-				//Collision with corner
-				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
-				{
-					direction.setTheta( (direction.negate()).getTheta() - 2*( colVec.getTheta() ) ) ;
-				}
-			
-			}
-
-			// Calculation for Stick-Collision
-			else if (object instanceof Stick) {
-				Stick stick = (Stick) object;
-				float speed = stick.getCurrentSpeed() * stick.getDirection();
-				
-				//Collision with top or bottom side
-				if ((deltaX < obHWidth) && (deltaY < obHHeight + radius))
-				{
-					//position.add( direction.negateLocal());
-					direction.set(dirX + speed, -dirY );
-				}
-				//Collision with side
-				else if ((deltaX < obHWidth  + radius) && (deltaY < obHHeight))
-				{
-					//position.add( direction.negateLocal());
-					direction.set( -dirX + speed, dirY );
-				 }
-				//Collision with corner
-				else if (( ((deltaX - obHWidth)*(deltaX - obHWidth))  + ((deltaY - obHHeight)*(deltaY - obHHeight)) ) < (radius*radius))
-                {
-
-					//position.add( direction.negateLocal());
-					direction.setTheta(  (direction.negateLocal()).getTheta() - 2*( colVec.getTheta() ) ) ;
-                    
-					
-				}
-				logger.debug("Delta: {} Speed: {} Direction: {} dirY: {} deltaY: {}",delta, speed,stick.getDirection(), dirY, deltaY);
-			}
-		}
-		position.set(posX + direction.getX(), posY + direction.getY());
+		position.set(position.x + direction.getX(), position.y + direction.getY());
 	}
 
 	/**
