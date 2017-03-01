@@ -56,6 +56,7 @@ public class Stick extends Sprite {
 		Input in = container.getInput();
 		Vector2f topLeft = getTopLeft();
 		Vector2f bottomRight = getBottomRight();
+		
 		if (in.isKeyDown(Input.KEY_LEFT) && topLeft.x > 0) {
 			position.x -= (delta / 1000.0f) * pixelPerSecond;
 			direction = -1;
