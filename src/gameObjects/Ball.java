@@ -26,6 +26,7 @@ public class Ball extends Sprite {
 	private float gravity;
 	private float radius;
 	private int delta;
+	private boolean collided = false;
 
 	/**
 	 * Create a new Ball instance
@@ -58,19 +59,25 @@ public class Ball extends Sprite {
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);	
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), 
 				Math.abs(position.y - o.position.y));
-		Vector2f delta = new Vector2f(distance.x - half.y, distance.y - half.x);
+		Vector2f delta = new Vector2f(distance.x - half.x, distance.y - half.y);
 		
 		if(distance.x > (half.x + radius) || distance.y > (half.y + radius))
 			return;
 		// Left/Right
-		if(distance.x <= half.x + radius && distance.y <= half.y)
+		if(distance.x <= half.x + radius && distance.y <= half.y) {
 			direction.x = -direction.x;
+		    collided = true;
+		}
 		// Top/Bottom
-		else if(distance.x <= half.x && distance.y <= half.y + radius)
+		else if(distance.x <= half.x && distance.y <= half.y + radius){
 			direction.y = -direction.y;
+			collided = true;
+		}
 		// Corner
-		else if(delta.x * delta.x + delta.y * delta.y <= radius * radius)
+		else if(delta.x * delta.x + delta.y * delta.y <= radius * radius) {
 			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
+			collided = true;
+		}
 	}
 
 	@Override
@@ -88,11 +95,16 @@ public class Ball extends Sprite {
 		
 		// Start Ball movement by pressing space
 		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
-			direction.set(0, delta/3);				
+			direction.set(1, delta/3);				
 			
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())			
-			collide(object);
+			if(!collided)
+				collide(object);
+			else 
+				break;
+		
+		collided = false;
 
 		// Calculate new position
 		position.set(position.x + direction.getX(), position.y + direction.getY());
