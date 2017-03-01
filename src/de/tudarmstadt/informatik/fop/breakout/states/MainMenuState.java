@@ -90,6 +90,7 @@ public class MainMenuState extends GameState<Breakout> {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("About clicked");
+						game.enterState(GameParameters.ABOUT_STATE);
 					}
 				}));
 
