@@ -70,15 +70,12 @@ public class Ball extends Sprite {
 			direction.y = -direction.y;
 		// Corner
 		else if(delta.x * delta.x + delta.y * delta.y <= radius * radius)
-			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, position.y - o.position.y).getTheta());
+			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
 	}
 
 	// Have fun Niko :D
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
-		// Useful shortcuts
-		float radius = width / 2;
-
 		// Calculation for Background-Collision
 		if (position.y - radius <= 0) {
 			// Colliding with top border and bouncing back
