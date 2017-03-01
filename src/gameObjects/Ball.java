@@ -52,7 +52,7 @@ public class Ball extends Sprite {
 	 *            The object which may be colliding with the Ball
 	 * @return If the Ball collides with the object
 	 */
-	public void collide(GameObject o) {
+	public void collidesurface(GameObject o) {
 		if(!o.isCollideable())
 			return;
 		
@@ -72,10 +72,24 @@ public class Ball extends Sprite {
 		else if(distance.x <= half.x && distance.y <= half.y + radius){
 			direction.y = -direction.y;
 			collided = true;
-		}
-		// Corner
-		else if(delta.x * delta.x + delta.y * delta.y <= radius * radius) {
+		}}
+	        
+		//Corner
+			public void collidecorner(GameObject o) {
+				if(!o.isCollideable())
+					return;
+				Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);	
+				Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), 
+						Math.abs(position.y - o.position.y));
+				Vector2f delta = new Vector2f(distance.x - half.x, distance.y - half.y);
+				float deltaxpr = (position.x - o.position.x)/Math.abs(position.x - o.position.x);
+				float deltaypr = (position.y - o.position.y)/Math.abs(position.y - o.position.y);
+		
+		 
+		    if(delta.x * delta.x + delta.y * delta.y <= radius * radius) {
+		    position.set(position.sub( new Vector2f( deltaxpr * new Float(- delta.x * Math.sin(direction.getTheta())), deltaypr * new Float(- delta.y * Math.cos(direction.getTheta()) )) )); 
 			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
+			
 			collided = true;
 		}
 	}
@@ -95,14 +109,20 @@ public class Ball extends Sprite {
 		
 		// Start Ball movement by pressing space
 		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
-			direction.set(1, delta/3);				
+			direction.set(1, 5);
+		
 			
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())			
 			if(!collided)
-				collide(object);
+				collidesurface(object);
 			else 
 				break;
+		for (GameObject object : state.getStateObjects())
+		    if(!collided)
+			    collidecorner(object);
+		    else 
+			    break;
 		
 		collided = false;
 
@@ -110,6 +130,7 @@ public class Ball extends Sprite {
 		position.set(position.x + direction.getX(), position.y + direction.getY());
 	}
 
+	
 	/**
 	 * Set the direction of the ball
 	 * 
