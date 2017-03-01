@@ -12,6 +12,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
+import de.tudarmstadt.informatik.fop.breakout.gui.TextInputField;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
@@ -52,7 +53,7 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 250), 200, 50, am.get("images/highscore_btn_d.png"),
+		objects.add(new Button(new Vector2f(200, 260), 200, 50, am.get("images/highscore_btn_d.png"),
 				am.get("images/highscore_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -61,32 +62,24 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 300), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 320), 200, 50, am.get("images/options_btn_d.png"),
+				am.get("images/options_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Editor clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 350), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
-					@Override
-					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
-						logger.trace("Editor clicked");
-					}
-				}));
-
-		objects.add(new Button(new Vector2f(200, 400), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 380), 200, 50, am.get("images/editor_btn_d.png"),
+				am.get("images/editor_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Options clicked");
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 450), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 440), 200, 50, am.get("images/about_btn_d.png"),
+				am.get("images/about_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("About clicked");
@@ -94,8 +87,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 500), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 500), 200, 50, am.get("images/exit_btn_d.png"),
+				am.get("images/exit_btn_m.png"), new ButtonAction() {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Exit clicked");
@@ -103,6 +96,10 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
+		objects.add(new TextInputField(new Vector2f(500, 200), 200, 50, "Name:"));
+
+		objects.add(new TextInputField(new Vector2f(500, 250), 200, 50, "Anschrift:"));
+		
 		logger.exit();
 	}
 

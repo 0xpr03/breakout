@@ -17,7 +17,7 @@ import gameObjects.Sprite;
  * 
  * @author Simon Kohaut 
  */
-public class Button extends Sprite {
+public class Button extends GUIElement {
 
 	private Image defaultImage;
 	private Image mouseOverImage;
@@ -40,7 +40,7 @@ public class Button extends Sprite {
 	 *            over the Button
 	 */
 	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage, ButtonAction action) {
-		super(defaultImage, position, width, height, false);
+		super(defaultImage, position, width, height);
 		this.defaultImage = defaultImage;
 		this.mouseOverImage = mouseOverImage;
 		this.action = action;
@@ -48,23 +48,12 @@ public class Button extends Sprite {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
-		Input in = container.getInput();
-		int mx = in.getMouseX();
-		int my = in.getMouseY();
-		
-		Vector2f topLeft = getTopLeft();
-		Vector2f bottomRight = getBottomRight();
-		
-		if (mx > topLeft.x && mx < bottomRight.x && my > topLeft.y && my < bottomRight.y) {
+		if(isMouseOver(container))
 			image = mouseOverImage;
-			mouseOverButton = true;
-		}
-		else {
+		else
 			image = defaultImage;
-			mouseOverButton = false;
-		}
 		
-		if(mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if(isClicked(container))//mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 			action.action(container, game, state, delta);
 	}
 	

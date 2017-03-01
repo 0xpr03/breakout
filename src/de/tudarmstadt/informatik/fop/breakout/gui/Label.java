@@ -13,7 +13,7 @@ import gameObjects.GameObject;
  * 
  * @author Simon Kohaut
  */
-public class Label extends GameObject {
+public class Label extends GUIElement {
 
 	private String text;
 
@@ -26,7 +26,7 @@ public class Label extends GameObject {
 	 *            The text to display
 	 */
 	public Label(Vector2f position, String text) {
-		super(position, 0, 0, false);
+		super(null, position, 0, 0);
 		this.text = text;
 	}
 
