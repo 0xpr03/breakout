@@ -73,27 +73,28 @@ public class Ball extends Sprite {
 			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
 	}
 
-	// Have fun Niko :D
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
-		// Calculation for Background-Collision
-		if (position.y - radius <= 0) {
-			// Colliding with top border and bouncing back
+		// Ball crossing ...
+		// ... top border and bouncing back
+		if (position.y - radius <= 0)
 			direction.set(direction.x, -direction.y);
-		} else if (position.y - radius >= container.getHeight()) {
-			state.removeObject(this); // Ball falling off-Screen and gets
-										// removed
-		} else if (position.x + radius >= container.getWidth() || position.x - radius <= 0) {
-			// Colliding with right or left border and bouncing back
-			direction.set(-direction.x, direction.y);
-		}
+		// ... right or left border and bouncing back
+		else if (position.x + radius >= container.getWidth() || position.x - radius <= 0)
+			direction.set(-direction.x, direction.y);				
+		// ... bottom edge and getting removed
+		else if (position.y - radius >= container.getHeight())
+			state.removeObject(this);
 		
+		// Start Ball movement by pressing space
 		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
 			direction.set(0, delta/3);				
 			
+		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())			
 			collide(object);
 
+		// Calculate new position
 		position.set(position.x + direction.getX(), position.y + direction.getY());
 	}
 
