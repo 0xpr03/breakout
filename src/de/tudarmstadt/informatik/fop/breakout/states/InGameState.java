@@ -74,7 +74,7 @@ public class InGameState extends GameState<Breakout> {
 			Map map = new Map(new File("maps/level1.map"), true);
 			LoadData ld = mapLoader.loadMap(map);
 			
-			objects.set(0,new Background(ld.pBackground, container));
+			objects.set(0,new Background(ld.pBackground, stateData));
 			objects.add(new Stick(new Vector2f(400, 550), 60, 20,ld.pStick));
 	
 			objects.add(new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0));
@@ -90,7 +90,7 @@ public class InGameState extends GameState<Breakout> {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 		
-		bPaused = new Background(new Image("images/pause.png"), container);
+		bPaused = new Background(new Image("images/pause.png"), stateData);
 		bResume = new Button(new Vector2f(400, 100), 60, 10, am.get("images/stick.png"),
 				am.get("images/stick.png"), new ButtonAction() {
 

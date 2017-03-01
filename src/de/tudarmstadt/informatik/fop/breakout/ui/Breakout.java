@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
+import de.tudarmstadt.informatik.fop.breakout.states.AboutState;
 import de.tudarmstadt.informatik.fop.breakout.states.HighscoreState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
 import de.tudarmstadt.informatik.fop.breakout.states.MainMenuState;
@@ -32,6 +33,8 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	private static boolean debug = false;
 	
 	private static AppGameContainer app;
+	private int width;
+	private int height;
 	
 	private AssetManager assetManager;
 
@@ -64,10 +67,10 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		}
 
 		try {
-			Breakout breakout = new Breakout(true);
+			Breakout breakout = new Breakout(true,WINDOW_HEIGHT,WINDOW_WIDTH);
 			app = new AppGameContainer(
-					new ScalableGame(breakout, WINDOW_WIDTH, WINDOW_HEIGHT, true));
-			app.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
+					new ScalableGame(breakout, breakout.getWidth(), breakout.getHeight(), true));
+			app.setDisplayMode(breakout.getWidth(), breakout.getHeight(), false);
 			app.setTargetFrameRate(FRAME_RATE);
 			app.setResizable(true);
 			app.setMaximumLogicUpdateInterval(50);
@@ -94,11 +97,13 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	 * @param debug
 	 *            if true, runs in debug mode
 	 */
-	public Breakout(boolean debug) {
+	public Breakout(boolean debug, int height, int width) {
 		super("Breakout");
 		logger.trace("Debug: {}", debug);
 		Breakout.debug = debug;
 		this.assetManager = new AssetManager();
+		this.height = height;
+		this.width = width;
 	}
 
 	/**
@@ -121,7 +126,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		logger.entry(arg); // log function entry and args
 		logger.trace(arg); // lowest log priority
 		// second lowest
-		logger.debug("Multiple {} INfos {} To {} Print {}", "asd", 45, true, new Exception("asd"));
+		logger.debug("Multiple {} Infos {} To {} Print {}", "asd", 45, true, new Exception("asd"));
 		// third lowest
 		// we will probably disable everything below info in production
 		logger.info("Info MSG {}", true);
@@ -141,6 +146,23 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		addState(new MainMenuState(MAINMENU_STATE, this));
 		addState(new InGameState(GAMEPLAY_STATE, this));
 		addState(new HighscoreState(HIGHSCORE_STATE, this));
+		addState(new AboutState(ABOUT_STATE, this));
+	}
+	
+	/**
+	 * Returns the width of this game
+	 * @return int width
+	 */
+	public int getWidth(){
+		return this.width;
+	}
+	
+	/**
+	 * Returns the height of this game
+	 * @return int height
+	 */
+	public int getHeight(){
+		return this.height;
 	}
 
 	/**

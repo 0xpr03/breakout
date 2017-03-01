@@ -41,7 +41,7 @@ public class MainMenuState extends GameState<Breakout> {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.get("images/menu.png"), container));
+		objects.add(new Background(am.get("images/menu.png"), stateData));
 
 		objects.add(new Button(new Vector2f(200, 200), 200, 50, am.get("images/newgame_btn_d.png"),
 				am.get("images/newgame_btn_m.png"), new ButtonAction() {
