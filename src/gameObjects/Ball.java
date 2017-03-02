@@ -13,6 +13,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
+import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
  * @author Tim Jäger
@@ -29,6 +30,8 @@ public class Ball extends Sprite {
 	private float radius;
 	private int delta;
 	private GameEvent ing;
+	private int windowHeight;
+	private int windowWidth;
 
 	/**
 	 * Create a new Ball instance
@@ -40,12 +43,14 @@ public class Ball extends Sprite {
 	 * @param image
 	 *            The image to represent the Ball on screen
 	 */
-	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing) {
+	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing, int windowHeight, int windowWidth) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.gravity = gravity;
 		this.radius = radius;
 		this.ing = ing;
+		this.windowHeight = windowHeight;
+		this.windowWidth = windowWidth;
 	}
 
 	/**
@@ -73,7 +78,12 @@ public class Ball extends Sprite {
 		}
 		// Top/Bottom
 		else if (distance.x <= half.x && distance.y <= half.y + radius) {
-			direction.y = -direction.y;
+			
+			if (o instanceof Stick){
+		    double thetaantidir = (direction.negateLocal()).getTheta();
+			direction.setTheta(thetaantidir + ((  (position.x - o.position.x) /half.x)*15));
+			}
+			else direction.y = -direction.y;
 			collided = true;
 		}
 
@@ -86,7 +96,7 @@ public class Ball extends Sprite {
 			//	direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
 		}
 		
-		logger.debug("DIrectionX {}",direction.x);
+		
 
 		return collided;
 	}
@@ -122,16 +132,18 @@ public class Ball extends Sprite {
 		if (position.y - radius <= 0)
 			direction.set(direction.x, -direction.y);
 		// ... right or left border and bouncing back
-		else if (position.x + radius >= container.getWidth() || position.x - radius <= 0)
+		else if (position.x + radius >= windowWidth || position.x - radius <= 0)
 			direction.set(-direction.x, direction.y);
 		// ... bottom edge and getting removed
-		else if (position.y - radius >= container.getHeight())
+		else if (position.y - radius >= windowHeight)
 			ing.ballLost(this);
 
 		// Start Ball movement by pressing space
 		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
+		{
 			direction.set(0, basicVelocity);
-
+			
+		}
 		boolean collided = false;
 
 		// Test for collision with all GameObjects
