@@ -42,7 +42,7 @@ public class Ball extends Sprite {
 	 */
 	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing) {
 		super(image, position, radius * 2, radius * 2, false);
-		this.basicVelocity = basicVelocity;
+		this.basicVelocity = velocity;
 		this.gravity = gravity;
 		this.radius = radius;
 		this.ing = ing;
@@ -55,13 +55,13 @@ public class Ball extends Sprite {
 	 *            The object which may be colliding with the Ball
 	 * @return If the Ball collides with the object
 	 */
-	public boolean collidesurface(GameObject o) {
+	public boolean collidesurface(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
 
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
-		Vector2f delta = new Vector2f(distance.x - half.x, distance.y - half.y);
+		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
 
 		if (distance.x > (half.x + radius) || distance.y > (half.y + radius))
 			return false;
@@ -76,32 +76,39 @@ public class Ball extends Sprite {
 			direction.y = -direction.y;
 			collided = true;
 		}
-		
-		if(collided)
-			if(o instanceof Block)
+
+		if (collided) {
+			if (o instanceof Block)
 				ing.blockHit((Block) o);
+			
+			//CE-Aufgabe
+			//else if (o instanceof Stick)
+			//	direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
+		}
+		
+		logger.debug("DIrectionX {}",direction.x);
+
 		return collided;
 	}
 
 	// Corner
-	public boolean collidecorner(GameObject o) {
+	public boolean collidecorner(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
-		Vector2f delta = new Vector2f(distance.x - half.x, distance.y - half.y);
-		float deltaxpr = (position.x - o.position.x) / Math.abs(position.x - o.position.x);
-		float deltaypr = (position.y - o.position.y) / Math.abs(position.y - o.position.y);
+		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
 
-		if (delta.x * delta.x + delta.y * delta.y <= radius * radius) {
-			position.set(position.sub(new Vector2f(deltaxpr * new Float(-delta.x * Math.sin(direction.getTheta())),
-					deltaypr * new Float(-delta.y * Math.cos(direction.getTheta())))));
-			direction.setTheta(direction.getTheta()
-					- 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
+		if (vDelta.x * vDelta.x + vDelta.y * vDelta.y <= radius * radius) {
+			float deltaxpr = (position.x - o.position.x) / Math.abs(position.x - o.position.x);
+			float deltaypr = (position.y - o.position.y) / Math.abs(position.y - o.position.y);
 
-			logger.debug("teleported!!! directionX = " + direction.getX() + " directionY = " + direction.getY());
-			
-			if(o instanceof Block)
+			Vector2f ballcorner = new Vector2f((position.x - o.position.x) - (deltaxpr * half.x),
+					(position.y - o.position.y) - (deltaypr * half.y));
+
+			double thetaantidir = (direction.negateLocal()).getTheta();
+			direction.setTheta(thetaantidir + 2 * (ballcorner.getTheta() - thetaantidir));
+			if (o instanceof Block)
 				ing.blockHit((Block) o);
 			return true;
 		}
@@ -123,17 +130,17 @@ public class Ball extends Sprite {
 
 		// Start Ball movement by pressing space
 		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
-			direction.set(1, 5);
+			direction.set(0, basicVelocity);
 
 		boolean collided = false;
 
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())
-			if (collided = collidesurface(object))
+			if (collided = collidesurface(object,delta))
 				break;
 		if (!collided)
 			for (GameObject object : state.getStateObjects())
-				if (collidecorner(object))
+				if (collidecorner(object,delta))
 					break;
 
 		// Calculate new position
