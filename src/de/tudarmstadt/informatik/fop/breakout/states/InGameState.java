@@ -18,8 +18,10 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
+import de.tudarmstadt.informatik.fop.breakout.gui.TextInputField;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
+import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
 import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
@@ -44,13 +46,20 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Button bMainScreen;
 	private Background bPaused;
 	private Stick stick;
+	private Button bEnterScore;
+	private TextInputField tName;
+	
+	private Clock clock;
 	
 	private ArrayList<Block> blockList;
 	
 	private int level;
 	private int lives;
 	
+	private long score = 0;
+	
 	boolean isPaused = false;
+	boolean isLost = false;
 
 	/**
 	 * Creates a new instance of MainMenuState
@@ -69,6 +78,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		this.lives = 3;
 		this.level = 1;
 		this.isPaused = false;
+		this.isLost = false;
 		initLevel(container);
 	}
 	
@@ -111,7 +121,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ",e);
 		}
-		objects.add(new Clock(new Vector2f(5, 580)));
+		objects.add(clock = new Clock(new Vector2f(5, 580)));
 	}
 
 	@Override
@@ -139,6 +149,19 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				});
+		
+		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.get("images/stick.png"),
+				am.get("images/stick.png"), new ButtonAction() {
+			@SuppressWarnings("rawtypes")
+			@Override
+			public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+				logger.trace("Enter Highscore pressed");
+				stateData.getHighscore().addEntry(new Entry(tName.getText(),score,clock.getTimePassed()));
+				game.enterState(GameParameters.HIGHSCORE_STATE);
+			}
+		});
+		
+		tName = new TextInputField(new Vector2f(400, 200), 60, 10, "You Name: ");
 
 		logger.exit();
 	}
@@ -146,7 +169,11 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
-		if (isPaused) {
+		 if(isLost){
+				bPaused.render(g);
+				tName.render(g);
+				bEnterScore.render(g);
+		}else if (isPaused) {
 			bPaused.render(g);
 			bResume.render(g);
 			bMainScreen.render(g);
@@ -158,7 +185,10 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		Input input = container.getInput();
 		if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_P))
 			isPaused = !isPaused;
-		if(isPaused){
+		if(isLost){
+			tName.update(container, game, this, delta);
+			bEnterScore.update(container, game, this, delta);
+		}else if(isPaused){
 			bMainScreen.update(container, game, this, delta);
 			bResume.update(container, game, this, delta);
 		}else{
@@ -176,8 +206,17 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			this.asyncAddObject(getNewBall());
 			stick.setLocation(getStickPosition());
 		}else{
-			logger.debug("Game lost");
+			showHighscoreDialog();
 		}
+	}
+	
+	/**
+	 * Shows the highscore dialog and stops the timer
+	 */
+	private void showHighscoreDialog(){
+		logger.entry();
+		this.removeObject(clock); // stop time
+		this.isLost = true;
 	}
 
 	@Override
@@ -187,6 +226,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		if(block.getLife() == 0){
 			blockList.remove(block);
 			this.removeObject(block);
+			this.score++;
 			if(blockList.size() == 0){
 				logger.debug("Level finished");
 			}

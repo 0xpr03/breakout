@@ -68,7 +68,7 @@ public class HighscoreLib {
 				while ((line = br.readLine()) != null) {
 					String[] split = line.split(":");
 					Entry entry = new Entry(split[C_NAME_POS], Long.valueOf(split[C_BLOCKS_POS]),
-							Long.valueOf(split[C_TIME_POS]));
+							Float.valueOf(split[C_TIME_POS]));
 					highscore.add(entry);
 				}
 				Collections.sort(highscore);
@@ -125,6 +125,7 @@ public class HighscoreLib {
 	 */
 	public void addEntry(final Entry e) {
 		synchronized (highscore) {
+			e.name = e.name.replaceAll(":", ""); // sanitize
 			highscore.add(e);
 			Collections.sort(highscore);
 			save();
@@ -155,9 +156,9 @@ public class HighscoreLib {
 	 *
 	 */
 	public static class Entry implements Comparable<Entry> {
-		private final String name;
+		private String name;
 		private final long blocks;
-		private final long time;
+		private final float time;
 
 		/**
 		 * Creates a new Entry
@@ -167,7 +168,7 @@ public class HighscoreLib {
 		 * @param score
 		 *            Player score
 		 */
-		public Entry(final String name, final long score, final long time) {
+		public Entry(final String name, final long score, final float time) {
 			this.name = name;
 			this.blocks = score;
 			this.time = time;
@@ -190,7 +191,7 @@ public class HighscoreLib {
 		/**
 		 * @return the time
 		 */
-		public long getTime() {
+		public float getTime() {
 			return time;
 		}
 		
