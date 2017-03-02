@@ -6,7 +6,6 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
-import gameObjects.GameObject;
 
 /**
  * A Label displaying text on screen
@@ -47,6 +46,13 @@ public class Label extends GUIElement {
 	@Override
 	public void render(Graphics g) {
 		g.drawString(text, position.x, position.y);
+	}
+
+	/**
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
 	}
 
 }
