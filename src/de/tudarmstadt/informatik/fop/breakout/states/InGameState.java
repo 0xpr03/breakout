@@ -18,11 +18,13 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
+import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
 import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
+import gameObjects.Block;
 import gameObjects.Stick;
 
 /**
@@ -30,7 +32,7 @@ import gameObjects.Stick;
  * 
  * @author Aron Heinecke
  */
-public class InGameState extends GameState<Breakout> {
+public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private Logger logger = LogManager.getLogger(this);
 
@@ -77,7 +79,7 @@ public class InGameState extends GameState<Breakout> {
 			objects.set(0,new Background(ld.pBackground, stateData));
 			objects.add(new Stick(new Vector2f(400, 550), 60, 20,ld.pStick));
 	
-			objects.add(new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0));
+			objects.add(new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0,this));
 	
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ",e);
@@ -135,5 +137,16 @@ public class InGameState extends GameState<Breakout> {
 		}else{
 			super.update(container, game, delta);
 		}
+	}
+
+	@Override
+	public void ballLost(Ball ball) {
+		logger.entry();
+		this.removeObject(ball);
+	}
+
+	@Override
+	public void blockDestroyed(Block block) {
+		logger.entry();
 	}
 }

@@ -1,7 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.lib;
 
 import java.util.HashMap;
-import java.util.TreeMap;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
