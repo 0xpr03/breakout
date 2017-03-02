@@ -40,6 +40,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Logger logger = LogManager.getLogger(this);
 
 	private MapLoader mapLoader;
+	private Map map;
 	private LoadData ld;
 	
 	private Button bResume;
@@ -106,7 +107,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		objects.clear();
 		try {
 			objects.add(0, null);
-			Map map = new Map(new File(getLevel(level)), true);
+			map = new Map(new File(getLevel(level)), true);
 			ld = mapLoader.loadMap(map);
 			
 			objects.set(0,new Background(ld.pBackground, stateData));
@@ -161,7 +162,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			}
 		});
 		
-		tName = new TextInputField(new Vector2f(400, 200), 60, 10, "You Name: ");
+		tName = new TextInputField(new Vector2f(300, 200), 60, 10, "Name: ");
 
 		logger.exit();
 	}
@@ -238,7 +239,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall(){
-		return new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0,this);
+		return new Ball(new Vector2f(400, 500), 25, ld.pBall, map.getBallVelocity(), map.getGravity(),this);
 	}
 	
 	/**
