@@ -20,10 +20,7 @@ public class Stick extends Sprite {
 
 	private Logger logger = LogManager.getLogger(this);
 	
-	/**
-	 * current speed from the Stick
-	 */
-	private int speed;
+
 	/**
 	 * Can be -1 for Moving left or 1 for Moving right
 	 */
@@ -31,8 +28,7 @@ public class Stick extends Sprite {
 	/**
 	 * Magicnumber how fast the Stick moves (can be changed for better Gameflow)
 	 */
-	private final int movementSpeed = 2;
-
+	
 	private final float pixelPerSecond = 400f;
 	
 	/**
@@ -71,18 +67,11 @@ public class Stick extends Sprite {
 	 * 
 	 * @return The speed from the Stick
 	 */
-	public int getSpeed() {
-		return speed;
+	public float getPixelPerSecond() {
+		return pixelPerSecond;
 	}
 	
-	/**
-	 * Returns the current speed
-	 * 
-	 * @return the current speed
-	 */
-	public int getCurrentSpeed() {
-		return speed;
-	}
+	
 
 	/**
 	 * Direction can be -1 for Moving left and 1 for Moving right
