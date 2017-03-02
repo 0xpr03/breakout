@@ -13,6 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
+import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib;
+import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
 import de.tudarmstadt.informatik.fop.breakout.states.AboutState;
 import de.tudarmstadt.informatik.fop.breakout.states.HighscoreState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
@@ -35,8 +37,10 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	private static AppGameContainer app;
 	private int width;
 	private int height;
+	private long score = 0;
 	
-	private AssetManager assetManager;
+	private final AssetManager assetManager;
+	private final HighscoreLib highscore;
 
 	/**
 	 * Main function initiating the game
@@ -102,6 +106,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		logger.trace("Debug: {}", debug);
 		Breakout.debug = debug;
 		this.assetManager = new AssetManager();
+		this.highscore = new HighscoreLib(10);
 		this.height = height;
 		this.width = width;
 	}
@@ -171,5 +176,30 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	 */
 	public AssetManager getAssetManager() {
 		return assetManager;
+	}
+
+	/**
+	 * Returns the last score by the player
+	 * @return the score
+	 */
+	public long getScore() {
+		return score;
+	}
+
+	/**
+	 * Sets the new score
+	 * @param score the score to set
+	 */
+	public void setScore(long score) {
+		this.score = score;
+	}
+
+	/**
+	 * Returns the highscore object
+	 * 
+	 * @return the highscore
+	 */
+	public HighscoreLib getHighscore() {
+		return highscore;
 	}
 }
