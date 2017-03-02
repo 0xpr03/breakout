@@ -91,6 +91,8 @@ public class Ball extends Sprite {
 			direction.setTheta(direction.getTheta() - 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
 			
 			collided = true;
+			
+			logger.debug("teleported!!! directionX = " + direction.getX() + " directionY = " + direction.getY());
 		}
 	}
 
