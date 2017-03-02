@@ -11,6 +11,6 @@ import gameObjects.Block;
  */
 public interface GameEvent {
 	public void ballLost(Ball ball);
-	public void blockDestroyed(Block block);
+	public void blockHit(Block block);
 //	public void itemCollected(Item e);
 }

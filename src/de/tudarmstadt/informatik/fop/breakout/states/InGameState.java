@@ -1,6 +1,7 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,13 +38,17 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Logger logger = LogManager.getLogger(this);
 
 	private MapLoader mapLoader;
+	private LoadData ld;
 	
 	private Button bResume;
 	private Button bMainScreen;
 	private Background bPaused;
+	private Stick stick;
 	
-	private int level = 1;
-	private int lives = 3;
+	private ArrayList<Block> blockList;
+	
+	private int level;
+	private int lives;
 	
 	boolean isPaused = false;
 
@@ -55,14 +60,32 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	public InGameState(int stateID, Breakout stateData) {
 		super(stateID, stateData);
-		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(), stateData.getAppGameContainer().getHeight(), this, stateData.getAssetManager());
+		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(), stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());
 	}
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
+		this.lives = 3;
+		this.level = 1;
 		this.isPaused = false;
 		initLevel(container);
+	}
+	
+	/**
+	 * Returns a map based in the ingoing level
+	 * @param level
+	 * @return String Path to map
+	 */
+	private String getLevel(int level){
+		String path;
+		switch(level){
+		default:
+		case 1:
+			path = "level1.map";
+			break;
+		}
+		return "maps/"+path;
 	}
 	
 	/**
@@ -73,13 +96,17 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		objects.clear();
 		try {
 			objects.add(0, null);
-			Map map = new Map(new File("maps/level1.map"), true);
-			LoadData ld = mapLoader.loadMap(map);
+			Map map = new Map(new File(getLevel(level)), true);
+			ld = mapLoader.loadMap(map);
 			
 			objects.set(0,new Background(ld.pBackground, stateData));
-			objects.add(new Stick(new Vector2f(400, 550), 60, 20,ld.pStick));
-	
-			objects.add(new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0,this));
+			
+			this.blockList = ld.blockList;
+			objects.addAll(blockList);
+			
+			objects.add(stick = new Stick(getStickPosition(), 60, 20,ld.pStick));
+			
+			objects.add(getNewBall());
 	
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ",e);
@@ -143,10 +170,42 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	public void ballLost(Ball ball) {
 		logger.entry();
 		this.removeObject(ball);
+		this.lives--;
+		if(this.lives > 0){
+			logger.debug("Lives left: {}",lives);
+			this.asyncAddObject(getNewBall());
+			stick.setLocation(getStickPosition());
+		}else{
+			logger.debug("Game lost");
+		}
 	}
 
 	@Override
-	public void blockDestroyed(Block block) {
+	public void blockHit(Block block) {
 		logger.entry();
+		block.decreaseLife();
+		if(block.getLife() == 0){
+			blockList.remove(block);
+			this.removeObject(block);
+			if(blockList.size() == 0){
+				logger.debug("Level finished");
+			}
+		}
+	}
+	
+	/**
+	 * Returns a new Ball object
+	 * @return Ball
+	 */
+	private Ball getNewBall(){
+		return new Ball(new Vector2f(400, 500), 25, ld.pBall, 2, 0,this);
+	}
+	
+	/**
+	 * Returns the starting position of the stick
+	 * @return Vector2f
+	 */
+	private Vector2f getStickPosition(){
+		return new Vector2f(400, 550);
 	}
 }

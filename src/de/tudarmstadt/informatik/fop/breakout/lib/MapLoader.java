@@ -21,7 +21,6 @@ public class MapLoader {
 	private Logger logger = LogManager.getLogger(this);
 	private int width;
 	private int height;
-	private GameState<?> state;
 	private AssetManager am;
 	private final int widthStone = 50;
 	private final int heightStone = 30;
@@ -36,10 +35,9 @@ public class MapLoader {
 	 * @param state
 	 *            GameState to which the objects should be added
 	 */
-	public MapLoader(int width, int height, GameState<?> state, AssetManager am) {
+	public MapLoader(int width, int height, AssetManager am) {
 		this.width = width;
 		this.height = height;
-		this.state = state;
 		this.am = am;
 	}
 
@@ -51,6 +49,7 @@ public class MapLoader {
 	 */
 	public LoadData loadMap(Map map) throws SlickException {
 		logger.entry("Loading map {}", map.getAbsolutePath());
+		ArrayList<Block> blockList = new ArrayList<>(25);
 		map.load();
 		int maxRowElements = width / widthStone;
 		if (maxRowElements < map.getMaxRowLength()) {
@@ -70,9 +69,8 @@ public class MapLoader {
 			int offsetX = startOffsetX;
 			for (int vStone : row) {
 				if (vStone != 0) {
-					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone,
-							getBallImg(vStone, map.getTheme()));
-					state.addObject(block);
+					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone,am,map.getTheme());
+					blockList.add(block);
 					logger.debug("Added stone {}", vStone);
 				}
 				offsetX += widthStone;
@@ -80,7 +78,7 @@ public class MapLoader {
 			offsetY += heightStone;
 		}
 		logger.exit();
-		return getLoadData(map.getTheme());
+		return getLoadData(map.getTheme(),blockList);
 	}
 
 	/**
@@ -94,7 +92,7 @@ public class MapLoader {
 		public Image pBackground;
 		public Image pStick;
 		public Image pBall;
-
+		public ArrayList<Block> blockList;
 	}
 
 	/**
@@ -105,9 +103,10 @@ public class MapLoader {
 	 * @return LoadData
 	 * @throws SlickException
 	 */
-	private LoadData getLoadData(int theme) throws SlickException {
+	private LoadData getLoadData(int theme, ArrayList<Block> blockList) throws SlickException {
 		logger.entry(theme);
 		LoadData ld = new LoadData();
+		ld.blockList = blockList;
 		switch (theme) {
 		case 0:
 		default:
@@ -116,36 +115,5 @@ public class MapLoader {
 			ld.pStick = am.get("images/stick.png");
 		}
 		return ld;
-	}
-
-	/**
-	 * Returns the correct ball image
-	 * 
-	 * @param val
-	 *            Ball health / type value
-	 * @param theme
-	 *            Current theme
-	 * @return Image
-	 * @throws SlickException
-	 *             upon loading errors
-	 */
-	private Image getBallImg(int val, int theme) throws SlickException {
-		Image img = null;
-		switch (theme) {
-		case 0:
-		default:
-			switch (val) {
-			default:
-			case 1:
-				img = am.get("images/block_1.png");
-				break;
-			case 2:
-				img = am.get("images/block_2.png");
-				break;
-			case 3:
-				img = am.get("images/block_3.png");
-			}
-		}
-		return img;
 	}
 }

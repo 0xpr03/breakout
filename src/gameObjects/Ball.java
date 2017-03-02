@@ -76,6 +76,10 @@ public class Ball extends Sprite {
 			direction.y = -direction.y;
 			collided = true;
 		}
+		
+		if(collided)
+			if(o instanceof Block)
+				ing.blockHit((Block) o);
 		return collided;
 	}
 
@@ -96,6 +100,9 @@ public class Ball extends Sprite {
 					- 2 * new Vector2f(position.x - o.position.x, o.position.y - position.y).getTheta());
 
 			logger.debug("teleported!!! directionX = " + direction.getX() + " directionY = " + direction.getY());
+			
+			if(o instanceof Block)
+				ing.blockHit((Block) o);
 			return true;
 		}
 		return false;

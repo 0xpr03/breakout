@@ -19,7 +19,8 @@ import gameObjects.GameObject;
  */
 public abstract class GameState<T> extends BasicGameState {
 	protected ArrayList<GameObject> objects = new ArrayList<>();
-	private ArrayList<GameObject> clearList = new ArrayList<>();
+	private ArrayList<GameObject> clearList = new ArrayList<>(1);
+	private ArrayList<GameObject> addList = new ArrayList<>(1);
 	protected T stateData;
 	private int stateID;
 	
@@ -53,13 +54,22 @@ public abstract class GameState<T> extends BasicGameState {
 	}
 
 	/**
-	 * Adds the specified game object
-	 * 
+	 * Adds the specified game object<br>
+	 * Warning: This shouldn't be called from within any update routine!
 	 * @param go
 	 *            GameObject to be added
 	 */
 	public void addObject(GameObject go) {
 		objects.add(go);
+	}
+	
+	/**
+	 * Adds a gameobject to the object list<br>
+	 * This function is safe to call from inside an update routing
+	 * @param go
+	 */
+	public void asyncAddObject(GameObject go){
+		addList.add(go);
 	}
 
 	@Override
@@ -69,6 +79,8 @@ public abstract class GameState<T> extends BasicGameState {
 		for(GameObject obj : clearList)
 			objects.remove(obj);
 		clearList.clear();
+		objects.addAll(addList);
+		addList.clear();
 	}
 
 	@Override
