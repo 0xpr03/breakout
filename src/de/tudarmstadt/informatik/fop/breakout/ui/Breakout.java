@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.AppGameContainer;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
@@ -14,7 +13,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib;
-import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
 import de.tudarmstadt.informatik.fop.breakout.states.AboutState;
 import de.tudarmstadt.informatik.fop.breakout.states.HighscoreState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
@@ -53,10 +51,6 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		// even logged
 		// -> only do this when the string returned is actually used
 		logger.debug("args: {}", () -> Arrays.toString(args));
-		logger.info("==== Logging test ====");
-		loggerTest("Arg");
-		logger.info("==== Test end ====");
-		logger.debug("searching for binaries..");
 		// Set the library path depending on the operating system
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			logger.trace("detected windows");
@@ -127,6 +121,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	 * @param arg
 	 *            An argument to be printed
 	 */
+	@SuppressWarnings("unused")
 	private static boolean loggerTest(String arg) {
 		logger.entry(arg); // log function entry and args
 		logger.trace(arg); // lowest log priority
