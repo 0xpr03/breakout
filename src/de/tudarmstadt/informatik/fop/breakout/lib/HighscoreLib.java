@@ -67,9 +67,13 @@ public class HighscoreLib {
 			try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 				while ((line = br.readLine()) != null) {
 					String[] split = line.split(":");
-					Entry entry = new Entry(split[C_NAME_POS], Long.valueOf(split[C_BLOCKS_POS]),
-							Float.valueOf(split[C_TIME_POS]));
-					highscore.add(entry);
+					if(split.length < 3){
+						logger.error("Unable to parse line! {}",line);
+					}else{
+						Entry entry = new Entry(split[C_NAME_POS], Long.valueOf(split[C_BLOCKS_POS]),
+								Float.valueOf(split[C_TIME_POS]));
+						highscore.add(entry);
+					}
 				}
 				Collections.sort(highscore);
 			} catch (IOException e) {
