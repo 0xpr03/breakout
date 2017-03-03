@@ -3,17 +3,13 @@ package gameObjects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
-import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
-import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
  * @author Tim Jäger

@@ -3,15 +3,30 @@ package de.tudarmstadt.informatik.fop.breakout.lib;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Theme manager
+ * 
+ * @author Aron Heinecke
+ *
+ */
 public class ThemeManager {
 	private static Logger logger = LogManager.getLogger();
-	
-	public static String getBlockPicturePath(int val, int theme){
+
+	/**
+	 * Returns the path to the picture of this block
+	 * 
+	 * @param val
+	 *            Value of the block live
+	 * @param theme
+	 *            current theme
+	 * @return String with path to block image
+	 */
+	public static String getBlockPicturePath(int val, int theme) {
 		String path;
-		switch(theme){
+		switch (theme) {
 		case 0:
 		default:
-			switch(val){
+			switch (val) {
 			case 3:
 				path = "block_3.png";
 				break;
@@ -22,17 +37,17 @@ public class ThemeManager {
 				path = "block_1.png";
 				break;
 			default:
-				if(val > 3){
+				if (val > 3) {
 					path = "block_3.png";
-					logger.info("Using highest block for theme: {} val: {}",theme,val);
-				}else{
+					logger.info("Using highest block for theme: {} val: {}", theme, val);
+				} else {
 					path = "block_1.png";
-					logger.warn("Unknown image request, theme: {} value: {}",theme,val);
+					logger.warn("Unknown image request, theme: {} value: {}", theme, val);
 				}
 				break;
 			}
 			break;
 		}
-		return "images/"+path;
+		return "images/" + path;
 	}
 }

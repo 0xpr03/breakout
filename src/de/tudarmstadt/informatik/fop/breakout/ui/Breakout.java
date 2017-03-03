@@ -31,12 +31,11 @@ public class Breakout extends StateBasedGame implements GameParameters {
 
 	// Remember if the game runs in debug mode
 	private static boolean debug = false;
-	
+
 	private static AppGameContainer app;
 	private int width;
 	private int height;
-	private long score = 0;
-	
+
 	private final AssetManager assetManager;
 	private final HighscoreLib highscore;
 
@@ -65,9 +64,8 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		}
 
 		try {
-			Breakout breakout = new Breakout(true,WINDOW_HEIGHT,WINDOW_WIDTH);
-			app = new AppGameContainer(
-					new ScalableGame(breakout, breakout.getWidth(), breakout.getHeight(), true));
+			Breakout breakout = new Breakout(true, WINDOW_HEIGHT, WINDOW_WIDTH);
+			app = new AppGameContainer(new ScalableGame(breakout, breakout.getWidth(), breakout.getHeight(), true));
 			app.setDisplayMode(breakout.getWidth(), breakout.getHeight(), false);
 			app.setTargetFrameRate(FRAME_RATE);
 			app.setResizable(true);
@@ -80,12 +78,13 @@ public class Breakout extends StateBasedGame implements GameParameters {
 			logger.fatal("Crash escalation in main process: ", e);
 		}
 	}
-	
+
 	/**
 	 * Returns the AppGameContainer
+	 * 
 	 * @return AppGameContainer
 	 */
-	public AppGameContainer getAppGameContainer(){
+	public AppGameContainer getAppGameContainer() {
 		return app;
 	}
 
@@ -148,45 +147,32 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		addState(new HighscoreState(HIGHSCORE_STATE, this));
 		addState(new AboutState(ABOUT_STATE, this));
 	}
-	
+
 	/**
 	 * Returns the width of this game
+	 * 
 	 * @return int width
 	 */
-	public int getWidth(){
+	public int getWidth() {
 		return this.width;
 	}
-	
+
 	/**
 	 * Returns the height of this game
+	 * 
 	 * @return int height
 	 */
-	public int getHeight(){
+	public int getHeight() {
 		return this.height;
 	}
 
 	/**
 	 * Returns the asset manager
+	 * 
 	 * @return the assetManager
 	 */
 	public AssetManager getAssetManager() {
 		return assetManager;
-	}
-
-	/**
-	 * Returns the last score by the player
-	 * @return the score
-	 */
-	public long getScore() {
-		return score;
-	}
-
-	/**
-	 * Sets the new score
-	 * @param score the score to set
-	 */
-	public void setScore(long score) {
-		this.score = score;
 	}
 
 	/**

@@ -45,6 +45,7 @@ public class Block extends Sprite {
 		this.am = am;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		// Has to be empty, because he shell not move!

@@ -1,7 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,13 +22,14 @@ public abstract class GameState<T> extends BasicGameState {
 	private ArrayList<GameObject> addList = new ArrayList<>(1);
 	protected T stateData;
 	private int stateID;
-	
+
 	/**
 	 * Creates a new GameState
+	 * 
 	 * @param stateID
 	 * @param stateData
 	 */
-	public GameState(int stateID, T stateData){
+	public GameState(int stateID, T stateData) {
 		this.stateID = stateID;
 		this.stateData = stateData;
 	}
@@ -56,27 +56,29 @@ public abstract class GameState<T> extends BasicGameState {
 	/**
 	 * Adds the specified game object<br>
 	 * Warning: This shouldn't be called from within any update routine!
+	 * 
 	 * @param go
 	 *            GameObject to be added
 	 */
 	public void addObject(GameObject go) {
 		objects.add(go);
 	}
-	
+
 	/**
 	 * Adds a gameobject to the object list<br>
 	 * This function is safe to call from inside an update routing
+	 * 
 	 * @param go
 	 */
-	public void asyncAddObject(GameObject go){
+	public void asyncAddObject(GameObject go) {
 		addList.add(go);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		for(GameObject obj : objects)
-		    obj.update(container, game, this, delta);
-		for(GameObject obj : clearList)
+		for (GameObject obj : objects)
+			obj.update(container, game, this, delta);
+		for (GameObject obj : clearList)
 			objects.remove(obj);
 		clearList.clear();
 		objects.addAll(addList);
@@ -88,7 +90,7 @@ public abstract class GameState<T> extends BasicGameState {
 		for (GameObject go : objects)
 			go.render(g);
 	}
-	
+
 	@Override
 	public int getID() {
 		return stateID;

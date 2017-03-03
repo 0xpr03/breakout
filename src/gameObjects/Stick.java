@@ -1,9 +1,6 @@
 package gameObjects;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
@@ -17,9 +14,6 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * @author Tim Jäger
  */
 public class Stick extends Sprite {
-
-	private Logger logger = LogManager.getLogger(this);
-	
 
 	/**
 	 * Can be -1 for Moving left or 1 for Moving right
@@ -47,6 +41,7 @@ public class Stick extends Sprite {
 		super(image, position, width, height, true);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
 		Input in = container.getInput();

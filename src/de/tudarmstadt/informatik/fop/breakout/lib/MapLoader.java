@@ -8,7 +8,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
-import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 import gameObjects.Block;
 
 /**
@@ -69,7 +68,8 @@ public class MapLoader {
 			int offsetX = startOffsetX;
 			for (int vStone : row) {
 				if (vStone != 0) {
-					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone,am,map.getTheme());
+					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone, am,
+							map.getTheme());
 					blockList.add(block);
 				}
 				offsetX += widthStone;
@@ -77,7 +77,7 @@ public class MapLoader {
 			offsetY += heightStone;
 		}
 		logger.exit();
-		return getLoadData(map.getTheme(),blockList);
+		return getLoadData(map.getTheme(), blockList);
 	}
 
 	/**

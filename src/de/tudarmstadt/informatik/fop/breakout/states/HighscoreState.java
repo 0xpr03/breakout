@@ -38,7 +38,7 @@ public class HighscoreState extends GameState<Breakout> {
 	public HighscoreState(int stateID, Breakout stateData) {
 		super(stateID, stateData);
 	}
-	
+
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
@@ -51,8 +51,8 @@ public class HighscoreState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.get("images/menu.png"), stateData));
 
-		objects.add(new Button(new Vector2f(400, 500), 60, 10, am.get("images/stick.png"),
-				am.get("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(400, 500), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -67,16 +67,17 @@ public class HighscoreState extends GameState<Breakout> {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
-		if(highscore.size() > 0) {
+		if (highscore.size() > 0) {
 			float offsetX = 90;
 			float offsetY = 200;
 			float factY = 20;
 			int i = 0;
-			for(Entry entry : this.highscore){
-				g.drawString(entry.getBlocks() + " " + entry.getTime() + " " + entry.getName() , offsetX, offsetY + factY * i);
+			for (Entry entry : this.highscore) {
+				g.drawString(entry.getBlocks() + " " + entry.getTime() + " " + entry.getName(), offsetX, offsetY
+						+ factY * i);
 				i++;
 			}
-		}else{
+		} else {
 			g.drawString("No entries so far..", 90, 200);
 		}
 	}
@@ -88,5 +89,5 @@ public class HighscoreState extends GameState<Breakout> {
 		if (input.isKeyPressed(Input.KEY_ESCAPE))
 			game.enterState(GameParameters.MAINMENU_STATE);
 	}
-	
+
 }

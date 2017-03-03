@@ -26,7 +26,6 @@ public class Map {
 
 	private File file;
 	// Column<Row<int>>
-	// TODO: change to object type-enum
 	private ArrayList<ArrayList<Integer>> map = new ArrayList<>();
 	// Gravity for this map
 	private float gravity = 0;
@@ -93,7 +92,7 @@ public class Map {
 					} else { // parse normal map data
 						ArrayList<Integer> pRow = parseIntDataLine(line);
 						map.add(pRow);
-						if(maxRowLength < pRow.size())
+						if (maxRowLength < pRow.size())
 							maxRowLength = pRow.size();
 					}
 				}
@@ -222,14 +221,14 @@ public class Map {
 			if (col.size() < row) {
 				for (int i = col.size(); i <= row; i++) {
 					col.add(0);
-					if(col.size() > maxRowLength)
+					if (col.size() > maxRowLength)
 						maxRowLength = col.size();
 				}
 			}
 			col.set(row, value);
 		}
 	}
-	
+
 	/**
 	 * Returns the gravity for this map
 	 * 
@@ -298,18 +297,20 @@ public class Map {
 
 	/**
 	 * Returns the maximum amount of elements per Row, this map has
+	 * 
 	 * @return the maxRowLength
 	 */
 	public int getMaxRowLength() {
 		return maxRowLength;
 	}
-	
+
 	/**
 	 * Returns the absolute path of this Map
+	 * 
 	 * @return String absolute path
 	 */
 	public String getAbsolutePath() {
 		return file.getAbsolutePath();
 	}
-	
+
 }

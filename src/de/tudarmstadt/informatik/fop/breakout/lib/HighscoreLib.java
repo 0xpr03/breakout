@@ -38,22 +38,23 @@ public class HighscoreLib {
 	 *            Maximum Entries the highscore list should carry and return
 	 */
 	public HighscoreLib(final int maxEntries) {
-		this(new File("highschore.hsc"),maxEntries);
+		this(new File("highschore.hsc"), maxEntries);
 	}
-	
+
 	/**
 	 * Creates a new HighscoreLib instance<br>
 	 * Test constructor for highschore tests
 	 * 
 	 * @param maxEntries
 	 *            Maximum Entries the highscore list should carry and return
-	 * @param file the File that should be read/written to
+	 * @param file
+	 *            the File that should be read/written to
 	 */
-	public HighscoreLib(final File file,final int maxEntries) {
+	public HighscoreLib(final File file, final int maxEntries) {
 		this.file = file;
 		logger.debug(file.getAbsolutePath());
 		this.maxEntries = maxEntries;
-		if(file.exists())
+		if (file.exists())
 			load();
 	}
 
@@ -67,9 +68,9 @@ public class HighscoreLib {
 			try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 				while ((line = br.readLine()) != null) {
 					String[] split = line.split(":");
-					if(split.length < 3){
-						logger.error("Unable to parse line! {}",line);
-					}else{
+					if (split.length < 3) {
+						logger.error("Unable to parse line! {}", line);
+					} else {
 						Entry entry = new Entry(split[C_NAME_POS], Long.valueOf(split[C_BLOCKS_POS]),
 								Float.valueOf(split[C_TIME_POS]));
 						highscore.add(entry);
@@ -198,16 +199,17 @@ public class HighscoreLib {
 		public float getTime() {
 			return time;
 		}
-		
+
 		@Override
 		public int compareTo(final Entry o) {
-			if(this.blocks == o.blocks){
-				if(this.time < o.getTime())
+			if (this.blocks == o.blocks) {
+				if (this.time < o.getTime())
 					return -1;
-				else if(this.time == o.getTime())
+				else if (this.time == o.getTime())
 					return 0;
-				else return 1;
-			}else{
+				else
+					return 1;
+			} else {
 				return this.blocks < o.getBlocks() ? 1 : -1;
 			}
 		}
