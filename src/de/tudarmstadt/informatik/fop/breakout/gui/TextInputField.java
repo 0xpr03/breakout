@@ -46,6 +46,11 @@ public class TextInputField extends Label implements KeyListener {
 		else if (!isMouseOver(container) && container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
 			container.getInput().removeKeyListener(this);
 	}
+	
+	@Override
+	public String getText() {
+		return entered;
+	}
 
 	@Override
 	public void inputEnded() {
@@ -77,4 +82,8 @@ public class TextInputField extends Label implements KeyListener {
 	public void keyReleased(int arg0, char arg1) {
 	}
 
+	@Override
+	public void getText() {
+		return entered;
+	}
 }
