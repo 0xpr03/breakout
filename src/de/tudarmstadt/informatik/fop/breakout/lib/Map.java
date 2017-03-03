@@ -33,7 +33,7 @@ public class Map {
 	// Theme for this map
 	private int theme = 0;
 	// default ball velocity for this map
-	private float ballVelocity = 1;
+	private float ballVelocity = 5;
 	// maximum elements per row, this map has
 	private int maxRowLength = 0;
 
