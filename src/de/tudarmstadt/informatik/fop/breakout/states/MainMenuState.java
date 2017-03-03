@@ -96,10 +96,6 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new TextInputField(new Vector2f(500, 200), 200, 50, "Name:"));
-
-		objects.add(new TextInputField(new Vector2f(500, 250), 200, 50, "Anschrift:"));
-		
 		logger.exit();
 	}
 
