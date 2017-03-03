@@ -116,10 +116,10 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			objects.addAll(blockList);
 			
 			this.livesLeft = new ArrayList<Sprite>();
-			AssetManager am = stateData.getAssetManager();
-			livesLeft.add(new Sprite(am.get("images/ball.png"), new Vector2f(780, 580), 20, 20, false));
-			livesLeft.add(new Sprite(am.get("images/ball.png"), new Vector2f(760, 580), 20, 20, false));
-			livesLeft.add(new Sprite(am.get("images/ball.png"), new Vector2f(740, 580), 20, 20, false));
+			Image ballImg = stateData.getAssetManager().get("images/ball.png");
+			livesLeft.add(new Sprite(ballImg, new Vector2f(780, 580), 20, 20, false));
+			livesLeft.add(new Sprite(ballImg, new Vector2f(760, 580), 20, 20, false));
+			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
 			objects.addAll(livesLeft);
 			
 			objects.add(stick = new Stick(getStickPosition(), 60, 20,ld.pStick));
