@@ -21,7 +21,7 @@ import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
  */
 public class MainMenuState extends GameState<Breakout> {
 
-	private Logger logger = LogManager.getLogger(this);
+	private final Logger logger = LogManager.getLogger(this);
 
 	/**
 	 * Creates a new instance of MainMenuState

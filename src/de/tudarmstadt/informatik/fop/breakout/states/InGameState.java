@@ -38,7 +38,7 @@ import gameObjects.Stick;
  */
 public class InGameState extends GameState<Breakout> implements GameEvent {
 
-	private Logger logger = LogManager.getLogger(this);
+	private final Logger logger = LogManager.getLogger(this);
 
 	private MapLoader mapLoader;
 	private Map map;
@@ -69,7 +69,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @param stateID
 	 * @param stateData
 	 */
-	public InGameState(int stateID, Breakout stateData) {
+	public InGameState(final int stateID,final Breakout stateData) {
 		super(stateID, stateData);
 		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(),
 				stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());

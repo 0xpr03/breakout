@@ -24,7 +24,7 @@ public class Map {
 
 	private Logger logger = LogManager.getLogger(this);
 
-	private File file;
+	private final File file;
 	// Column<Row<int>>
 	private ArrayList<ArrayList<Integer>> map = new ArrayList<>();
 	// Gravity for this map

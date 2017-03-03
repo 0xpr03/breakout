@@ -37,7 +37,7 @@ public class AboutState extends GameState<Breakout> {
 	 * @param stateID
 	 * @param stateData
 	 */
-	public AboutState(int stateID, Breakout stateData) {
+	public AboutState(final int stateID, final Breakout stateData) {
 		super(stateID, stateData);
 	}
 

@@ -20,8 +20,8 @@ public abstract class GameState<T> extends BasicGameState {
 	protected ArrayList<GameObject> objects = new ArrayList<>();
 	private ArrayList<GameObject> clearList = new ArrayList<>(1);
 	private ArrayList<GameObject> addList = new ArrayList<>(1);
-	protected T stateData;
-	private int stateID;
+	protected final T stateData;
+	private final int stateID;
 
 	/**
 	 * Creates a new GameState

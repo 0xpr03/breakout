@@ -35,7 +35,7 @@ public class HighscoreState extends GameState<Breakout> {
 	 * @param stateID
 	 * @param stateData
 	 */
-	public HighscoreState(int stateID, Breakout stateData) {
+	public HighscoreState(final int stateID, final Breakout stateData) {
 		super(stateID, stateData);
 	}
 

@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
  */
 public class AssetManager {
 
-	private HashMap<String, Image> images = new HashMap<String, Image>();
+	private final HashMap<String, Image> images = new HashMap<String, Image>();
 
 	/**
 	 * Get the Image at the specified path
@@ -22,7 +22,7 @@ public class AssetManager {
 	 * @return The Image at the specified path
 	 * @throws SlickException
 	 */
-	public Image get(String path) throws SlickException {
+	public Image get(final String path) throws SlickException {
 		if (images.containsKey(path))
 			return images.get(path);
 

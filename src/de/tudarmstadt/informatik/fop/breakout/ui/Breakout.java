@@ -33,8 +33,8 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	private static boolean debug = false;
 
 	private static AppGameContainer app;
-	private int width;
-	private int height;
+	private final int width;
+	private final int height;
 
 	private final AssetManager assetManager;
 	private final HighscoreLib highscore;
@@ -94,7 +94,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	 * @param debug
 	 *            if true, runs in debug mode
 	 */
-	public Breakout(boolean debug, int height, int width) {
+	public Breakout(final boolean debug, final int height, final int width) {
 		super("Breakout");
 		logger.trace("Debug: {}", debug);
 		Breakout.debug = debug;

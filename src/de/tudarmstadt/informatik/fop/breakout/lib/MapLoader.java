@@ -17,10 +17,10 @@ import gameObjects.Block;
  *
  */
 public class MapLoader {
-	private Logger logger = LogManager.getLogger(this);
-	private int width;
-	private int height;
-	private AssetManager am;
+	private final Logger logger = LogManager.getLogger(this);
+	private final int width;
+	private final int height;
+	private final AssetManager am;
 	private final int widthStone = 50;
 	private final int heightStone = 30;
 

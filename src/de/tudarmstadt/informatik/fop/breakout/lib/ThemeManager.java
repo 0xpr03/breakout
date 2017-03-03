@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class ThemeManager {
-	private static Logger logger = LogManager.getLogger();
+	private final static Logger logger = LogManager.getLogger();
 
 	/**
 	 * Returns the path to the picture of this block
@@ -21,7 +21,7 @@ public class ThemeManager {
 	 *            current theme
 	 * @return String with path to block image
 	 */
-	public static String getBlockPicturePath(int val, int theme) {
+	public static String getBlockPicturePath(final int val, final int theme) {
 		String path;
 		switch (theme) {
 		case 0:

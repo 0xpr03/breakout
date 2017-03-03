@@ -21,9 +21,9 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class HighscoreLib {
-	private Logger logger = LogManager.getLogger(this);
+	private final Logger logger = LogManager.getLogger(this);
 	private ArrayList<Entry> highscore = new ArrayList<>();
-	private File file;
+	private final File file;
 	private final int maxEntries;
 
 	private final static int C_NAME_POS = 0;
