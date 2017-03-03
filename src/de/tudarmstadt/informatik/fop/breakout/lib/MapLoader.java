@@ -71,7 +71,6 @@ public class MapLoader {
 				if (vStone != 0) {
 					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone,am,map.getTheme());
 					blockList.add(block);
-					logger.debug("Added stone {}", vStone);
 				}
 				offsetX += widthStone;
 			}
