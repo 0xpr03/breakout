@@ -28,6 +28,7 @@ import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import gameObjects.Ball;
 import gameObjects.Block;
+import gameObjects.Sprite;
 import gameObjects.Stick;
 
 /**
@@ -53,9 +54,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Clock clock;
 	
 	private ArrayList<Block> blockList;
+	private ArrayList<Sprite> livesLeft;
 	
 	private int level;
-	private int lives;
 	
 	private long score = 0;
 	
@@ -76,7 +77,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
-		this.lives = 3;
 		this.level = 1;
 		this.isPaused = false;
 		this.isLost = false;
@@ -114,6 +114,12 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			
 			this.blockList = ld.blockList;
 			objects.addAll(blockList);
+			
+			this.livesLeft = new ArrayList<Sprite>();
+			livesLeft.add(new Sprite(new Image("images/ball.png"), new Vector2f(780, 580), 20, 20, false));
+			livesLeft.add(new Sprite(new Image("images/ball.png"), new Vector2f(760, 580), 20, 20, false));
+			livesLeft.add(new Sprite(new Image("images/ball.png"), new Vector2f(740, 580), 20, 20, false));
+			objects.addAll(livesLeft);
 			
 			objects.add(stick = new Stick(getStickPosition(), 60, 20,ld.pStick));
 			
@@ -201,9 +207,10 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	public void ballLost(Ball ball) {
 		logger.entry();
 		this.removeObject(ball);
-		this.lives--;
-		if(this.lives > 0){
-			logger.debug("Lives left: {}",lives);
+		this.removeObject(livesLeft.get(livesLeft.size() - 1));
+		this.livesLeft.remove(livesLeft.size() - 1);
+		if(this.livesLeft.size() > 0){
+			logger.debug("Lives left: {}",livesLeft.size());
 			this.asyncAddObject(getNewBall());
 			stick.setLocation(getStickPosition());
 		}else{
