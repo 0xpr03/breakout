@@ -162,7 +162,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			}
 		});
 		
-		tName = new TextInputField(new Vector2f(300, 200), 60, 10, "Name: ");
+		tName = new TextInputField(new Vector2f(300, 200), 200, 50, "Name: ");
 
 		logger.exit();
 	}
