@@ -77,7 +77,7 @@ public class Ball extends Sprite {
 			
 			if (o instanceof Stick){
 		    double thetaantidir = (direction.negateLocal()).getTheta();
-			direction.setTheta(thetaantidir + ((  (position.x - o.position.x) /half.x)*15));
+			direction.setTheta(thetaantidir + 2*( ((  (position.x - o.position.x) /half.x)*15) + 270 - thetaantidir));
 			}
 			else direction.y = -direction.y;
 			collided = true;
