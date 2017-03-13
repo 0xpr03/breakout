@@ -40,7 +40,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private final Logger logger = LogManager.getLogger(this);
 
-	private final static int I_MAX_LEVEL = 3;
+	private final static int I_MAX_LEVEL = 11;
 	private MapLoader mapLoader;
 	private Map map;
 	private LoadData ld;
