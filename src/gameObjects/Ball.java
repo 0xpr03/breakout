@@ -28,6 +28,7 @@ public class Ball extends Sprite {
 	private GameEvent ing;
 	private int windowHeight;
 	private int windowWidth;
+	private boolean lastColidedWithStick;
 
 	/**
 	 * Create a new Ball instance
@@ -39,7 +40,8 @@ public class Ball extends Sprite {
 	 * @param image
 	 *            The image to represent the Ball on screen
 	 */
-	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing, int windowHeight, int windowWidth) {
+	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing,
+			int windowHeight, int windowWidth) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.gravity = gravity;
@@ -59,7 +61,9 @@ public class Ball extends Sprite {
 	public boolean collidesurface(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
-
+        if (o instanceof Stick && lastColidedWithStick)
+        	return false;
+        	
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
 		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
@@ -74,25 +78,27 @@ public class Ball extends Sprite {
 		}
 		// Top/Bottom
 		else if (distance.x <= half.x && distance.y <= half.y + radius) {
-			
-			if (o instanceof Stick){
-		    double thetaantidir = (direction.negateLocal()).getTheta();
-			direction.setTheta(thetaantidir + 2*( ((  (position.x - o.position.x) /half.x)*15) + 270 - thetaantidir));
-			}
-			else direction.y = -direction.y;
+
+			if (o instanceof Stick) {
+				double thetaantidir = (direction.negateLocal()).getTheta();
+				direction.setTheta(
+						thetaantidir + 2 * ((((position.x - o.position.x) / half.x) * 15) + 270 - thetaantidir));
+			} else
+				direction.y = -direction.y;
 			collided = true;
 		}
 
 		if (collided) {
-			if (o instanceof Block)
+			if (o instanceof Block){
 				ing.blockHit((Block) o);
-			
-			//CE-Aufgabe
-			//else if (o instanceof Stick)
-			//	direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
+				lastColidedWithStick = false;}
+			else if (o instanceof Stick)
+				lastColidedWithStick = true;
+			// CE-Aufgabe
+			// else if (o instanceof Stick)
+			// direction.x = (((Stick) o).getDirection() * ((Stick)
+			// o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
 		}
-		
-		
 
 		return collided;
 	}
@@ -101,6 +107,8 @@ public class Ball extends Sprite {
 	public boolean collidecorner(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
+		if (o instanceof Stick && lastColidedWithStick)
+        	return false;
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
 		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
@@ -114,8 +122,12 @@ public class Ball extends Sprite {
 
 			double thetaantidir = (direction.negateLocal()).getTheta();
 			direction.setTheta(thetaantidir + 2 * (ballcorner.getTheta() - thetaantidir));
-			if (o instanceof Block)
+			if (o instanceof Block) {
 				ing.blockHit((Block) o);
+				lastColidedWithStick = false;
+			} else if (o instanceof Stick)
+				lastColidedWithStick = true;
+
 			return true;
 		}
 		return false;
@@ -125,30 +137,31 @@ public class Ball extends Sprite {
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 		// Ball crossing ...
 		// ... top border and bouncing back
-		if (position.y - radius <= 0)
+		if (position.y - radius <= 0){
 			direction.set(direction.x, -direction.y);
+			lastColidedWithStick = false;}
 		// ... right or left border and bouncing back
-		else if (position.x + radius >= windowWidth || position.x - radius <= 0)
+		else if (position.x + radius >= windowWidth || position.x - radius <= 0){
 			direction.set(-direction.x, direction.y);
+			lastColidedWithStick = false;}
 		// ... bottom edge and getting removed
-		else if (position.y - radius >= windowHeight)
+		else if (position.y - radius >= windowHeight){
 			ing.ballLost(this);
-
+			lastColidedWithStick = false;}
 		// Start Ball movement by pressing space
-		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
-		{
+		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)) {
 			direction.set(0, basicVelocity);
-			
+
 		}
 		boolean collided = false;
 
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())
-			if (collided = collidesurface(object,delta))
+			if (collided = collidesurface(object, delta))
 				break;
 		if (!collided)
 			for (GameObject object : state.getStateObjects())
-				if (collidecorner(object,delta))
+				if (collidecorner(object, delta))
 					break;
 
 		// Calculate new position
