@@ -60,6 +60,16 @@ public class HighscoreState extends GameState<Breakout> {
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				}));
+		objects.add(new Button(new Vector2f(200, 500), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+				new ButtonAction() {
+					@SuppressWarnings("rawtypes")
+					@Override
+					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						logger.trace("Clear clicked");
+						highscore.clear();
+						stateData.getHighscore().clear();
+					}
+				}));
 
 		logger.exit();
 	}
