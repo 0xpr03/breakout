@@ -49,9 +49,9 @@ public class HighscoreState extends GameState<Breakout> {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.get("images/menu.png"), stateData));
+		objects.add(new Background(am.getImg("images/menu.png"), stateData));
 
-		objects.add(new Button(new Vector2f(400, 500), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+		objects.add(new Button(new Vector2f(400, 500), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
@@ -60,7 +60,7 @@ public class HighscoreState extends GameState<Breakout> {
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				}));
-		objects.add(new Button(new Vector2f(200, 500), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+		objects.add(new Button(new Vector2f(200, 500), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override

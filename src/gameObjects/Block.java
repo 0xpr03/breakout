@@ -40,7 +40,7 @@ public class Block extends Sprite {
 	 * @throws SlickException 
 	 */
 	public Block(Vector2f position, float width, float height, int life, AssetManager am, int theme) throws SlickException {
-		super(am.get(ThemeManager.getBlockPicturePath(life, theme)), position, width, height, true);
+		super(am.getImg(ThemeManager.getBlockPicturePath(life, theme)), position, width, height, true);
 		this.life = life;
 		this.am = am;
 	}
@@ -61,7 +61,7 @@ public class Block extends Sprite {
 	}
 	
 	private Image getPicture() throws SlickException{
-		return am.get(ThemeManager.getBlockPicturePath(life, theme));
+		return am.getImg(ThemeManager.getBlockPicturePath(life, theme));
 	}
 	
 	private void updatePicture(){

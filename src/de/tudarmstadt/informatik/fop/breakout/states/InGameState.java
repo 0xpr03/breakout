@@ -119,7 +119,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			objects.addAll(blockList);
 
 			this.livesLeft = new ArrayList<Sprite>();
-			Image ballImg = stateData.getAssetManager().get("images/ball.png");
+			Image ballImg = stateData.getAssetManager().getImg("images/ball.png");
 			livesLeft.add(new Sprite(ballImg, new Vector2f(780, 580), 20, 20, false));
 			livesLeft.add(new Sprite(ballImg, new Vector2f(760, 580), 20, 20, false));
 			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
@@ -141,7 +141,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		AssetManager am = stateData.getAssetManager();
 
 		bPaused = new Background(new Image("images/pause.png"), stateData);
-		bResume = new Button(new Vector2f(400, 100), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+		bResume = new Button(new Vector2f(400, 100), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
 				new ButtonAction() {
 
 					@SuppressWarnings("rawtypes")
@@ -151,7 +151,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 						isPaused = false;
 					}
 				});
-		bMainScreen = new Button(new Vector2f(400, 200), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+		bMainScreen = new Button(new Vector2f(400, 200), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
@@ -161,7 +161,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					}
 				});
 
-		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.get("images/stick.png"), am.get("images/stick.png"),
+		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override

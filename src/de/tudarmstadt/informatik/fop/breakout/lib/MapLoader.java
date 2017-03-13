@@ -109,9 +109,9 @@ public class MapLoader {
 		switch (theme) {
 		case 0:
 		default:
-			ld.pBackground = am.get("images/background.png");
-			ld.pBall = am.get("images/ball.png");
-			ld.pStick = am.get("images/stick.png");
+			ld.pBackground = am.getImg("images/background.png");
+			ld.pBall = am.getImg("images/ball.png");
+			ld.pStick = am.getImg("images/stick.png");
 		}
 		return ld;
 	}

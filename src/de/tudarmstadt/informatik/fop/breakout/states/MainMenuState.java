@@ -37,10 +37,10 @@ public class MainMenuState extends GameState<Breakout> {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.get("images/menu.png"), stateData));
+		objects.add(new Background(am.getImg("images/menu.png"), stateData));
 
-		objects.add(new Button(new Vector2f(200, 200), 200, 50, am.get("images/newgame_btn_d.png"),
-				am.get("images/newgame_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 200), 200, 50, am.getImg("images/newgame_btn_d.png"),
+				am.getImg("images/newgame_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -49,8 +49,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 260), 200, 50, am.get("images/highscore_btn_d.png"),
-				am.get("images/highscore_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 260), 200, 50, am.getImg("images/highscore_btn_d.png"),
+				am.getImg("images/highscore_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -59,8 +59,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 320), 200, 50, am.get("images/options_btn_d.png"),
-				am.get("images/options_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 320), 200, 50, am.getImg("images/options_btn_d.png"),
+				am.getImg("images/options_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -68,8 +68,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 380), 200, 50, am.get("images/editor_btn_d.png"),
-				am.get("images/editor_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 380), 200, 50, am.getImg("images/editor_btn_d.png"),
+				am.getImg("images/editor_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -77,8 +77,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 440), 200, 50, am.get("images/about_btn_d.png"),
-				am.get("images/about_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 440), 200, 50, am.getImg("images/about_btn_d.png"),
+				am.getImg("images/about_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -87,8 +87,8 @@ public class MainMenuState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(200, 500), 200, 50, am.get("images/exit_btn_d.png"),
-				am.get("images/exit_btn_m.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(200, 500), 200, 50, am.getImg("images/exit_btn_d.png"),
+				am.getImg("images/exit_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
