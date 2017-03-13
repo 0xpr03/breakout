@@ -40,6 +40,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private final Logger logger = LogManager.getLogger(this);
 
+	private final static int I_MAX_LEVEL = 3;
 	private MapLoader mapLoader;
 	private Map map;
 	private LoadData ld;
@@ -92,16 +93,14 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return String Path to map
 	 */
 	private String getLevel(int level) {
-		String path;
-		switch (level) {
-		default:
-		case 1:
-			path = "level1.map";
-			break;
-		case 2:
-			path = "level2.map";
-			break;
+		String path = "level";
+		if (level > 0 && level <= I_MAX_LEVEL) {
+			path += level;
+		} else {
+			logger.warn("Unknown Level: {}", level);
+			path += 1;
 		}
+		path += ".map";
 		return "maps/" + path;
 	}
 
@@ -212,7 +211,12 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			super.update(container, game, delta);
 			if(bLoadNext){ // load next level afterwards, avoid race conditions
 				level++;
+				if(level > I_MAX_LEVEL){
+					showHighscoreDialog();
+				}
+				else{
 				initLevel();
+				}
 			}
 		}
 	}
@@ -263,7 +267,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	private Ball getNewBall() {
 		return new Ball(new Vector2f(400, 500), 25, ld.pBall, map.getBallVelocity(), map.getGravity(), this,
-				stateData.getHeight(), stateData.getWidth());
+				stateData.getHeight(), stateData.getWidth(), stateData.getAssetManager());
 	}
 
 	/**
