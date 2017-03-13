@@ -1,6 +1,5 @@
 package de.tudarmstadt.informatik.fop.breakout.gui;
 
-import org.apache.logging.log4j.LogManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
@@ -80,10 +79,5 @@ public class TextInputField extends Label implements KeyListener {
 
 	@Override
 	public void keyReleased(int arg0, char arg1) {
-	}
-
-	@Override
-	public void getText() {
-		return entered;
 	}
 }

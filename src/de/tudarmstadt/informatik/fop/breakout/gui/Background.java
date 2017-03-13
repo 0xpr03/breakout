@@ -34,7 +34,7 @@ public class Background extends GameObject {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state, int delta) {
 		// do nothing
 	}
 

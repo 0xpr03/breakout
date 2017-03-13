@@ -1,15 +1,11 @@
 package de.tudarmstadt.informatik.fop.breakout.gui;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
-import gameObjects.GameObject;
-import gameObjects.Sprite;
 
 
 /**
@@ -21,7 +17,6 @@ public class Button extends GUIElement {
 
 	private Image defaultImage;
 	private Image mouseOverImage;
-	private boolean mouseOverButton;
 	private ButtonAction action;
 	
 	/**
@@ -47,7 +42,7 @@ public class Button extends GUIElement {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state, int delta) {
 		if(isMouseOver(container))
 			image = mouseOverImage;
 		else
