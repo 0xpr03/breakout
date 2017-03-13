@@ -22,6 +22,8 @@ public abstract class GameState<T> extends BasicGameState {
 	private ArrayList<GameObject> addList = new ArrayList<>(1);
 	protected final T stateData;
 	private final int stateID;
+	private final int width;
+	private final int height;
 
 	/**
 	 * Creates a new GameState
@@ -29,9 +31,11 @@ public abstract class GameState<T> extends BasicGameState {
 	 * @param stateID
 	 * @param stateData
 	 */
-	public GameState(int stateID, T stateData) {
+	public GameState(final int stateID, T stateData,final int width,final int height) {
 		this.stateID = stateID;
 		this.stateData = stateData;
+		this.width = width;
+		this.height = height;
 	}
 
 	/**
@@ -53,7 +57,7 @@ public abstract class GameState<T> extends BasicGameState {
 	public void asyncRemoveObject(GameObject go) {
 		clearList.add(go);
 	}
-
+	
 	/**
 	 * Adds the specified game object<br>
 	 * Warning: This shouldn't be called from within any update routine!
@@ -94,5 +98,19 @@ public abstract class GameState<T> extends BasicGameState {
 	@Override
 	public int getID() {
 		return stateID;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
 	}
 }

@@ -39,14 +39,14 @@ public class AboutState extends GameState<Breakout> {
 	 * @param stateData
 	 */
 	public AboutState(final int stateID, final Breakout stateData) {
-		super(stateID, stateData);
+		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.getImg("images/menu.png"), stateData));
+		objects.add(new Background(am.getImg("images/menu.png"), this));
 
 		objects.add(new Button(new Vector2f(370, 500), 200, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
 				new ButtonAction() {
@@ -83,8 +83,8 @@ public class AboutState extends GameState<Breakout> {
 		super.render(container, game, g);
 		int width = 300;
 		int height = 225;
-		int x = stateData.getWidth() / 2 - width / 2;
-		int y = stateData.getHeight() / 2 - height / 2;
+		int x = getWidth() / 2 - width / 2;
+		int y = getHeight() / 2 - height / 2;
 		g.setColor(new Color(50, 50, 50, 180));
 		g.fillRect(x, y, width, height);
 		g.setColor(color);

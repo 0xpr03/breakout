@@ -73,7 +73,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @param stateData Reference to Breakout main instance
 	 */
 	public InGameState(final int stateID,final Breakout stateData) {
-		super(stateID, stateData);
+		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
 		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(),
 				stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());
 	}
@@ -104,7 +104,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		path += ".map";
 		return "maps/" + path;
 	}
-
+	
 	/**
 	 * Load (next) level
 	 * 
@@ -118,7 +118,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			map = new Map(new File(getLevel(level)), true);
 			ld = mapLoader.loadMap(map);
 
-			objects.set(0, new Background(ld.pBackground, stateData));
+			objects.set(0, new Background(ld.pBackground, this));
 
 			this.blockList = ld.destroyableBlockList;
 			objects.addAll(blockList);
@@ -146,7 +146,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 
-		bPaused = new Background(new Image("images/pause.png"), stateData);
+		bPaused = new Background(new Image("images/pause.png"), this);
 		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"), am.getImg("images/continue_btn_m.png"),
 				new ButtonAction() {
 
@@ -268,7 +268,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	private Ball getNewBall() {
 		return new Ball(new Vector2f(400, 500), 25, ld.pBall, map.getBallVelocity(), map.getGravity(), this,
-				stateData.getHeight(), stateData.getWidth(), stateData.getAssetManager());
+				getHeight(), getWidth(), stateData.getAssetManager());
 	}
 
 	/**

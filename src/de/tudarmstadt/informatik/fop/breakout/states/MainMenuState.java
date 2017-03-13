@@ -30,14 +30,14 @@ public class MainMenuState extends GameState<Breakout> {
 	 * @param stateData
 	 */
 	public MainMenuState(int stateID, Breakout stateData) {
-		super(stateID, stateData);
+		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.getImg("images/menu.png"), stateData));
+		objects.add(new Background(am.getImg("images/menu.png"), this));
 
 		objects.add(new Button(new Vector2f(200, 200), 200, 50, am.getImg("images/newgame_btn_d.png"),
 				am.getImg("images/newgame_btn_m.png"), new ButtonAction() {

@@ -28,8 +28,8 @@ public class Background extends GameObject {
 	 * @param app
 	 *            GameContainer
 	 */
-	public Background(Image image, Breakout app) {
-		super(new Vector2f(app.getWidth() / 2, app.getHeight() / 2), app.getWidth(), app.getHeight(), false);
+	public Background(Image image, @SuppressWarnings("rawtypes") GameState state) {
+		super(new Vector2f(state.getWidth() / 2, state.getHeight() / 2), state.getWidth(), state.getHeight(), false);
 		this.image = image;
 	}
 

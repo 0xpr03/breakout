@@ -39,7 +39,7 @@ public class HighscoreState extends GameState<Breakout> {
 	 * @param stateData
 	 */
 	public HighscoreState(final int stateID, final Breakout stateData) {
-		super(stateID, stateData);
+		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class HighscoreState extends GameState<Breakout> {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
-		objects.add(new Background(am.getImg("images/menu.png"), stateData));
+		objects.add(new Background(am.getImg("images/menu.png"), this));
 
 		objects.add(new Button(new Vector2f(400, 500), 150, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
 				new ButtonAction() {
