@@ -50,6 +50,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Stick stick;
 	private Button bEnterScore;
 	private TextInputField tName;
+	private boolean bLoadNext;
 
 	private Clock clock;
 
@@ -110,6 +111,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @param GameContainer
 	 */
 	private void initLevel() {
+		bLoadNext = false;
 		objects.clear();
 		try {
 			objects.add(0, null);
@@ -207,6 +209,10 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			bResume.update(container, game, this, delta);
 		} else {
 			super.update(container, game, delta);
+			if(bLoadNext){ // load next level afterwards, avoid race conditions
+				level++;
+				initLevel();
+			}
 		}
 	}
 
@@ -244,8 +250,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			this.score++;
 			if (blockList.size() == 0) {
 				logger.debug("Level finished");
-				level++;
-				initLevel();
+				bLoadNext = true;
 			}
 		}
 	}
