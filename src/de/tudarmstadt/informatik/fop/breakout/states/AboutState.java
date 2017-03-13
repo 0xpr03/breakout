@@ -47,7 +47,7 @@ public class AboutState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.getImg("images/menu.png"), stateData));
 
-		objects.add(new Button(new Vector2f(370, 500), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
+		objects.add(new Button(new Vector2f(370, 500), 200, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override

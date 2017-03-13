@@ -1,5 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,9 @@ public class HighscoreState extends GameState<Breakout> {
 
 	private ArrayList<Entry> highscore;
 	private Logger logger = LogManager.getLogger(this);
-
+	private DecimalFormat timeFormat = new DecimalFormat("#.##");
+	private float timePassed;
+	
 	/**
 	 * Create a new instance of HighscoreState
 	 * 
@@ -51,7 +54,7 @@ public class HighscoreState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.getImg("images/menu.png"), stateData));
 
-		objects.add(new Button(new Vector2f(400, 500), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
+		objects.add(new Button(new Vector2f(400, 500), 150, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
@@ -78,13 +81,19 @@ public class HighscoreState extends GameState<Breakout> {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
 		if (highscore.size() > 0) {
-			float offsetX = 90;
+			float offsetX = 90; 
 			float offsetY = 200;
 			float factY = 20;
 			int i = 0;
+			
+			g.drawString("Blocks", offsetX, 180);
+			g.drawString("Time", offsetX + 90, 180);
+			g.drawString("Name", offsetX + 200, 180);
+			
 			for (Entry entry : this.highscore) {
-				g.drawString(entry.getBlocks() + " " + entry.getTime() + " " + entry.getName(), offsetX, offsetY
-						+ factY * i);
+				g.drawString(""+entry.getBlocks(), offsetX, offsetY + factY * i);
+				g.drawString(timeFormat.format(entry.getTime()) + "s", offsetX + 90, offsetY + factY * i);
+				g.drawString(entry.getName(), offsetX + 200, offsetY + factY * i);
 				i++;
 			}
 		} else {
