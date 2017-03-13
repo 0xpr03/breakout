@@ -14,6 +14,8 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * @author Tim Jäger
  */
 public class Stick extends Sprite {
+	
+	
 
 	/**
 	 * Can be -1 for Moving left or 1 for Moving right
@@ -51,7 +53,7 @@ public class Stick extends Sprite {
 		if (in.isKeyDown(Input.KEY_LEFT) && topLeft.x > 0) {
 			position.x -= (delta / 1000.0f) * pixelPerSecond;
 			direction = -1;
-		} else if (in.isKeyDown(Input.KEY_RIGHT) && bottomRight.x < container.getWidth()) {
+		} else if (in.isKeyDown(Input.KEY_RIGHT) && bottomRight.x < state.getWidth()) {
 			position.x += (delta / 1000.0f) * pixelPerSecond;
 			direction = 1;
 		} else direction = 0;
