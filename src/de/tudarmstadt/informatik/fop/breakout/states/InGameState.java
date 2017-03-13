@@ -311,5 +311,14 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Vector2f getStickPosition() {
 		return new Vector2f(400, 550);
 	}
+
+	/**
+	 * Returns the stick of the game
+	 * 
+	 * @return Stick
+	 */
+	public Stick getStick() {
+		return stick;
+	}
 	
 }
