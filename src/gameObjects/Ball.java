@@ -5,9 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
@@ -19,6 +22,7 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 public class Ball extends Sprite {
 
 	private Vector2f direction = new Vector2f(0, 0);
+	private AssetManager am;
 
 	private Logger logger = LogManager.getLogger(this);
 	private float basicVelocity;
@@ -41,7 +45,7 @@ public class Ball extends Sprite {
 	 *            The image to represent the Ball on screen
 	 */
 	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing,
-			int windowHeight, int windowWidth) {
+			int windowHeight, int windowWidth, AssetManager am) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.gravity = gravity;
@@ -49,6 +53,7 @@ public class Ball extends Sprite {
 		this.ing = ing;
 		this.windowHeight = windowHeight;
 		this.windowWidth = windowWidth;
+		this.am = am;
 	}
 
 	/**
@@ -57,8 +62,9 @@ public class Ball extends Sprite {
 	 * @param o
 	 *            The object which may be colliding with the Ball
 	 * @return If the Ball collides with the object
+	 * @throws SlickException 
 	 */
-	public boolean collidesurface(GameObject o, int delta) {
+	public boolean collidesurface(GameObject o, int delta){
 		if (!o.isCollideable())
 			return false;
         if (o instanceof Stick && lastColidedWithStick)
@@ -92,19 +98,23 @@ public class Ball extends Sprite {
 			if (o instanceof Block){
 				ing.blockHit((Block) o);
 				lastColidedWithStick = false;}
-			else if (o instanceof Stick)
-				lastColidedWithStick = true;
+			else if (o instanceof Stick){
+				lastColidedWithStick = true;}
 			// CE-Aufgabe
 			// else if (o instanceof Stick)
 			// direction.x = (((Stick) o).getDirection() * ((Stick)
 			// o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
+			try{playSound(o);}
+			catch(SlickException e){
+				logger.warn("Unable to play Sound", e);
+			}
 		}
 
 		return collided;
 	}
 
 	// Corner
-	public boolean collidecorner(GameObject o, int delta) {
+	public boolean collidecorner(GameObject o, int delta){
 		if (!o.isCollideable())
 			return false;
 		if (o instanceof Stick && lastColidedWithStick)
@@ -125,8 +135,12 @@ public class Ball extends Sprite {
 			if (o instanceof Block) {
 				ing.blockHit((Block) o);
 				lastColidedWithStick = false;
-			} else if (o instanceof Stick)
-				lastColidedWithStick = true;
+  			  } else if (o instanceof Stick){
+				lastColidedWithStick = true;}
+			try{playSound(o);}
+			catch(SlickException e){
+				logger.warn("Unable to play Sound", e);
+			}
 
 			return true;
 		}
@@ -166,6 +180,17 @@ public class Ball extends Sprite {
 
 		// Calculate new position
 		position.set(position.x + direction.getX(), position.y + direction.getY());
+	}
+	
+	public void playSound(GameObject o) throws SlickException{
+		if(o instanceof Block){
+			am.getSnd("sounds/hitBlock.wav").play();
+			logger.debug("play Block Sound");
+		}
+		else if(o instanceof Stick){
+			am.getSnd("sounds/hitStick.wav").play();
+			logger.debug("play Stick Sound");
+		}
 	}
 
 	/**
