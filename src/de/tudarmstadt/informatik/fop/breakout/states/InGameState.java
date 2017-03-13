@@ -146,7 +146,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		AssetManager am = stateData.getAssetManager();
 
 		bPaused = new Background(new Image("images/pause.png"), stateData);
-		bResume = new Button(new Vector2f(400, 100), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
+		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"), am.getImg("images/continue_btn_m.png"),
 				new ButtonAction() {
 
 					@SuppressWarnings("rawtypes")
@@ -156,7 +156,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 						isPaused = false;
 					}
 				});
-		bMainScreen = new Button(new Vector2f(400, 200), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
+		bMainScreen = new Button(new Vector2f(400, 200), 150, 50, am.getImg("images/mainmenu_btn_d.png"), am.getImg("images/mainmenu_btn_m.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
