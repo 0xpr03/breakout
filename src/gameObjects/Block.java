@@ -77,8 +77,10 @@ public class Block extends Sprite {
 	 * @throws SlickException 
 	 */
 	public void decreaseLife() {
-		life--;
-		if(life != 0)
-			updatePicture();
+		if(life > 0){
+			life--;
+			if(life != 0)
+				updatePicture();
+		}
 	}
 }
