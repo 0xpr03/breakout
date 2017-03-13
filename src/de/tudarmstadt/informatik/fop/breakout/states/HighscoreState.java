@@ -21,7 +21,8 @@ import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
- * Class representing the main menu state of the game
+ * Class representing the highscore state of the game<br>
+ * This draws the current highscore to the screen providing a clear option
  * 
  * @author Aron Heinecke
  */
@@ -30,12 +31,11 @@ public class HighscoreState extends GameState<Breakout> {
 	private ArrayList<Entry> highscore;
 	private Logger logger = LogManager.getLogger(this);
 	private DecimalFormat timeFormat = new DecimalFormat("#.##");
-	private float timePassed;
 	
 	/**
 	 * Create a new instance of HighscoreState
 	 * 
-	 * @param stateID
+	 * @param stateIDstateData
 	 * @param stateData
 	 */
 	public HighscoreState(final int stateID, final Breakout stateData) {

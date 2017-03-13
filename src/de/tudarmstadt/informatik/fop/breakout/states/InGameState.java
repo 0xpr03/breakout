@@ -32,7 +32,8 @@ import gameObjects.Sprite;
 import gameObjects.Stick;
 
 /**
- * Class representing the main menu state of the game
+ * Class representing the actual game<br>
+ * Including life, win, death management
  * 
  * @author Aron Heinecke
  */
@@ -69,7 +70,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * Creates a new instance of MainMenuState
 	 * 
 	 * @param stateID
-	 * @param stateData
+	 * @param stateData Reference to Breakout main instance
 	 */
 	public InGameState(final int stateID,final Breakout stateData) {
 		super(stateID, stateData);
@@ -224,9 +225,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void ballLost(Ball ball) {
 		logger.entry();
-		this.removeObject(ball);
+		this.asyncRemoveObject(ball);
 		if (this.livesLeft.size() > 0) {
-			this.removeObject(livesLeft.get(livesLeft.size() - 1));
+			this.asyncRemoveObject(livesLeft.get(livesLeft.size() - 1));
 			this.livesLeft.remove(livesLeft.size() - 1);
 			logger.debug("Lives left: {}", livesLeft.size());
 			this.asyncAddObject(getNewBall());
@@ -241,7 +242,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	private void showHighscoreDialog() {
 		logger.entry();
-		this.removeObject(clock); // stop time
+		this.asyncRemoveObject(clock); // stop time
 		this.isLost = true;
 	}
 
@@ -251,7 +252,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		block.decreaseLife();
 		if (block.getLife() == 0) {
 			blockList.remove(block);
-			this.removeObject(block);
+			this.asyncRemoveObject(block);
 			this.score++;
 			if (blockList.size() == 0) {
 				logger.debug("Level finished");

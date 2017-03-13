@@ -11,7 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import gameObjects.GameObject;
 
 /**
- * Extended version of BasicGameState providing a getter for the GameObjects
+ * Extended version of BasicGameState providing a getter & basic handler for the GameObjects
  * 
  * @author Aron Heinecke
  *
@@ -44,12 +44,13 @@ public abstract class GameState<T> extends BasicGameState {
 	}
 
 	/**
-	 * Removes the specified object
+	 * Removes the specified object<br>
+	 * Safe too call from inside an update method
 	 * 
 	 * @param go
 	 *            GameObject to be removed
 	 */
-	public void removeObject(GameObject go) {
+	public void asyncRemoveObject(GameObject go) {
 		clearList.add(go);
 	}
 
@@ -78,8 +79,7 @@ public abstract class GameState<T> extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		for (GameObject obj : objects)
 			obj.update(container, game, this, delta);
-		for (GameObject obj : clearList)
-			objects.remove(obj);
+		objects.removeAll(clearList);
 		clearList.clear();
 		objects.addAll(addList);
 		addList.clear();

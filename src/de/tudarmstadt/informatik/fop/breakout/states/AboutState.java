@@ -19,7 +19,8 @@ import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
- * About game state
+ * About game state<br>
+ * Drawing an about dialog
  * 
  * @author Aron Heinecke
  */

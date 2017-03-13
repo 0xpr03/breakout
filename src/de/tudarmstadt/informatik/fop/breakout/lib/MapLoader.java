@@ -102,9 +102,10 @@ public class MapLoader {
 	/**
 	 * Returns LoadData for the specified theme
 	 * 
-	 * @param theme
-	 *            ID
-	 * @return LoadData
+	 * @param theme Theme to use
+	 * @param destroyableBlockList List of destroyable blocks
+	 * @param undestroyableBlockList List of undestroyable blocks
+	 * @return
 	 * @throws SlickException
 	 */
 	private LoadData getLoadData(int theme, ArrayList<Block> destroyableBlockList, ArrayList<Block> undestroyableBlockList) throws SlickException {
