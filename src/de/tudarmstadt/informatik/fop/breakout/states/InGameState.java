@@ -62,7 +62,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	boolean isPaused = false;
 	boolean isLost = false;
-
+	
 	/**
 	 * Creates a new instance of MainMenuState
 	 * 
@@ -81,7 +81,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		this.level = 1;
 		this.isPaused = false;
 		this.isLost = false;
-		initLevel(container);
+		initLevel();
 	}
 
 	/**
@@ -97,6 +97,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		case 1:
 			path = "level1.map";
 			break;
+		case 2:
+			path = "level2.map";
+			break;
 		}
 		return "maps/" + path;
 	}
@@ -106,7 +109,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * 
 	 * @param GameContainer
 	 */
-	private void initLevel(GameContainer container) {
+	private void initLevel() {
 		objects.clear();
 		try {
 			objects.add(0, null);
@@ -241,6 +244,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			this.score++;
 			if (blockList.size() == 0) {
 				logger.debug("Level finished");
+				level++;
+				initLevel();
 			}
 		}
 	}
@@ -263,4 +268,5 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Vector2f getStickPosition() {
 		return new Vector2f(400, 550);
 	}
+	
 }
