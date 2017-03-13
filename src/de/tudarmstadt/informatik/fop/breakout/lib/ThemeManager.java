@@ -36,6 +36,9 @@ public class ThemeManager {
 			case 1:
 				path = "block_1.png";
 				break;
+			case -1:
+				path = "block_m1.png";
+				break;
 			default:
 				if (val > 3) {
 					path = "block_3.png";
