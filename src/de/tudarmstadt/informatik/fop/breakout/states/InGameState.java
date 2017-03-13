@@ -120,8 +120,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 			objects.set(0, new Background(ld.pBackground, stateData));
 
-			this.blockList = ld.blockList;
+			this.blockList = ld.destroyableBlockList;
 			objects.addAll(blockList);
+			objects.addAll(ld.undestroyableBlockList);
 
 			this.livesLeft = new ArrayList<Sprite>();
 			Image ballImg = stateData.getAssetManager().getImg("images/ball.png");

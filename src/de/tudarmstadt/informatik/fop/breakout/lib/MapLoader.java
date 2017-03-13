@@ -49,6 +49,7 @@ public class MapLoader {
 	public LoadData loadMap(Map map) throws SlickException {
 		logger.entry("Loading map {}", map.getAbsolutePath());
 		ArrayList<Block> blockList = new ArrayList<>(25);
+		ArrayList<Block> destroyableBlockList = new ArrayList<>(1);
 		map.load();
 		int maxRowElements = width / widthStone;
 		if (maxRowElements < map.getMaxRowLength()) {
@@ -70,14 +71,17 @@ public class MapLoader {
 				if (vStone != 0) {
 					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone, am,
 							map.getTheme());
-					blockList.add(block);
+					if(vStone > 0)
+						blockList.add(block);
+					else
+						destroyableBlockList.add(block);
 				}
 				offsetX += widthStone;
 			}
 			offsetY += heightStone;
 		}
 		logger.exit();
-		return getLoadData(map.getTheme(), blockList);
+		return getLoadData(map.getTheme(), blockList,destroyableBlockList);
 	}
 
 	/**
@@ -91,7 +95,8 @@ public class MapLoader {
 		public Image pBackground;
 		public Image pStick;
 		public Image pBall;
-		public ArrayList<Block> blockList;
+		public ArrayList<Block> destroyableBlockList;
+		public ArrayList<Block> undestroyableBlockList;
 	}
 
 	/**
@@ -102,10 +107,11 @@ public class MapLoader {
 	 * @return LoadData
 	 * @throws SlickException
 	 */
-	private LoadData getLoadData(int theme, ArrayList<Block> blockList) throws SlickException {
+	private LoadData getLoadData(int theme, ArrayList<Block> destroyableBlockList, ArrayList<Block> undestroyableBlockList) throws SlickException {
 		logger.entry(theme);
 		LoadData ld = new LoadData();
-		ld.blockList = blockList;
+		ld.destroyableBlockList = destroyableBlockList;
+		ld.undestroyableBlockList = undestroyableBlockList;
 		switch (theme) {
 		case 0:
 		default:
