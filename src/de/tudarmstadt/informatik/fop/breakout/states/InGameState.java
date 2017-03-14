@@ -84,6 +84,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		this.level = 1;
 		this.isPaused = false;
 		this.isLost = false;
+		this.clock = null; // reset clock
 		initLevel();
 	}
 
@@ -138,7 +139,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ", e);
 		}
-		objects.add(clock = new Clock(new Vector2f(5, 580)));
+		if(clock == null) // don't reset clock on level switch
+			clock = new Clock(new Vector2f(5, 580));
+		objects.add(clock);
 	}
 
 	@Override
