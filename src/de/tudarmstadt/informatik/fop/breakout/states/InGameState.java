@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -189,12 +190,15 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
+		if(isLost || isPaused){
+			g.setColor(new Color(50, 50, 50, 180));
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			g.setColor(Color.white);
+		}
 		if (isLost) {
-			bPaused.render(g);
 			tName.render(g);
 			bEnterScore.render(g);
 		} else if (isPaused) {
-			bPaused.render(g);
 			bResume.render(g);
 			bMainScreen.render(g);
 		}
