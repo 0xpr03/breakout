@@ -49,7 +49,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private Button bResume;
 	private Button bMainScreen;
-	private Background bPaused;
 	private Stick stick;
 	private Button bEnterScore;
 	private TextInputField tName;
@@ -150,7 +149,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 
-		bPaused = new Background(new Image("images/pause.png"), this);
 		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"), am.getImg("images/continue_btn_m.png"),
 				new ButtonAction() {
 
