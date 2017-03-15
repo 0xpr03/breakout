@@ -1,4 +1,4 @@
-package gameObjects;
+package de.tudarmstadt.informatik.fop.breakout.gameObjects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

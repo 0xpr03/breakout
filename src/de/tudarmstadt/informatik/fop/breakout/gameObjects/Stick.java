@@ -1,4 +1,4 @@
-package gameObjects;
+package de.tudarmstadt.informatik.fop.breakout.gameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;

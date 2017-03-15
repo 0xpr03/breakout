@@ -14,6 +14,10 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Ball;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Sprite;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Stick;
 import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
@@ -26,10 +30,6 @@ import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
-import gameObjects.Ball;
-import gameObjects.Block;
-import gameObjects.Sprite;
-import gameObjects.Stick;
 
 /**
  * Class representing the actual game<br>

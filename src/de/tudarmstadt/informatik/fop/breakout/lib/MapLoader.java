@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
-import gameObjects.Block;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
 
 /**
  * Map (game) Loader<br>

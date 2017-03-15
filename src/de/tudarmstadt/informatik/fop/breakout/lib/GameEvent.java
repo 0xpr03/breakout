@@ -1,7 +1,7 @@
 package de.tudarmstadt.informatik.fop.breakout.lib;
 
-import gameObjects.Ball;
-import gameObjects.Block;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Ball;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
 
 /**
  * Interface required for Ball, to be callable<br>

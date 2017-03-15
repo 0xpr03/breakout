@@ -5,7 +5,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
-import gameObjects.Sprite;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.Sprite;
 
 public class GUIElement extends Sprite {
 
