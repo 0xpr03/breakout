@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -80,16 +81,23 @@ public class HighscoreState extends GameState<Breakout> {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
+		float offsetX = 220;
+		float offsetY = 200;
+		float factY = 20;
+		int i = 0;
+		
+		// draw rectangle
+		g.setColor(new Color(50, 50, 50, 180));
+		g.fillRect(offsetX-10, offsetY-30, 400, 250);
+		g.setColor(Color.white);
+		
+		// draw header
+		g.drawString("Blocks", offsetX, 180);
+		g.drawString("Time", offsetX + 90, 180);
+		g.drawString("Name", offsetX + 200, 180);
+		
 		if (highscore.size() > 0) {
-			float offsetX = 90; 
-			float offsetY = 200;
-			float factY = 20;
-			int i = 0;
-			
-			g.drawString("Blocks", offsetX, 180);
-			g.drawString("Time", offsetX + 90, 180);
-			g.drawString("Name", offsetX + 200, 180);
-			
+			// draw highscore data
 			for (Entry entry : this.highscore) {
 				g.drawString(""+entry.getBlocks(), offsetX, offsetY + factY * i);
 				g.drawString(timeFormat.format(entry.getTime()) + "s", offsetX + 90, offsetY + factY * i);
@@ -97,7 +105,7 @@ public class HighscoreState extends GameState<Breakout> {
 				i++;
 			}
 		} else {
-			g.drawString("No entries so far..", 90, 200);
+			g.drawString("No entries so far..", offsetX, offsetY+20);
 		}
 	}
 
