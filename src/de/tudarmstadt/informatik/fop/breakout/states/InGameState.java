@@ -44,7 +44,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private final static int I_MAX_LEVEL = 11;
 	private MapLoader mapLoader;
 	private Map map;
-	private LoadData ld;
+	private LoadData levelData;
 
 	private Button bResume;
 	private Button bMainScreen;
@@ -58,7 +58,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private ArrayList<Block> blockList;
 	private ArrayList<Sprite> livesLeft;
-
+	
 	private int level;
 
 	private long score = 0;
@@ -117,13 +117,13 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		try {
 			objects.add(0, null);
 			map = new Map(new File(getLevel(level)), true);
-			ld = mapLoader.loadMap(map);
+			levelData = mapLoader.loadMap(map);
 
-			objects.set(0, new Background(ld.pBackground, this));
+			objects.set(0, new Background(levelData.pBackground, this));
 
-			this.blockList = ld.destroyableBlockList;
+			this.blockList = levelData.destroyableBlockList;
 			objects.addAll(blockList);
-			objects.addAll(ld.undestroyableBlockList);
+			objects.addAll(levelData.undestroyableBlockList);
 
 			this.livesLeft = new ArrayList<Sprite>();
 			Image ballImg = stateData.getAssetManager().getImg("images/ball.png");
@@ -132,7 +132,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
 			objects.addAll(livesLeft);
 
-			objects.add(stick = new Stick(getStickPosition(), 60, 20, ld.pStick));
+			objects.add(stick = new Stick(getStickPosition(), 60, 20, levelData.pStick));
 
 			objects.add(getNewBall());
 
@@ -263,6 +263,33 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			}
 		}
 	}
+	
+	/**
+	 * Returns the Block at position X Y<br>
+	 * This function is only for testing purposes!
+	 * 
+	 * @param x
+	 * @param y
+	 * @return Block at this position
+	 */
+	public Block getBlockAt(int x, int y){
+		try{
+		return this.levelData.testBlockMap.get(x).get(y);
+		} catch (ArrayIndexOutOfBoundsException e){
+			logger.error("Miss-call off getBlockAt! {} {}",x,y);
+			return null;
+		}
+	}
+	
+	/**
+	 * Returns the amount of lives left<br>
+	 * This function is only for testing purposes!
+	 * 
+	 * @return Amoutn of lives left
+	 */
+	public int getLivesLeft(){
+		return livesLeft.size();
+	}
 
 	/**
 	 * Returns a new Ball object
@@ -270,7 +297,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall() {
-		return new Ball(new Vector2f(400, 500), 25, ld.pBall, map.getBallVelocity(), map.getGravity(), this,
+		return new Ball(new Vector2f(400, 500), 25, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
 				getHeight(), getWidth(), stateData.getAssetManager());
 	}
 

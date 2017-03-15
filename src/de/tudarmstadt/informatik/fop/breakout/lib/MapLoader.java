@@ -50,6 +50,7 @@ public class MapLoader {
 		logger.entry("Loading map {}", map.getAbsolutePath());
 		ArrayList<Block> blockList = new ArrayList<>(25);
 		ArrayList<Block> destroyableBlockList = new ArrayList<>(1);
+		ArrayList<ArrayList<Block>> testMap = new ArrayList<>(5);
 		map.load();
 		int maxRowElements = width / widthStone;
 		if (maxRowElements < map.getMaxRowLength()) {
@@ -67,6 +68,8 @@ public class MapLoader {
 		int offsetY = heightStone / 2;
 		for (ArrayList<Integer> row : map.getMap()) {
 			int offsetX = startOffsetX;
+			ArrayList<Block> rowMap = new ArrayList<>(row.size());
+			testMap.add(rowMap);
 			for (int vStone : row) {
 				if (vStone != 0) {
 					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone, am,
@@ -75,13 +78,14 @@ public class MapLoader {
 						blockList.add(block);
 					else
 						destroyableBlockList.add(block);
+					rowMap.add(block);
 				}
 				offsetX += widthStone;
 			}
 			offsetY += heightStone;
 		}
 		logger.exit();
-		return getLoadData(map.getTheme(), blockList,destroyableBlockList);
+		return getLoadData(map.getTheme(), blockList,destroyableBlockList,testMap);
 	}
 
 	/**
@@ -97,18 +101,20 @@ public class MapLoader {
 		public Image pBall;
 		public ArrayList<Block> destroyableBlockList;
 		public ArrayList<Block> undestroyableBlockList;
+		public ArrayList<ArrayList<Block>> testBlockMap;
 	}
 
 	/**
 	 * Returns LoadData for the specified theme
 	 * 
 	 * @param theme Theme to use
-	 * @param destroyableBlockList List of destroyable blocks
+	 * @param destroyableBlockListestBlockMapt List of destroyable blocks
 	 * @param undestroyableBlockList List of undestroyable blocks
+	 * @param testData 2d List of the Blocks for testing purposes
 	 * @return
 	 * @throws SlickException
 	 */
-	private LoadData getLoadData(int theme, ArrayList<Block> destroyableBlockList, ArrayList<Block> undestroyableBlockList) throws SlickException {
+	private LoadData getLoadData(int theme, ArrayList<Block> destroyableBlockList, ArrayList<Block> undestroyableBlockList, ArrayList<ArrayList<Block>> testData) throws SlickException {
 		logger.entry(theme);
 		LoadData ld = new LoadData();
 		ld.destroyableBlockList = destroyableBlockList;
