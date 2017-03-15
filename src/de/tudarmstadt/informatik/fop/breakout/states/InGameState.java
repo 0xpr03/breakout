@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -48,7 +49,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private Button bResume;
 	private Button bMainScreen;
-	private Background bPaused;
 	private Stick stick;
 	private Button bEnterScore;
 	private TextInputField tName;
@@ -149,7 +149,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 
-		bPaused = new Background(new Image("images/pause.png"), this);
 		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"), am.getImg("images/continue_btn_m.png"),
 				new ButtonAction() {
 
@@ -189,12 +188,15 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
+		if(isLost || isPaused){
+			g.setColor(new Color(50, 50, 50, 180));
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			g.setColor(Color.white);
+		}
 		if (isLost) {
-			bPaused.render(g);
 			tName.render(g);
 			bEnterScore.render(g);
 		} else if (isPaused) {
-			bPaused.render(g);
 			bResume.render(g);
 			bMainScreen.render(g);
 		}
@@ -308,6 +310,15 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	private Vector2f getStickPosition() {
 		return new Vector2f(400, 550);
+	}
+
+	/**
+	 * Returns the stick of the game
+	 * 
+	 * @return Stick
+	 */
+	public Stick getStick() {
+		return stick;
 	}
 	
 }
