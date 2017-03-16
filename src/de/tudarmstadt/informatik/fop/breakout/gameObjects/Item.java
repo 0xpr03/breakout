@@ -16,8 +16,31 @@ public class Item extends Sprite {
 
 	public Item(Image image, Vector2f position, float width, float height, boolean collideable) {
 		super(image, position, width, height, collideable);
-
+//		setKind(kind);
 	}
+	
+	/**
+	 * Sets the right image for each kind of Item
+	 */
+//	public void setKind(int kind){
+//		switch(kind){
+//		case 0:
+//			this.setImage();
+//			break;
+//		case 1:
+//			this.setImage();
+//			break;
+//		case 2:
+//			this.setImage();
+//			break;
+//		case 3:
+//			this.setImage();
+//			break;
+//		default:
+//			logger.warn("got unhandeld Random int for Item generation");
+//			break;
+//		}
+//	}
 
 	Logger logger = LogManager.getLogger();
 	int kind = new Random().nextInt(4);
@@ -26,18 +49,21 @@ public class Item extends Sprite {
 	// applys the effect which is determined by the kind of the item
 	private void applyEffect(InGameState stm){
 		switch(kind){
+		// increases the width from The Stick (whether it is not to big)
 		case 0:
-			if(stm.getStick().getWidth() < 175){
+			if(stm.getStick().getWidth() < 168){
 				stm.getStick().setWidth((float) (stm.getStick().getWidth() * 1.3));
 			}
 			logger.debug("Stick width = " + stm.getStick().getWidth());
 			break;
+		// decreases the width form the Stick (whether it is not to small)
 		case 1:
 			if(stm.getStick().getWidth() > 60){
 				stm.getStick().setWidth((float) (stm.getStick().getWidth() / 1.3));
 			}
 			logger.debug("Stick width = " + stm.getStick().getWidth());
 			break;
+		// increases
 		case 2:
 			if(stm.getBall().getSpeed() < stm.getMapDefaultBallVelocity() * 1.8){
 				stm.getBall().setSpeed((float) (stm.getBall().getSpeed() * 1.3));
