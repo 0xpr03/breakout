@@ -283,7 +283,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	/**
 	 * Returns the Block at position X Y<br>
-	 * This function is only for testing purposes!
+	 * For testing purposes only
 	 * 
 	 * @param x
 	 * @param y
@@ -300,7 +300,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	/**
 	 * Returns the amount of lives left<br>
-	 * This function is only for testing purposes!
+	 * For testing purposes only
 	 * 
 	 * @return Amoutn of lives left
 	 */
@@ -334,6 +334,16 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	public Stick getStick() {
 		return stick;
+	}
+	
+	/**
+	 * Returns the ball<br>
+	 * For testing purposes only
+	 * 
+	 * @return Ball
+	 */
+	public Ball getBall() {
+		return this.ball;
 	}
 
 }

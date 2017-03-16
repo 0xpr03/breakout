@@ -15,7 +15,7 @@ import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
 /**
- * @author Tim Jäger
+ * @author Tim Jäger, Niko Mitura, Aron Heinecke, Simon Kohaut
  *
  *         Class to abstract the Ball
  */
@@ -220,5 +220,35 @@ public class Ball extends Sprite {
 	 */
 	public void setDirection(float dirx, float diry) {
 		direction.set(dirx, diry);
+	}
+	
+	/**
+	 * Returns the current speed of the ball<br>
+	 * For testing purposes only
+	 * 
+	 * @return float current speed
+	 */
+	public float getSpeed(){
+		return direction.length();
+	}
+	
+	/**
+	 * Set the speed of the ball<br>
+	 * For testing purposes only
+	 * 
+	 * @param speed new speed to set
+	 */
+	public void setSpeed(float speed){
+		direction = direction.scale(speed / direction.length());
+	}
+	
+	/**
+	 * Set the position of the ball<br>
+	 * For testing purposes only
+	 * 
+	 * @param vector2f new position of the ball
+	 */
+	public void setPosition(Vector2f vector2f){
+		this.position.set(vector2f);
 	}
 }

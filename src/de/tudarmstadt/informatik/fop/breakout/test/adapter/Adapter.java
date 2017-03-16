@@ -165,7 +165,7 @@ public class Adapter implements GameParameters {
 	 * @param vector2f the target position for the ball
 	 */
 	public void setPosition(Vector2f vector2f) {
-	  //TODO provide code that sets the position of the ball to the coordinates passed in
+		breakout.getIngState().getBall().setPosition(vector2f);
 	}
 
   /**
@@ -185,8 +185,7 @@ public class Adapter implements GameParameters {
 	 * @return the ball's speed
 	 */
 	public float getSpeed() {
-    //TODO write code to retrieve the ball speed
-	  return 1.0f;
+		breakout.getIngState().getBall().getSpeed();
 	}
 
 	/**
@@ -195,7 +194,7 @@ public class Adapter implements GameParameters {
 	 * @param speed the new speed of the ball
 	 */
 	public void setSpeed(float speed) {
-    //TODO write code to set the ball speed
+		breakout.getIngState().getBall().setSpeed(speed);
 	}
 
 	/**
@@ -246,8 +245,7 @@ public class Adapter implements GameParameters {
 	 * @return the number of lives/balls left
 	 */
 	public int getLivesLeft() {
-	  //TODO write code to retrieve the number of lives left
-	  return 1;
+		return breakout.getIngState().getLivesLeft();
 	}
 
 	/**
@@ -256,8 +254,7 @@ public class Adapter implements GameParameters {
 	 * @return true if the player still has at least one live/ball left, else false.
 	 */
 	public boolean hasLivesLeft() {
-	  //TODO write code to test if the player has at least one live left
-	  return true;
+		return breakout.getIngState().getLivesLeft() > 0 ;
 	}
 
 	/* ***************************************************
@@ -324,8 +321,7 @@ public class Adapter implements GameParameters {
 	 * @return the current position of the stick
 	 */
 	public Vector2f getStickPosition() {
-	  //TODO write code to return the position of the stick
-	  return new Vector2f(0, 200); // these are arbitrary values(!)
+		return breakout.getIngState().getStick().getLocation();
 	}
 
 	/* ***************************************************

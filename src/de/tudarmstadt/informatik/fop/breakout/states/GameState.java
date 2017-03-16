@@ -101,6 +101,8 @@ public abstract class GameState<T> extends BasicGameState {
 	}
 
 	/**
+	 * Returns the width of this game
+	 * 
 	 * @return the width
 	 */
 	public int getWidth() {
@@ -108,6 +110,8 @@ public abstract class GameState<T> extends BasicGameState {
 	}
 
 	/**
+	 * Returns the height of this game
+	 * 
 	 * @return the height
 	 */
 	public int getHeight() {

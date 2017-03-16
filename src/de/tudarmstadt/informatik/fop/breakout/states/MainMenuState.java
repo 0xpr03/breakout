@@ -38,7 +38,7 @@ public class MainMenuState extends GameState<Breakout> {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 		
-		am.getSnd("sounds/ingame_backtrack.wav").loop();
+		am.getSnd(GameParameters.BACKGROUND_SONG_PATH).loop(1, 0.3f);
 		
 		objects.add(new Background(am.getImg("images/menu.png"), this));
 
