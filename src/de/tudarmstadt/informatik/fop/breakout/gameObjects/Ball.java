@@ -221,4 +221,24 @@ public class Ball extends Sprite {
 	public void setDirection(float dirx, float diry) {
 		direction.set(dirx, diry);
 	}
+	
+	/**
+	 * Returns the current speed of the ball<br>
+	 * For testing purpose only
+	 * 
+	 * @return float current speed
+	 */
+	public float getSpeed(){
+		return direction.length();
+	}
+	
+	/**
+	 * Set the speed of the ball<br>
+	 * For testing purpose only
+	 * 
+	 * @param speed new speed to set
+	 */
+	public void setSpeed(float speed){
+		direction = direction.scale(speed / direction.length());
+	}
 }
