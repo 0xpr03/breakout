@@ -38,6 +38,8 @@ public class Breakout extends StateBasedGame implements GameParameters {
 
 	private final AssetManager assetManager;
 	private final HighscoreLib highscore;
+	
+	private InGameState ingState;
 
 	/**
 	 * Main function initiating the game
@@ -145,7 +147,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
 		addState(new MainMenuState(MAINMENU_STATE, this));
-		addState(new InGameState(GAMEPLAY_STATE, this));
+		addState(ingState = new InGameState(GAMEPLAY_STATE, this));
 		addState(new HighscoreState(HIGHSCORE_STATE, this));
 		addState(new AboutState(ABOUT_STATE, this));
 	}
@@ -184,5 +186,15 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	 */
 	public HighscoreLib getHighscore() {
 		return highscore;
+	}
+	
+	/**
+	 * Returns the InGameState<br>
+	 * For testing purposes only
+	 * 
+	 * @return InGameState
+	 */
+	public InGameState getIngState() {
+		return ingState;
 	}
 }
