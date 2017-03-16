@@ -70,4 +70,6 @@ public interface GameParameters {
 
 	// Highscore
 	public static final String HIGHSCORE_FILE = "highscores/highscore.hsc";
+	
+	public static final String BACKGROUND_SONG_PATH = "sounds/ingame_backtrack.wav";
 }
