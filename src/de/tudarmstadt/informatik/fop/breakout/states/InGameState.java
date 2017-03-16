@@ -135,7 +135,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
 			objects.addAll(livesLeft);
 
-			objects.add(stick = new Stick(getStickPosition(), 100, 10, levelData.pStick));
+			objects.add(stick = new Stick(getStickPosition(), 100, 25, levelData.pStick));
 
 			ball = getNewBall();
 			objects.add(ball);
@@ -236,6 +236,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		logger.entry();
 		this.asyncRemoveObject(ball);
 		if (this.livesLeft.size() > 0) {
+			stick.resetWidth();
 			this.asyncRemoveObject(livesLeft.get(livesLeft.size() - 1));
 			this.livesLeft.remove(livesLeft.size() - 1);
 			logger.debug("Lives left: {}", livesLeft.size());
@@ -264,7 +265,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			final double random = Math.random();
 			if(random > 0.5){
 				try{
-				asyncAddObject(new Item(new Image("images/block_1.png"), block.getLocation(), block.getHeight(), block.getHeight(), true));
+				asyncAddObject(new Item(new Image("images/block_1.png"), block.getLocation(), block.getHeight(), block.getHeight(), false));
 				}
 				catch(SlickException e){
 					logger.warn("Unable to creat Item", e);
@@ -316,6 +317,19 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Ball getNewBall() {
 		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
 				getHeight(), getWidth(), stateData.getAssetManager(), stick);
+	}
+	
+	/**
+	 * Returns the default ball velocity for the current map
+	 * @return Float default velocity
+	 */
+	public float getMapDefaultBallVelocity(){
+		if(map != null){
+			return map.getBallVelocity();
+		}else{
+			logger.warn("getMapDefaultBallVelocity request on null map!");
+			return -1;
+		}
 	}
 
 	/**

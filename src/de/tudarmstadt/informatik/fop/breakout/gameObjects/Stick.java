@@ -26,6 +26,7 @@ public class Stick extends Sprite {
 	 */
 	
 	private final float pixelPerSecond = 400f;
+	private final float defaultWidth;
 	
 	/**
 	 * Create a new instance of Stick
@@ -41,6 +42,14 @@ public class Stick extends Sprite {
 	 */
 	public Stick(Vector2f position, float width, float height, Image image) {
 		super(image, position, width, height, true);
+		defaultWidth = width;
+	}
+	
+	/**
+	 * Reset width to default
+	 */
+	public void resetWidth(){
+		this.width = defaultWidth;
 	}
 
 	@SuppressWarnings("rawtypes")
