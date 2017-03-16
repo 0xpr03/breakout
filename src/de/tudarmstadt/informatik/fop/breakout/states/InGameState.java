@@ -302,8 +302,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall() {
-		return new Ball(new Vector2f(400, 500), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
-				getHeight(), getWidth(), stateData.getAssetManager());
+		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
+				getHeight(), getWidth(), stateData.getAssetManager(), stick);
 	}
 
 	/**

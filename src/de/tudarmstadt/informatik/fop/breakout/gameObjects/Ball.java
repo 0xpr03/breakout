@@ -23,6 +23,7 @@ public class Ball extends Sprite {
 
 	private Vector2f direction = new Vector2f(0, 0);
 	private AssetManager am;
+	private Stick stick;
 
 	private Logger logger = LogManager.getLogger(this);
 	private float basicVelocity;
@@ -50,7 +51,7 @@ public class Ball extends Sprite {
 	 *            The image to represent the Ball on screen
 	 */
 	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing,
-			int windowHeight, int windowWidth, AssetManager am) {
+			int windowHeight, int windowWidth, AssetManager am, Stick stick) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.gravity = gravity;
@@ -59,6 +60,7 @@ public class Ball extends Sprite {
 		this.windowHeight = windowHeight;
 		this.windowWidth = windowWidth;
 		this.am = am;
+		this.stick = stick;
 	}
 
 	/**
@@ -169,8 +171,13 @@ public class Ball extends Sprite {
 			ing.ballLost(this);
 
 		// Start Ball movement by pressing space
-		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
-			direction.set(0, -basicVelocity);
+		if (direction.length() == 0) {
+			if(container.getInput().isKeyPressed(Input.KEY_SPACE))
+				direction.set(0, -basicVelocity);
+			else
+				position.set(stick.getLocation().x, stick.getLocation().y - radius);
+		}
+			
 
 		boolean collided = false;
 		
