@@ -1,6 +1,8 @@
 package de.tudarmstadt.informatik.fop.breakout.gui;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.geom.Vector2f;
@@ -17,6 +19,7 @@ public class TextInputField extends Label implements KeyListener {
 
 	private String label;
 	private String entered;
+	private boolean active;
 
 	/**
 	 * Create a new TextInputField
@@ -30,20 +33,38 @@ public class TextInputField extends Label implements KeyListener {
 	 * @param label
 	 *            The label of the new TextInputField
 	 */
-	public TextInputField(Vector2f position, float width, float height, String label) {
+	public TextInputField(Vector2f position, float width, String label) {
 		super(position, label);
 		super.width = width;
-		super.height = height;
+		super.height = 20;
 		this.label = label;
 		this.entered = "";
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
-		if (isClicked(container))
+		if (isClicked(container)) {
 			container.getInput().addKeyListener(this);
-		else if (!isMouseOver(container) && container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
+			active = true;
+		}
+		else if (!isMouseOver(container) && container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			container.getInput().removeKeyListener(this);
+			active = false;
+		}
+	}
+	
+	@Override
+	public void render(Graphics g) {
+		if(active)
+			g.setColor(new Color(180, 180, 200, 180));
+		else
+			g.setColor(new Color(255, 255, 255, 180));	
+		Vector2f topLeft = getTopLeft();
+		Vector2f bottomRight = getBottomRight();
+		g.fillRect(topLeft.x, topLeft.y, width, height);
+		g.setColor(Color.black);
+		super.render(g);
+		g.setColor(Color.white);
 	}
 	
 	@Override

@@ -45,7 +45,8 @@ public class Label extends GUIElement {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawString(text, position.x, position.y);
+		Vector2f topLeft = getTopLeft();
+		g.drawString(text, topLeft.x, topLeft.y);
 	}
 
 	/**

@@ -55,7 +55,7 @@ public class HighscoreState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.getImg("images/menu.png"), this));
 
-		objects.add(new Button(new Vector2f(400, 500), 150, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
+		objects.add(new Button(new Vector2f(500, 500), 150, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
@@ -64,7 +64,7 @@ public class HighscoreState extends GameState<Breakout> {
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				}));
-		objects.add(new Button(new Vector2f(200, 500), 150, 50, am.getImg("images/clear_btn_d.png"), am.getImg("images/clear_btn_m.png"),
+		objects.add(new Button(new Vector2f(300, 500), 150, 50, am.getImg("images/clear_btn_d.png"), am.getImg("images/clear_btn_m.png"),
 				new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override

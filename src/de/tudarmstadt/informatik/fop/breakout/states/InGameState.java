@@ -172,8 +172,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					}
 				});
 
-		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.getImg("images/stick.png"),
-				am.getImg("images/stick.png"), new ButtonAction() {
+		bEnterScore = new Button(new Vector2f(400, 300), 150, 50, am.getImg("images/continue_btn_d.png"),
+				am.getImg("images/continue_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -183,7 +183,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					}
 				});
 
-		tName = new TextInputField(new Vector2f(300, 200), 200, 50, "Name: ");
+		tName = new TextInputField(new Vector2f(400, 200), 200, "Name: ");
 
 		logger.exit();
 	}
