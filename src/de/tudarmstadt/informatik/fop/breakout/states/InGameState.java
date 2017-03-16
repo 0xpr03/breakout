@@ -50,6 +50,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Button bResume;
 	private Button bMainScreen;
 	private Stick stick;
+	private Ball ball;
 	private Button bEnterScore;
 	private TextInputField tName;
 	private boolean bLoadNext;
@@ -58,22 +59,23 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private ArrayList<Block> blockList;
 	private ArrayList<Sprite> livesLeft;
-	
+
 	private int level;
 
 	private long score = 0;
 
 	boolean isPaused = false;
 	boolean isLost = false;
-	
+
 	/**
 	 * Creates a new instance of MainMenuState
 	 * 
 	 * @param stateID
-	 * @param stateData Reference to Breakout main instance
+	 * @param stateData
+	 *            Reference to Breakout main instance
 	 */
-	public InGameState(final int stateID,final Breakout stateData) {
-		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
+	public InGameState(final int stateID, final Breakout stateData) {
+		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
 		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(),
 				stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());
 	}
@@ -105,7 +107,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		path += ".map";
 		return "maps/" + path;
 	}
-	
+
 	/**
 	 * Load (next) level
 	 * 
@@ -132,14 +134,15 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
 			objects.addAll(livesLeft);
 
-			objects.add(stick = new Stick(getStickPosition(), 60, 20, levelData.pStick));
+			objects.add(stick = new Stick(getStickPosition(), 100, 10, levelData.pStick));
 
-			objects.add(getNewBall());
+			ball = getNewBall();
+			objects.add(ball);
 
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ", e);
 		}
-		if(clock == null) // don't reset clock on level switch
+		if (clock == null) // don't reset clock on level switch
 			clock = new Clock(new Vector2f(5, 580));
 		objects.add(clock);
 	}
@@ -149,8 +152,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		logger.entry();
 		AssetManager am = stateData.getAssetManager();
 
-		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"), am.getImg("images/continue_btn_m.png"),
-				new ButtonAction() {
+		bResume = new Button(new Vector2f(400, 100), 150, 50, am.getImg("images/continue_btn_d.png"),
+				am.getImg("images/continue_btn_m.png"), new ButtonAction() {
 
 					@SuppressWarnings("rawtypes")
 					@Override
@@ -159,8 +162,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 						isPaused = false;
 					}
 				});
-		bMainScreen = new Button(new Vector2f(400, 200), 150, 50, am.getImg("images/mainmenu_btn_d.png"), am.getImg("images/mainmenu_btn_m.png"),
-				new ButtonAction() {
+		bMainScreen = new Button(new Vector2f(400, 200), 150, 50, am.getImg("images/mainmenu_btn_d.png"),
+				am.getImg("images/mainmenu_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -169,8 +172,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					}
 				});
 
-		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.getImg("images/stick.png"), am.getImg("images/stick.png"),
-				new ButtonAction() {
+		bEnterScore = new Button(new Vector2f(400, 300), 60, 10, am.getImg("images/stick.png"),
+				am.getImg("images/stick.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -188,7 +191,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
-		if(isLost || isPaused){
+		if (isLost || isPaused) {
 			g.setColor(new Color(50, 50, 50, 180));
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 			g.setColor(Color.white);
@@ -215,13 +218,13 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			bResume.update(container, game, this, delta);
 		} else {
 			super.update(container, game, delta);
-			if(bLoadNext){ // load next level afterwards, avoid race conditions
+			if (bLoadNext) { // load next level afterwards, avoid race
+								// conditions
 				level++;
-				if(level > I_MAX_LEVEL){
+				if (level > I_MAX_LEVEL) {
 					showHighscoreDialog();
-				}
-				else{
-				initLevel();
+				} else {
+					initLevel();
 				}
 			}
 		}
@@ -265,7 +268,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns the Block at position X Y<br>
 	 * This function is only for testing purposes!
@@ -274,22 +277,22 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @param y
 	 * @return Block at this position
 	 */
-	public Block getBlockAt(int x, int y){
-		try{
-		return this.levelData.testBlockMap.get(x).get(y);
-		} catch (ArrayIndexOutOfBoundsException e){
-			logger.error("Miss-call off getBlockAt! {} {}",x,y);
+	public Block getBlockAt(int x, int y) {
+		try {
+			return this.levelData.testBlockMap.get(x).get(y);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			logger.error("Miss-call off getBlockAt! {} {}", x, y);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Returns the amount of lives left<br>
 	 * This function is only for testing purposes!
 	 * 
 	 * @return Amoutn of lives left
 	 */
-	public int getLivesLeft(){
+	public int getLivesLeft() {
 		return livesLeft.size();
 	}
 
@@ -299,7 +302,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall() {
-		return new Ball(new Vector2f(400, 500), 25, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
+		return new Ball(new Vector2f(400, 500), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
 				getHeight(), getWidth(), stateData.getAssetManager());
 	}
 
@@ -320,5 +323,5 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	public Stick getStick() {
 		return stick;
 	}
-	
+
 }

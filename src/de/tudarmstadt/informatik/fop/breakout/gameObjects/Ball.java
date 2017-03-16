@@ -32,7 +32,12 @@ public class Ball extends Sprite {
 	private GameEvent ing;
 	private int windowHeight;
 	private int windowWidth;
-	private boolean lastColidedWithStick;
+
+	private final int LEFT_BORDER = -1;
+	private final int RIGHT_BORDER = -2;
+	private final int TOP_BORDER = -3;
+
+	private int lastCollider = -4;
 
 	/**
 	 * Create a new Ball instance
@@ -62,14 +67,12 @@ public class Ball extends Sprite {
 	 * @param o
 	 *            The object which may be colliding with the Ball
 	 * @return If the Ball collides with the object
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
-	public boolean collidesurface(GameObject o, int delta){
+	public boolean surfaceCollisionTest(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
-        if (o instanceof Stick && lastColidedWithStick)
-        	return false;
-        	
+
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
 		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
@@ -95,17 +98,16 @@ public class Ball extends Sprite {
 		}
 
 		if (collided) {
-			if (o instanceof Block){
+			if (o instanceof Block) {
 				ing.blockHit((Block) o);
-				lastColidedWithStick = false;}
-			else if (o instanceof Stick){
-				lastColidedWithStick = true;}
+			}
 			// CE-Aufgabe
 			// else if (o instanceof Stick)
 			// direction.x = (((Stick) o).getDirection() * ((Stick)
 			// o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
-			try{playSound(o);}
-			catch(SlickException e){
+			try {
+				playSound(o);
+			} catch (SlickException e) {
 				logger.warn("Unable to play Sound", e);
 			}
 		}
@@ -114,11 +116,10 @@ public class Ball extends Sprite {
 	}
 
 	// Corner
-	public boolean collidecorner(GameObject o, int delta){
+	public boolean cornerCollisionTest(GameObject o, int delta) {
 		if (!o.isCollideable())
 			return false;
-		if (o instanceof Stick && lastColidedWithStick)
-        	return false;
+
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
 		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
@@ -132,13 +133,11 @@ public class Ball extends Sprite {
 
 			double thetaantidir = (direction.negateLocal()).getTheta();
 			direction.setTheta(thetaantidir + 2 * (ballcorner.getTheta() - thetaantidir));
-			if (o instanceof Block) {
+			if (o instanceof Block)
 				ing.blockHit((Block) o);
-				lastColidedWithStick = false;
-  			  } else if (o instanceof Stick){
-				lastColidedWithStick = true;}
-			try{playSound(o);}
-			catch(SlickException e){
+			try {
+				playSound(o);
+			} catch (SlickException e) {
 				logger.warn("Unable to play Sound", e);
 			}
 
@@ -148,49 +147,60 @@ public class Ball extends Sprite {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {	
 		// Ball crossing ...
 		// ... top border and bouncing back
 		if (position.y - radius <= 0){
 			direction.set(direction.x, -direction.y);
-			lastColidedWithStick = false;}
-		// ... right or left border and bouncing back
-		else if (position.x + radius >= windowWidth || position.x - radius <= 0){
-			direction.set(-direction.x, direction.y);
-			lastColidedWithStick = false;}
-		// ... bottom edge and getting removed
-		else if (position.y - radius >= windowHeight){
-			ing.ballLost(this);
-			lastColidedWithStick = false;}
-		// Start Ball movement by pressing space
-		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE)) {
-			direction.set(0, basicVelocity);
-
+			lastCollider = TOP_BORDER;
 		}
-		boolean collided = false;
+		// ... right border and bouncing back
+		else if (position.x + radius >= windowWidth && lastCollider != RIGHT_BORDER) {
+			direction.set(-direction.x, direction.y);
+			lastCollider = RIGHT_BORDER;
+		}
+		// ... left border and bouncing back
+		else if (position.x - radius <= 0 && lastCollider != LEFT_BORDER) {
+			direction.set(-direction.x, direction.y);
+			lastCollider = LEFT_BORDER;
+		}
+		// ... bottom edge and getting removed
+		else if (position.y - radius >= windowHeight)
+			ing.ballLost(this);
 
+		// Start Ball movement by pressing space
+		if (direction.length() == 0 && container.getInput().isKeyPressed(Input.KEY_SPACE))
+			direction.set(0, -basicVelocity);
+
+		boolean collided = false;
+		
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())
-			if (collided = collidesurface(object, delta))
+			if (lastCollider != object.getID() && surfaceCollisionTest(object, delta)) {
+				lastCollider = object.getID();
+				collided = true;
 				break;
+			}
 		if (!collided)
 			for (GameObject object : state.getStateObjects())
-				if (collidecorner(object, delta))
+				if (lastCollider != object.getID() && cornerCollisionTest(object, delta)) {
+					lastCollider = object.getID();
 					break;
+				}
 
 		// Calculate new position
-		position.set(position.x + direction.getX(), position.y + direction.getY());
+		position.x += direction.x;
+		position.y += direction.y;
 	}
-	
-	public void playSound(GameObject o) throws SlickException{
-		if(o instanceof Block){
+
+	public void playSound(GameObject o) throws SlickException {
+		if (o instanceof Block) {
 			am.getSnd("sounds/hitBlock.wav").play();
 			logger.debug("play Block Sound");
-		}
-		else if(o instanceof Stick){
+		} else if (o instanceof Stick) {
 			am.getSnd("sounds/hitStick.wav").play();
 			logger.debug("play Stick Sound");
-		}
+		} else am.getSnd("sounds/hitBlock.wav").play();
 	}
 
 	/**

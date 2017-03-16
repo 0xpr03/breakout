@@ -18,7 +18,10 @@ public abstract class GameObject {
 	protected Vector2f position;
 	protected float width;
 	protected float height;
-
+	
+	protected final int id;
+	private static int idCounter;
+	
 	private boolean collideable = false;
 
 	/**
@@ -34,6 +37,7 @@ public abstract class GameObject {
 	 *            If the GameObject is collideable or not
 	 */
 	public GameObject(Vector2f position, float width, float height, boolean collideable) {
+		id = idCounter++;
 		this.position = position;
 		this.width = width;
 		this.height = height;
@@ -139,5 +143,9 @@ public abstract class GameObject {
 	 */
 	public void setCollideable(boolean collideable) {
 		this.collideable = collideable;
+	}
+
+	public int getID() {
+		return id;
 	}
 }
