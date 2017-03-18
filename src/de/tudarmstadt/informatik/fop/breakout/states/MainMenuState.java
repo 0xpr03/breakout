@@ -67,7 +67,8 @@ public class MainMenuState extends GameState<Breakout> {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
-						logger.trace("Editor clicked");
+						logger.trace("Options clicked");
+						game.enterState(GameParameters.OPTION_STATE);
 					}
 				}));
 
@@ -76,7 +77,7 @@ public class MainMenuState extends GameState<Breakout> {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
-						logger.trace("Options clicked");
+						logger.trace("Editor clicked");
 					}
 				}));
 

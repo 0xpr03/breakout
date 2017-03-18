@@ -34,6 +34,8 @@ public class Ball extends Sprite {
 	private int windowHeight;
 	private int windowWidth;
 
+	private boolean enableCE;
+
 	private final int LEFT_BORDER = -1;
 	private final int RIGHT_BORDER = -2;
 	private final int TOP_BORDER = -3;
@@ -51,7 +53,7 @@ public class Ball extends Sprite {
 	 *            The image to represent the Ball on screen
 	 */
 	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing,
-			int windowHeight, int windowWidth, AssetManager am, Stick stick) {
+			int windowHeight, int windowWidth, AssetManager am, Stick stick, final boolean enableCE) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.gravity = gravity;
@@ -61,6 +63,7 @@ public class Ball extends Sprite {
 		this.windowWidth = windowWidth;
 		this.am = am;
 		this.stick = stick;
+		this.enableCE = enableCE;
 	}
 
 	/**
@@ -102,11 +105,11 @@ public class Ball extends Sprite {
 		if (collided) {
 			if (o instanceof Block) {
 				ing.blockHit((Block) o);
+			} else if (enableCE && o instanceof Stick) {
+				// CE aufgabe
+				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f))
+						+ direction.x;
 			}
-			// CE-Aufgabe
-			// else if (o instanceof Stick)
-			// direction.x = (((Stick) o).getDirection() * ((Stick)
-			// o).getPixelPerSecond() * (delta / 1000.0f) ) + direction.x;
 			try {
 				playSound(o);
 			} catch (SlickException e) {

@@ -55,6 +55,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Button bEnterScore;
 	private TextInputField tName;
 	private boolean bLoadNext;
+	
+	private boolean enableCE;
 
 	private Clock clock;
 
@@ -79,6 +81,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
 		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(),
 				stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());
+		enableCE = false;
 	}
 
 	@Override
@@ -258,7 +261,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	@Override
 	public void blockHit(Block block) {
-		logger.entry();
+//		logger.entry();
 		block.decreaseLife();
 		if (block.getLife() == 0) {
 			// Random Item generation
@@ -316,7 +319,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	private Ball getNewBall() {
 		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
-				getHeight(), getWidth(), stateData.getAssetManager(), stick);
+				getHeight(), getWidth(), stateData.getAssetManager(), stick, enableCE);
 	}
 	
 	/**
@@ -358,6 +361,14 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	public Ball getBall() {
 		return this.ball;
+	}
+
+	public boolean isEnableCE() {
+		return enableCE;
+	}
+
+	public void setEnableCE(boolean enableCE) {
+		this.enableCE = enableCE;
 	}
 
 }

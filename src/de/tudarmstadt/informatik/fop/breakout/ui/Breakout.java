@@ -17,6 +17,7 @@ import de.tudarmstadt.informatik.fop.breakout.states.AboutState;
 import de.tudarmstadt.informatik.fop.breakout.states.HighscoreState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
 import de.tudarmstadt.informatik.fop.breakout.states.MainMenuState;
+import de.tudarmstadt.informatik.fop.breakout.states.OptionState;
 
 /**
  * Main class creating the game
@@ -150,6 +151,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		addState(ingState = new InGameState(GAMEPLAY_STATE, this));
 		addState(new HighscoreState(HIGHSCORE_STATE, this));
 		addState(new AboutState(ABOUT_STATE, this));
+		addState(new OptionState(OPTION_STATE, this));
 	}
 
 	/**
