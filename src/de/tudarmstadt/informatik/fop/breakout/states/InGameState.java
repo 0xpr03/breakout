@@ -244,7 +244,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			this.livesLeft.remove(livesLeft.size() - 1);
 			logger.debug("Lives left: {}", livesLeft.size());
 			this.ball = getNewBall();
-			this.asyncAddObject(ball);
+			this.asyncAddObject(this.ball);
 			stick.setLocation(getStickPosition());
 		} else {
 			showHighscoreDialog();
