@@ -70,6 +70,9 @@ public class MapTest {
 		iLoadingTest(C_TEST_MAP_DATA, C_VELOCITY, C_GRAVITY, C_THEME, C_FILE);
 	}
 	
+	/**
+	 * setBlock bounds test
+	 */
 	@Test
 	public void testSetBlock() {
 		Map map = new Map(C_TMP_FILE, false);
@@ -77,8 +80,9 @@ public class MapTest {
 		assertEquals(3,map.getMap().size());
 		ArrayList<Integer> row = map.getMap().get(2);
 		assertEquals(3, row.size());
-		map.setBlock(2, 4, 5);
+		map.setBlock(2, 4, 20);
 		assertEquals(5,map.getMap().get(2).size());
+		assertEquals(20,(int) map.getMap().get(2).get(4));
 	}
 
 	/**

@@ -55,7 +55,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Button bEnterScore;
 	private TextInputField tName;
 	private boolean bLoadNext;
-	
+
 	private boolean enableCE;
 
 	private Clock clock;
@@ -262,16 +262,16 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	@Override
 	public void blockHit(Block block) {
-//		logger.entry();
+		// logger.entry();
 		block.decreaseLife();
 		if (block.getLife() == 0) {
 			// Random Item generation
 			final double random = Math.random();
-			if(random > 0.5){
-				try{
-				asyncAddObject(new Item(new Image("images/block_1.png"), block.getLocation(), block.getHeight(), block.getHeight(), false));
-				}
-				catch(SlickException e){
+			if (random > 0.5) {
+				try {
+					asyncAddObject(new Item(new Image("images/block_1.png"), block.getLocation(), block.getHeight(),
+							block.getHeight(), false));
+				} catch (SlickException e) {
 					logger.warn("Unable to creat Item", e);
 				}
 			}
@@ -319,18 +319,20 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall() {
-		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall, map.getBallVelocity(), map.getGravity(), this,
-				getHeight(), getWidth(), stateData.getAssetManager(), stick, enableCE);
+		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall,
+				map.getBallVelocity(), map.getGravity(), this, getHeight(), getWidth(), stateData.getAssetManager(),
+				stick, enableCE);
 	}
-	
+
 	/**
 	 * Returns the default ball velocity for the current map
+	 * 
 	 * @return Float default velocity
 	 */
-	public float getMapDefaultBallVelocity(){
-		if(map != null){
+	public float getMapDefaultBallVelocity() {
+		if (map != null) {
 			return map.getBallVelocity();
-		}else{
+		} else {
 			logger.warn("getMapDefaultBallVelocity request on null map!");
 			return -1;
 		}
@@ -353,7 +355,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	public Stick getStick() {
 		return stick;
 	}
-	
+
 	/**
 	 * Returns the ball<br>
 	 * For testing purposes only

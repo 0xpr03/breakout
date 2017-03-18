@@ -84,11 +84,6 @@ public class EditorState extends GameState<Breakout> {
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Save clicked");
 						File f = new File(pathInputField.getText());
-						try {
-							f.createNewFile();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
 						map = new Map(f, false);
 						for (GameObject o : objects)
 							if (o instanceof BlockSetter)
