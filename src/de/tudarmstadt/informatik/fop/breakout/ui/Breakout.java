@@ -14,6 +14,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib;
 import de.tudarmstadt.informatik.fop.breakout.states.AboutState;
+import de.tudarmstadt.informatik.fop.breakout.states.EditorState;
 import de.tudarmstadt.informatik.fop.breakout.states.HighscoreState;
 import de.tudarmstadt.informatik.fop.breakout.states.InGameState;
 import de.tudarmstadt.informatik.fop.breakout.states.MainMenuState;
@@ -152,6 +153,7 @@ public class Breakout extends StateBasedGame implements GameParameters {
 		addState(new HighscoreState(HIGHSCORE_STATE, this));
 		addState(new AboutState(ABOUT_STATE, this));
 		addState(new OptionState(OPTION_STATE, this));
+		addState(new EditorState(EDITOR_STATE, this));
 	}
 
 	/**

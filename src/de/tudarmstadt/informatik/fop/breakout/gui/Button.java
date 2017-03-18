@@ -48,7 +48,7 @@ public class Button extends GUIElement {
 		else
 			image = defaultImage;
 		
-		if(isClicked(container))//mouseOverButton && in.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if(isClicked(container))
 			action.action(container, game, state, delta);
 	}
 	

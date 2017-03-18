@@ -20,6 +20,7 @@ public interface GameParameters {
 	public static final int HIGHSCORE_STATE = 2;
 	public static final int ABOUT_STATE = 3;
 	public static final int OPTION_STATE = 4;
+	public static final int EDITOR_STATE = 5;
 
 	// Background
 	public static final String BACKGROUND_ID = "background";

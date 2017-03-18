@@ -212,13 +212,13 @@ public class Map {
 	 */
 	public void setBlock(final int column, final int row, final int value) {
 		synchronized (map) {
-			if (map.size() < column) {
+			if (map.size() <= column) {
 				for (int i = map.size(); i <= column; i++) {
 					map.add(new ArrayList<>());
 				}
 			}
 			ArrayList<Integer> col = map.get(column);
-			if (col.size() < row) {
+			if (col.size() <= row) {
 				for (int i = col.size(); i <= row; i++) {
 					col.add(0);
 					if (col.size() > maxRowLength)

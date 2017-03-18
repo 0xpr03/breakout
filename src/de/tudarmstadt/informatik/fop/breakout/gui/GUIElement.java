@@ -33,4 +33,9 @@ public class GUIElement extends Sprite {
 		else return container.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON);
 	}
 	
+	public boolean isRightClicked(GameContainer container) {
+		if(!isMouseOver(container))
+			return false;
+		else return container.getInput().isMousePressed(Input.MOUSE_RIGHT_BUTTON);
+	}
 }

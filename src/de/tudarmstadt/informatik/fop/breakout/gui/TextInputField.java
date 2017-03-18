@@ -93,12 +93,12 @@ public class TextInputField extends Label implements KeyListener {
 	public void keyPressed(int key, char c) {
 		if (key == Input.KEY_BACK && entered.length() > 0)
 			entered = entered.substring(0, entered.length() - 1);
-		else
+		else if(c != 0)
 			entered += c;
 		setText(label + " " + entered);
 	}
 
 	@Override
-	public void keyReleased(int arg0, char arg1) {
+	public void keyReleased(int key, char c) {
 	}
 }
