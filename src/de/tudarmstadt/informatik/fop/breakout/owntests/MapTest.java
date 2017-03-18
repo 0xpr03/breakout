@@ -20,32 +20,32 @@ import de.tudarmstadt.informatik.fop.breakout.lib.Map;
  *
  */
 public class MapTest {
-	private static File file;
-	private static File tmpFile;
-	private static int[][] testMapData;
-	private static float velocity = 1.3304f;
-	private static float gravity = 3.4654f;
-	private static int theme = 2;
+	private static File C_FILE;
+	private static File C_TMP_FILE;
+	private static int[][] C_TEST_MAP_DATA;
+	private static float C_VELOCITY = 1.3304f;
+	private static float C_GRAVITY = 3.4654f;
+	private static int C_THEME = 2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		file = new File("maps/test.map");
-		assertTrue(file.exists());
-		assertTrue(file.canRead());
-		tmpFile = File.createTempFile("tmpMap", null);
+		C_FILE = new File("maps/test.map");
+		assertTrue(C_FILE.exists());
+		assertTrue(C_FILE.canRead());
+		C_TMP_FILE = File.createTempFile("tmpMap", null);
 
-		testMapData = new int[3][3];
-		testMapData[0] = new int[] { -1, 2, 3 };
-		testMapData[1] = new int[] { 4, 5, 6 };
-		testMapData[2] = new int[] { 7, 7, 8 };
-		velocity = 1.3304f;
-		gravity = 3.4654f;
-		theme = 2;
+		C_TEST_MAP_DATA = new int[3][3];
+		C_TEST_MAP_DATA[0] = new int[] { -1, 2, 3 };
+		C_TEST_MAP_DATA[1] = new int[] { 4, 5, 6 };
+		C_TEST_MAP_DATA[2] = new int[] { 7, 7, 8 };
+		C_VELOCITY = 1.3304f;
+		C_GRAVITY = 3.4654f;
+		C_THEME = 2;
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		tmpFile.delete();
+		C_TMP_FILE.delete();
 	}
 
 	/**
@@ -53,13 +53,13 @@ public class MapTest {
 	 */
 	@Test
 	public void testSaving() {
-		Map map = new Map(tmpFile, false);
-		map.setBallVelocity(velocity);
-		map.setGravity(gravity);
-		map.setTheme(theme);
-		map.setMap(Int2dArrayToArrayList(testMapData));
+		Map map = new Map(C_TMP_FILE, false);
+		map.setBallVelocity(C_VELOCITY);
+		map.setGravity(C_GRAVITY);
+		map.setTheme(C_THEME);
+		map.setMap(Int2dArrayToArrayList(C_TEST_MAP_DATA));
 		assertTrue("Map write", map.write());
-		iLoadingTest(testMapData, velocity, gravity, theme, tmpFile);
+		iLoadingTest(C_TEST_MAP_DATA, C_VELOCITY, C_GRAVITY, C_THEME, C_TMP_FILE);
 	}
 
 	/**
@@ -67,7 +67,18 @@ public class MapTest {
 	 */
 	@Test
 	public void testLoading() {
-		iLoadingTest(testMapData, velocity, gravity, theme, file);
+		iLoadingTest(C_TEST_MAP_DATA, C_VELOCITY, C_GRAVITY, C_THEME, C_FILE);
+	}
+	
+	@Test
+	public void testSetBlock() {
+		Map map = new Map(C_TMP_FILE, false);
+		map.setMap(Int2dArrayToArrayList(C_TEST_MAP_DATA));
+		assertEquals(3,map.getMap().size());
+		ArrayList<Integer> row = map.getMap().get(2);
+		assertEquals(3, row.size());
+		map.setBlock(2, 4, 5);
+		assertEquals(5,map.getMap().get(2).size());
 	}
 
 	/**

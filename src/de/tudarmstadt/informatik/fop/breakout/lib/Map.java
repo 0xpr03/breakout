@@ -36,7 +36,7 @@ public class Map {
 	// maximum elements per row, this map has
 	private int maxRowLength = 0;
 
-	private boolean readOnly;
+	private final boolean readOnly;
 
 	private static final int POS_VEL = 0;
 	private static final int POS_THEME = 1;
@@ -47,6 +47,8 @@ public class Map {
 	 * 
 	 * @param path
 	 *            Path to file
+	 * @param readOnly
+	 *            Set to true to disable write
 	 */
 	public Map(final String path, boolean readOnly) {
 		this(new File(path), readOnly);
@@ -56,7 +58,9 @@ public class Map {
 	 * Creates a new Map
 	 * 
 	 * @param file
-	 *            File
+	 *            File to read/write
+	 * @param readOnly
+	 *            Set to true to disable write
 	 */
 	public Map(final File file, boolean readOnly) {
 		this.file = file;
@@ -150,7 +154,7 @@ public class Map {
 				bw.flush();
 				return true;
 			} catch (IOException e) {
-				logger.error("Unable to write map file: ", e);
+				logger.error("Unable to write map file: {} {}", file.getAbsolutePath(), e);
 			}
 			return false;
 		}
