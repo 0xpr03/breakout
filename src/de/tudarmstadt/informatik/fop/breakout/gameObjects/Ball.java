@@ -212,9 +212,15 @@ public class Ball extends Sprite {
 			logger.debug("play Stick Sound");
 		} else am.getSnd("sounds/hitBlock.wav").play();
 	}
+	
+	/***************************************************
+	 *                Testing Functions
+	 *                
+	 ***************************************************/
 
 	/**
-	 * Set the direction of the ball
+	 * Set the direction of the ball<br>
+	 * For testing purposes only
 	 * 
 	 * @param dirx
 	 *            direction in X-Achsis
@@ -253,5 +259,36 @@ public class Ball extends Sprite {
 	 */
 	public void setPosition(Vector2f vector2f){
 		this.position.set(vector2f);
+	}
+	
+	/**
+	 * Set rotation of the ball (0-360°)<br>
+	 * For testing purposes only
+	 * 
+	 * @param i Angle
+	 */
+	public void setRotation(int i){
+		this.direction.setTheta((double)i);
+	}
+	
+	/**
+	 * Returns the rotation of the ball (0-360°)<br>
+	 * For testing purposes only
+	 * 
+	 * @return float Angle
+	 */
+	public float getRotation(){
+		return (float)this.direction.getTheta();
+	}
+	
+	/**
+	 * Returns the size of the ball as rectangle<br>
+	 * This does NOT take the real shape of the ball into account<br>
+	 * For testing purposes only
+	 * 
+	 * @return Vector2f size
+	 */
+	public Vector2f getSize(){
+		return new Vector2f(radius*2,radius*2);
 	}
 }

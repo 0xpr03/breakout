@@ -131,12 +131,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			objects.addAll(blockList);
 			objects.addAll(levelData.undestroyableBlockList);
 
-			this.livesLeft = new ArrayList<Sprite>();
-			Image ballImg = stateData.getAssetManager().getImg("images/ball.png");
-			livesLeft.add(new Sprite(ballImg, new Vector2f(780, 580), 20, 20, false));
-			livesLeft.add(new Sprite(ballImg, new Vector2f(760, 580), 20, 20, false));
-			livesLeft.add(new Sprite(ballImg, new Vector2f(740, 580), 20, 20, false));
-			objects.addAll(livesLeft);
+			generateLiveBalls(3);
 
 			objects.add(stick = new Stick(getStickPosition(), 100, 25, levelData.pStick));
 
@@ -149,6 +144,26 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		if (clock == null) // don't reset clock on level switch
 			clock = new Clock(new Vector2f(5, 580));
 		objects.add(clock);
+	}
+	
+	/**
+	 * Generate the 
+	 * @param amount
+	 * @throws SlickException
+	 */
+	private void generateLiveBalls(int amount) throws SlickException{
+		objects.remove(this.livesLeft);
+		this.livesLeft = new ArrayList<Sprite>();
+		Image ballImg = stateData.getAssetManager().getImg("images/ball.png");
+		
+		int livesOffsetX = 780;
+		int livesOffsetY = 580;
+		int Xdifference = 20;
+		
+		for(int i = 0; i < amount; i++){
+			livesLeft.add(new Sprite(ballImg, new Vector2f(livesOffsetX - i*Xdifference, livesOffsetY), 20, 20, false));
+		}
+		objects.addAll(livesLeft);
 	}
 
 	@Override
@@ -287,33 +302,6 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	}
 
 	/**
-	 * Returns the Block at position X Y<br>
-	 * For testing purposes only
-	 * 
-	 * @param x
-	 * @param y
-	 * @return Block at this position
-	 */
-	public Block getBlockAt(int x, int y) {
-		try {
-			return this.levelData.testBlockMap.get(x).get(y);
-		} catch (ArrayIndexOutOfBoundsException e) {
-			logger.error("Miss-call off getBlockAt! {} {}", x, y);
-			return null;
-		}
-	}
-
-	/**
-	 * Returns the amount of lives left<br>
-	 * For testing purposes only
-	 * 
-	 * @return Amoutn of lives left
-	 */
-	public int getLivesLeft() {
-		return livesLeft.size();
-	}
-
-	/**
 	 * Returns a new Ball object
 	 * 
 	 * @return Ball
@@ -353,12 +341,11 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Stick
 	 */
 	public Stick getStick() {
-		return stick;
+		return this.stick;
 	}
 
 	/**
-	 * Returns the ball<br>
-	 * For testing purposes only
+	 * Returns the ball
 	 * 
 	 * @return Ball
 	 */
@@ -372,6 +359,52 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	public void setEnableCE(boolean enableCE) {
 		this.enableCE = enableCE;
+	}
+	
+	/******************************************************
+	 *          Testing Functions
+	 ******************************************************/
+
+	/**
+	 * Returns the Block at position X Y<br>
+	 * For testing purposes only
+	 * 
+	 * @param x
+	 * @param y
+	 * @return Block at this position
+	 */
+	public Block getBlockAt(int x, int y) {
+		try {
+			return this.levelData.testBlockMap.get(x).get(y);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			logger.error("Miss-call off getBlockAt! {} {}", x, y);
+			return null;
+		}
+	}
+	
+	/**
+	 * Set the amount of lives (balls)<br>
+	 * For testing purposes only
+	 * 
+	 * @param playerLives
+	 *            the number of lives/balls the player shall have left
+	 */
+	public void setLives(int lives){
+		try {
+			generateLiveBalls(lives);
+		} catch (SlickException e) {
+			logger.error("Unable to set lives!",e);
+		}
+	}
+	
+	/**
+	 * Returns the amount of lives the player has left<br>
+	 * For testing purposes only
+	 * 
+	 * @return int lives
+	 */
+	public int getLivesLeft(){
+		return livesLeft.size();
 	}
 
 }

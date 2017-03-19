@@ -83,4 +83,28 @@ public class Block extends Sprite {
 				updatePicture();
 		}
 	}
+	
+	/*******************************************
+	 *      Testing Functions
+	 *******************************************/
+	
+	/**
+	 * Set the amount of hits untill block destruction<br>
+	 * For testing purposes only
+	 * 
+	 * @param hits
+	 */
+	public void setHitsLeft(int hitsLeft){
+		this.life = hitsLeft;
+	}
+	
+	/**
+	 * Returns the amount of hits left untill block destruction<br>
+	 * For testing purposes only
+	 * 
+	 * @return int left hits
+	 */
+	public int getHitsLeft(){
+		return this.life;
+	}
 }
