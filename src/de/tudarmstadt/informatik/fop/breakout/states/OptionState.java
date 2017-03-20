@@ -1,5 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.states;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
@@ -15,6 +16,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
+import de.tudarmstadt.informatik.fop.breakout.gui.Checkbox;
 
 /**
  * Class representing the Option state of the game
@@ -58,17 +60,14 @@ public class OptionState extends GameState<Breakout>{
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
-						logger.trace("Enable CE-Exercise clicked");
-						stateData.getIngState().setEnableCE(true);
-					}
-				}));
-		objects.add(new Button(new Vector2f(300, 275), 150, 50, am.getImg("images/clear_btn_d.png"),
-				am.getImg("images/clear_btn_m.png"), new ButtonAction() {
-					@SuppressWarnings("rawtypes")
-					@Override
-					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
-						logger.trace("Disable CE-Exercise clicked");
-						stateData.getIngState().setEnableCE(false);
+						if(stateData.getIngState().getEnableCE()){
+							logger.trace("Disable CE-Exercise clicked");
+							stateData.getIngState().setEnableCE();
+						}
+						else{
+							logger.trace("Enable CE-Exercise clicked");
+							stateData.getIngState().setEnableCE();
+						}
 					}
 				}));
 	}
