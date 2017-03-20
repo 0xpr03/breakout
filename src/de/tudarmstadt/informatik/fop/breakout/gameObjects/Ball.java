@@ -175,7 +175,7 @@ public class Ball extends Sprite {
 
 		// Start Ball movement by pressing space
 		if (direction.length() == 0) {
-			if(container.getInput().isKeyPressed(Input.KEY_SPACE))
+			if(container.getInput().isKeyDown(Input.KEY_SPACE))
 				direction.set(0, -basicVelocity);
 			else
 				position.set(stick.getLocation().x, stick.getLocation().y - radius);
