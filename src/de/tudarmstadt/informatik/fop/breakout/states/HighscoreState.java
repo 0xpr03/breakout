@@ -18,7 +18,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
-import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
+import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.HighscoreEntry;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
@@ -29,7 +29,7 @@ import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
  */
 public class HighscoreState extends GameState<Breakout> {
 
-	private ArrayList<Entry> highscore;
+	private ArrayList<HighscoreEntry> highscore;
 	private Logger logger = LogManager.getLogger(this);
 	private DecimalFormat timeFormat = new DecimalFormat("#.##");
 	
@@ -98,10 +98,10 @@ public class HighscoreState extends GameState<Breakout> {
 		
 		if (highscore.size() > 0) {
 			// draw highscore data
-			for (Entry entry : this.highscore) {
-				g.drawString(""+entry.getBlocks(), offsetX, offsetY + factY * i);
-				g.drawString(timeFormat.format(entry.getTime()) + "s", offsetX + 90, offsetY + factY * i);
-				g.drawString(entry.getName(), offsetX + 200, offsetY + factY * i);
+			for (HighscoreEntry highscoreEntry : this.highscore) {
+				g.drawString(""+highscoreEntry.getNumberOfDestroyedBlocks(), offsetX, offsetY + factY * i);
+				g.drawString(timeFormat.format(highscoreEntry.getElapsedTime()) + "s", offsetX + 90, offsetY + factY * i);
+				g.drawString(highscoreEntry.getPlayerName(), offsetX + 200, offsetY + factY * i);
 				i++;
 			}
 		} else {

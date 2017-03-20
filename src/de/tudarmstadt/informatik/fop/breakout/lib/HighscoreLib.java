@@ -13,6 +13,8 @@ import java.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.tudarmstadt.informatik.fop.breakout.test.adapter.IHighscoreEntry;
+
 /**
  * Highscore library<br>
  * Handling the highscore loading / saving and sorting
@@ -22,7 +24,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class HighscoreLib {
 	private final Logger logger = LogManager.getLogger(this);
-	private ArrayList<Entry> highscore = new ArrayList<>();
+	private ArrayList<HighscoreEntry> highscore = new ArrayList<>();
 	private final File file;
 	private final int maxEntries;
 
@@ -71,9 +73,9 @@ public class HighscoreLib {
 					if (split.length < 3) {
 						logger.error("Unable to parse line! {}", line);
 					} else {
-						Entry entry = new Entry(split[C_NAME_POS], Long.valueOf(split[C_BLOCKS_POS]),
+						HighscoreEntry highscoreEntry = new HighscoreEntry(split[C_NAME_POS], Integer.valueOf(split[C_BLOCKS_POS]),
 								Float.valueOf(split[C_TIME_POS]));
-						highscore.add(entry);
+						highscore.add(highscoreEntry);
 					}
 				}
 				Collections.sort(highscore);
@@ -94,12 +96,12 @@ public class HighscoreLib {
 			try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false)))) {
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < maxEntries && i < highscore.size(); i++) {
-					Entry e = highscore.get(i);
-					sb.append(e.getName()); // C_NAME_POS
+					HighscoreEntry e = highscore.get(i);
+					sb.append(e.getPlayerName()); // C_NAME_POS
 					sb.append(C_SEPARATOR);
-					sb.append(e.getBlocks()); // C_BLOCKS_POS
+					sb.append(e.getNumberOfDestroyedBlocks()); // C_BLOCKS_POS
 					sb.append(C_SEPARATOR);
-					sb.append(e.getTime()); // C_TIME_POS
+					sb.append(e.getElapsedTime()); // C_TIME_POS
 					sb.append("\n");
 				}
 
@@ -128,7 +130,7 @@ public class HighscoreLib {
 	 * @param e
 	 *            Entry
 	 */
-	public void addEntry(final Entry e) {
+	public void addEntry(final HighscoreEntry e) {
 		synchronized (highscore) {
 			e.name = e.name.replaceAll(":", ""); // sanitize
 			highscore.add(e);
@@ -143,8 +145,8 @@ public class HighscoreLib {
 	 * 
 	 * @return ArrayList<Entry>
 	 */
-	public ArrayList<Entry> getHighscore() {
-		ArrayList<Entry> output = new ArrayList<>();
+	public ArrayList<HighscoreEntry> getHighscore() {
+		ArrayList<HighscoreEntry> output = new ArrayList<>();
 		synchronized (highscore) {
 			for (int i = 0; i < maxEntries && i < highscore.size(); i++) {
 				output.add(highscore.get(i));
@@ -160,9 +162,9 @@ public class HighscoreLib {
 	 * @author Aron Heinecke
 	 *
 	 */
-	public static class Entry implements Comparable<Entry> {
+	public static class HighscoreEntry implements Comparable<HighscoreEntry>, IHighscoreEntry {
 		private String name;
-		private final long blocks;
+		private final int blocks;
 		private final float time;
 
 		/**
@@ -173,45 +175,53 @@ public class HighscoreLib {
 		 * @param score
 		 *            Player score
 		 */
-		public Entry(final String name, final long score, final float time) {
+		public HighscoreEntry(final String name, final int score, final float time) {
 			this.name = name;
 			this.blocks = score;
 			this.time = time;
 		}
 
 		/**
+		 * Returns the numer of destroyed blocks
 		 * @return the amount of destroyed blocks
 		 */
-		public long getBlocks() {
+		public int getNumberOfDestroyedBlocks() {
 			return blocks;
 		}
 
 		/**
+		 * Returns the name of the player
 		 * @return the name
 		 */
-		public String getName() {
+		public String getPlayerName() {
 			return name;
 		}
 
 		/**
+		 * Returns the elapsed time
 		 * @return the time
 		 */
-		public float getTime() {
+		public float getElapsedTime() {
 			return time;
 		}
 
 		@Override
-		public int compareTo(final Entry o) {
+		public int compareTo(final HighscoreEntry o) {
 			if (this.blocks == o.blocks) {
-				if (this.time < o.getTime())
+				if (this.time < o.getElapsedTime())
 					return -1;
-				else if (this.time == o.getTime())
+				else if (this.time == o.getElapsedTime())
 					return 0;
 				else
 					return 1;
 			} else {
-				return this.blocks < o.getBlocks() ? 1 : -1;
+				return this.blocks < o.getNumberOfDestroyedBlocks() ? 1 : -1;
 			}
+		}
+		
+		@Override
+		public double getPoints() {
+			return getNumberOfDestroyedBlocks();
 		}
 	}
 }

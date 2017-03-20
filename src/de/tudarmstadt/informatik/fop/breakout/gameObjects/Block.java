@@ -11,13 +11,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.ThemeManager;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
+import de.tudarmstadt.informatik.fop.breakout.test.adapter.IHitable;
 
 /**
  * Class to abstract a Block with life
  * 
  * @author Tim Jäger, Aron Heinecke
  */
-public class Block extends Sprite {
+public class Block extends Sprite implements IHitable {
 
 	private Logger logger = LogManager.getLogger(this);
 	private int life;
@@ -106,5 +107,15 @@ public class Block extends Sprite {
 	 */
 	public int getHitsLeft(){
 		return this.life;
+	}
+
+	@Override
+	public void addHitsLeft(int value) {
+		this.setHitsLeft(this.getHitsLeft() + value);
+	}
+
+	@Override
+	public boolean hasHitsLeft() {
+		return getHitsLeft() > 0;
 	}
 }

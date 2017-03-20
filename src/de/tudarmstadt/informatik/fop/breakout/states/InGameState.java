@@ -27,7 +27,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
 import de.tudarmstadt.informatik.fop.breakout.gui.TextInputField;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
-import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.Entry;
+import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.HighscoreEntry;
 import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader.LoadData;
@@ -197,7 +197,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Enter Highscore pressed");
-						stateData.getHighscore().addEntry(new Entry(tName.getText(), score, clock.getTimePassed()));
+						stateData.getHighscore().addEntry(new HighscoreEntry(tName.getText(), score, clock.getTimePassed()));
 						game.enterState(GameParameters.HIGHSCORE_STATE);
 					}
 				});
