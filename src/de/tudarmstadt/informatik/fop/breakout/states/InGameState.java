@@ -402,7 +402,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	public Block getBlockAt(int x, int y) {
 		try {
-			return this.levelData.testBlockMap.get(x).get(y);
+			return this.levelData.testBlockMap.get(y).get(x);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			logger.error("Miss-call off getBlockAt! {} {}", x, y);
 			return null;

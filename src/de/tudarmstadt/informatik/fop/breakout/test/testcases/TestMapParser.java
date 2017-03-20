@@ -21,34 +21,34 @@ public class TestMapParser {
 	@Test
 	public void testFirstRow() {
 		for (int i = 0; i <= 15; i++) {
-			int hitsLeft = adapter.getHitsLeft("block" + i + "_0");
+			int hitsLeft = adapter.getHitsLeft(i,0);
 			assertEquals("Block should have 1 hit left", 1, hitsLeft);
 			assertTrue("Block should have hits left",
-					adapter.hasHitsLeft("block" + i + "_0"));
+					adapter.hasHitsLeft(i,0));
 		}
 	}
 
 	@Test
 	public void testSomeBlocks() {
 		assertEquals("Block should have 2 hit left", 2,
-				adapter.getHitsLeft("block1_1"));
+				adapter.getHitsLeft(1,1));
 		assertTrue("Block should have hits left",
-				adapter.hasHitsLeft("block1_1"));
+				adapter.hasHitsLeft(1,1));
 
 		assertEquals("Block should have 3 hit left", 3,
-				adapter.getHitsLeft("block2_4"));
+				adapter.getHitsLeft(2,4));
 		assertTrue("Block should have hits left",
-				adapter.hasHitsLeft("block2_4"));
+				adapter.hasHitsLeft(2,4));
 
 		assertEquals("Block should have 4 hit left", 4,
-				adapter.getHitsLeft("block7_5"));
+				adapter.getHitsLeft(7,5));
 		assertTrue("Block should have hits left",
-				adapter.hasHitsLeft("block7_5"));
+				adapter.hasHitsLeft(7,5));
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testBlockNotExists() {
-		adapter.getHitsLeft("block2_2");
+		adapter.getHitsLeft(2,2);
 	}
 
 }

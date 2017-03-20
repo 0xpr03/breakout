@@ -70,6 +70,7 @@ public class Adapter implements GameParameters {
 			app = new TestAppGameContainer(breakout);
 			breakout.getAssetManager().setTestMode(true);
 			app.start(0);
+			changeToGameplayState();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

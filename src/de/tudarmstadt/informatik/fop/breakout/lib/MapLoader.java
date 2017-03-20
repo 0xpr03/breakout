@@ -69,19 +69,20 @@ public class MapLoader {
 		for (ArrayList<Integer> row : map.getMap()) {
 			int offsetX = startOffsetX;
 			ArrayList<Block> rowMap = new ArrayList<>(row.size());
-			testMap.add(rowMap);
 			for (int vStone : row) {
+				Block block = null;
 				if (vStone != 0) {
-					Block block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone, am,
+					block = new Block(new Vector2f(offsetX, offsetY), widthStone, heightStone, vStone, am,
 							map.getTheme());
 					if(vStone > 0)
 						blockList.add(block);
 					else
 						destroyableBlockList.add(block);
-					rowMap.add(block);
 				}
+				rowMap.add(block);
 				offsetX += widthStone;
 			}
+			testMap.add(rowMap);
 			offsetY += heightStone;
 		}
 		logger.exit();
@@ -119,6 +120,7 @@ public class MapLoader {
 		LoadData ld = new LoadData();
 		ld.destroyableBlockList = destroyableBlockList;
 		ld.undestroyableBlockList = undestroyableBlockList;
+		ld.testBlockMap = testData;
 		switch (theme) {
 		case 0:
 		default:
