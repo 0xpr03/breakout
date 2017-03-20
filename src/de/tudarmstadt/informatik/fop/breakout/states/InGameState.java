@@ -58,6 +58,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private boolean bLoadNext;
 
 	private boolean enableCE;
+	private final float defautlBallSize = 15;
 
 	private Clock clock;
 	private Label blocksDestroyed;
@@ -319,7 +320,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @return Ball
 	 */
 	private Ball getNewBall() {
-		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15, levelData.pBall,
+		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), defautlBallSize, levelData.pBall,
 				map.getBallVelocity(), map.getGravity(), this, getHeight(), getWidth(), stateData.getAssetManager(),
 				stick, enableCE);
 	}
@@ -334,6 +335,16 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			return map.getBallVelocity();
 		} else {
 			logger.warn("getMapDefaultBallVelocity request on null map!");
+			return -1;
+		}
+	}
+	
+	public float getDefaultBallSize(){
+		if(map != null){
+			return defautlBallSize;
+		}
+		else{
+			logger.warn("getDefaultBallSize request on null map!");
 			return -1;
 		}
 	}

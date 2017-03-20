@@ -242,6 +242,26 @@ public class Ball extends Sprite {
 	}
 	
 	/**
+	 * Returns the current radius of the Ball
+	 * used by items
+	 * 
+	 * @return
+	 */
+	public float getRadius(){
+		return radius;
+	}
+	
+	/**
+	 * Scales the current radius of the Ball
+	 * used by items
+	 * 
+	 * @param d
+	 */
+	public void scaleRadius(float scale){
+		radius =  radius * scale;
+	}
+	
+	/**
 	 * Set the speed of the ball<br>
 	 * For testing purposes only
 	 * 
