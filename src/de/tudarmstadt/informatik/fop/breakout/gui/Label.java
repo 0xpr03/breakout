@@ -35,7 +35,7 @@ public class Label extends GUIElement {
 	 * @param text
 	 *            The Text to be displayed
 	 */
-	void setText(String text) {
+	public void setText(String text) {
 		this.text = text;
 	}
 
