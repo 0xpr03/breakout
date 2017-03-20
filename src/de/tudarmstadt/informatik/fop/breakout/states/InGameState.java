@@ -380,8 +380,12 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		return enableCE;
 	}
 
-	public void setEnableCE(boolean enableCE) {
-		this.enableCE = enableCE;
+	public void setEnableCE() {
+		this.enableCE = !this.enableCE;
+	}
+	
+	public boolean getEnableCE(){
+		return enableCE;
 	}
 
 	/******************************************************
