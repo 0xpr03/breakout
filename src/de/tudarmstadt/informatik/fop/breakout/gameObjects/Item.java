@@ -24,6 +24,7 @@ public class Item extends Sprite {
 	 */
 //	public void setKind(int kind){
 //		switch(kind){
+	    // Image for 
 //		case 0:
 //			this.setImage();
 //			break;
@@ -43,7 +44,7 @@ public class Item extends Sprite {
 //	}
 
 	Logger logger = LogManager.getLogger();
-	int kind = new Random().nextInt(4);
+	int kind = new Random().nextInt(6);
 	private final static float pixelPerSecond = 200f;
 
 	// applys the effect which is determined by the kind of the item
@@ -82,6 +83,21 @@ public class Item extends Sprite {
 			}
 			logger.debug("Ball Velocity = " + stm.getBall().getSpeed());
 			break;
+		// decreases the Ball size
+		case 4:
+			if(stm.getBall().getRadius() > stm.getDefaultBallSize() / 1.8){
+				stm.getBall().scaleRadius((float) (1 / 1.3));
+			}
+			logger.debug("Ball Size = " + stm.getBall().getSize());
+			break;
+		// increases the Ball size
+		case 5:
+			if(stm.getBall().getRadius() < stm.getDefaultBallSize() * 1.8){
+				stm.getBall().scaleRadius((float) 1.3); 
+			}
+			logger.debug("Ball SIze = " + stm.getBall().getSize());
+			break;
+		// default when something goes wrong
 		default:
 			logger.warn("got unhandeld Random int for Item generation");
 			break;
