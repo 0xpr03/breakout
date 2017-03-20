@@ -75,7 +75,7 @@ public class AdapterExtended extends Adapter {
 	 *         to the entry count)
 	 */
 	public String getNameAtHighscorePosition(int position) {
-		if (hl.getHighscore().size() <= position)
+		if (hl.getHighscore().size() <= position || position < 0 )
 			return null;
 		else
 			return hl.getHighscore().get(position).getPlayerName();
@@ -92,7 +92,7 @@ public class AdapterExtended extends Adapter {
 	 *         otherwise -1
 	 */
 	public int getTimeElapsedAtHighscorePosition(int position) {
-		if (hl.getHighscore().size() <= position)
+		if (hl.getHighscore().size() <= position || position < 0 )
 			return -1;
 		else
 			return (int) hl.getHighscore().get(position).getElapsedTime();
@@ -109,7 +109,7 @@ public class AdapterExtended extends Adapter {
 	 *         this exists; otherwise -1
 	 */
 	public int getNumberOfDesBlocksAtHighscorePosition(int position) {
-		if (hl.getHighscore().size() <= position)
+		if (hl.getHighscore().size() <= position || position < 0 )
 			return -1;
 		else
 			return hl.getHighscore().get(position).getNumberOfDestroyedBlocks();
