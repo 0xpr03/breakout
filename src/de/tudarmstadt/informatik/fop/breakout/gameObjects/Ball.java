@@ -74,7 +74,7 @@ public class Ball extends Sprite {
 	 * @return If the Ball collides with the object
 	 * @throws SlickException
 	 */
-	public boolean surfaceCollisionTest(GameObject o, int delta) {
+	public boolean surfaceCollisionTest(GameObject o) {
 		if (!o.isCollideable())
 			return false;
 
@@ -108,8 +108,8 @@ public class Ball extends Sprite {
 			} else if (enableCE && o instanceof Stick) {
 				// CE Exercise Stick movement influence
 				if (direction.length() != 0)
-				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 3000.0f))
-						+ direction.x;
+					direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 3000.0f))
+							+ direction.x;
 			}
 			playSound(o);
 		}
@@ -118,7 +118,7 @@ public class Ball extends Sprite {
 	}
 
 	// Corner
-	public boolean cornerCollisionTest(GameObject o, int delta) {
+	public boolean cornerCollisionTest(GameObject o) {
 		if (!o.isCollideable())
 			return false;
 
@@ -137,7 +137,7 @@ public class Ball extends Sprite {
 			direction.setTheta(thetaantidir + 2 * (ballcorner.getTheta() - thetaantidir));
 			if (o instanceof Block)
 				ing.blockHit((Block) o);
-			
+
 			playSound(o);
 
 			return true;
@@ -145,11 +145,18 @@ public class Ball extends Sprite {
 		return false;
 	}
 
+	public boolean collides(GameObject o) {
+		if (surfaceCollisionTest(o) || cornerCollisionTest(o))
+			return true;
+		else
+			return false;
+	}
+
 	@Override
-	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {	
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 		// Ball crossing ...
 		// ... top border and bouncing back
-		if (position.y - radius <= 0){
+		if (position.y - radius <= 0) {
 			direction.set(direction.x, -direction.y);
 			lastCollider = TOP_BORDER;
 		}
@@ -169,29 +176,28 @@ public class Ball extends Sprite {
 
 		// Start Ball movement by pressing space
 		if (direction.length() == 0) {
-			if(container.getInput().isKeyDown(Input.KEY_SPACE))
+			if (container.getInput().isKeyDown(Input.KEY_SPACE))
 				direction.set(0, -basicVelocity);
 			else
 				position.set(stick.getLocation().x, stick.getLocation().y - radius);
 		}
-			
 
 		boolean collided = false;
-		
+
 		// Test for collision with all GameObjects
 		for (GameObject object : state.getStateObjects())
-			if (lastCollider != object.getID() && surfaceCollisionTest(object, delta)) {
+			if (lastCollider != object.getID() && surfaceCollisionTest(object)) {
 				lastCollider = object.getID();
 				collided = true;
 				break;
 			}
 		if (!collided)
 			for (GameObject object : state.getStateObjects())
-				if (lastCollider != object.getID() && cornerCollisionTest(object, delta)) {
+				if (lastCollider != object.getID() && cornerCollisionTest(object)) {
 					lastCollider = object.getID();
 					break;
 				}
-        //CE-Gravity
+		// CE-Gravity
 		if (direction.length() != 0 && enableCE)
 			direction.set(direction.x, (float) (direction.y + (0.001 * delta)));
 		// Calculate new position
@@ -206,12 +212,13 @@ public class Ball extends Sprite {
 		} else if (o instanceof Stick) {
 			am.playSound("sounds/hitStick.wav");
 			logger.debug("play Stick Sound");
-		} else am.playSound("sounds/hitBlock.wav");
+		} else
+			am.playSound("sounds/hitBlock.wav");
 	}
-	
+
 	/***************************************************
-	 *                Testing Functions
-	 *                
+	 * Testing Functions
+	 * 
 	 ***************************************************/
 
 	/**
@@ -226,75 +233,78 @@ public class Ball extends Sprite {
 	public void setDirection(float dirx, float diry) {
 		direction.set(dirx, diry);
 	}
-	
+
 	/**
 	 * Returns the current speed of the ball<br>
 	 * For testing purposes only
 	 * 
 	 * @return float current speed
 	 */
-	public float getSpeed(){
+	public float getSpeed() {
 		return direction.length();
 	}
-	
+
 	/**
 	 * Returns the Radius of the Ball
 	 * 
 	 * @return
 	 */
-	public float getRadius(){
+	public float getRadius() {
 		return radius;
 	}
-	
+
 	/**
 	 * Scales the Balls radius
 	 * 
 	 * @param scale
 	 */
-	public void scaleRadius(float scale){
+	public void scaleRadius(float scale) {
 		radius = radius * scale;
 	}
-	
+
 	/**
 	 * Set the speed of the ball<br>
 	 * For testing purposes only
 	 * 
-	 * @param speed new speed to set
+	 * @param speed
+	 *            new speed to set
 	 */
-	public void setSpeed(float speed){
+	public void setSpeed(float speed) {
 		direction = direction.scale(speed / direction.length());
 	}
-	
+
 	/**
 	 * Set the position of the ball<br>
 	 * For testing purposes only
 	 * 
-	 * @param vector2f new position of the ball
+	 * @param vector2f
+	 *            new position of the ball
 	 */
-	public void setPosition(Vector2f vector2f){
+	public void setPosition(Vector2f vector2f) {
 		this.position.set(vector2f);
 	}
-	
+
 	/**
 	 * Set rotation of the ball (0-360°)<br>
 	 * For testing purposes only
 	 * 
-	 * @param i Angle
+	 * @param i
+	 *            Angle
 	 */
-	public void setRotation(int i){
-		this.direction.setTheta((double)i);
+	public void setRotation(int i) {
+		this.direction.setTheta((double) i);
 	}
-	
+
 	/**
 	 * Returns the rotation of the ball (0-360°)<br>
 	 * For testing purposes only
 	 * 
 	 * @return float Angle
 	 */
-	public float getRotation(){
-		return (float)this.direction.getTheta();
+	public float getRotation() {
+		return (float) this.direction.getTheta();
 	}
-	
+
 	/**
 	 * Returns the size of the ball as rectangle<br>
 	 * This does NOT take the real shape of the ball into account<br>
@@ -302,7 +312,7 @@ public class Ball extends Sprite {
 	 * 
 	 * @return Vector2f size
 	 */
-	public Vector2f getSize(){
-		return new Vector2f(radius*2,radius*2);
+	public Vector2f getSize() {
+		return new Vector2f(radius * 2, radius * 2);
 	}
 }

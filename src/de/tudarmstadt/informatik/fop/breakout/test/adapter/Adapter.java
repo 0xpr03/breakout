@@ -237,8 +237,7 @@ public class Adapter implements GameParameters {
 	public boolean collides(GameObject otherEntity) {
 		if(otherEntity == null)
 			return false;
-		// TODO write code to test if the ball collides with 'otherEntity'
-		return false;
+		return breakout.getIngState().getBall().collides(otherEntity);
 	}
 
 	/*
