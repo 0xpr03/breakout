@@ -110,11 +110,7 @@ public class Ball extends Sprite {
 				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f))
 						+ direction.x;
 			}
-			try {
-				playSound(o);
-			} catch (SlickException e) {
-				logger.warn("Unable to play Sound", e);
-			}
+			playSound(o);
 		}
 
 		return collided;
@@ -140,11 +136,8 @@ public class Ball extends Sprite {
 			direction.setTheta(thetaantidir + 2 * (ballcorner.getTheta() - thetaantidir));
 			if (o instanceof Block)
 				ing.blockHit((Block) o);
-			try {
-				playSound(o);
-			} catch (SlickException e) {
-				logger.warn("Unable to play Sound", e);
-			}
+			
+			playSound(o);
 
 			return true;
 		}
@@ -205,14 +198,14 @@ public class Ball extends Sprite {
 		position.y += direction.y;
 	}
 
-	public void playSound(GameObject o) throws SlickException {
+	public void playSound(GameObject o) {
 		if (o instanceof Block) {
-			am.getSnd("sounds/hitBlock.wav").play();
+			am.playSound("sounds/hitBlock.wav");
 			logger.debug("play Block Sound");
 		} else if (o instanceof Stick) {
-			am.getSnd("sounds/hitStick.wav").play();
+			am.playSound("sounds/hitStick.wav");
 			logger.debug("play Stick Sound");
-		} else am.getSnd("sounds/hitBlock.wav").play();
+		} else am.playSound("sounds/hitBlock.wav");
 	}
 	
 	/***************************************************
