@@ -54,8 +54,8 @@ public class OptionState extends GameState<Breakout>{
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				}));
-		objects.add(enableDisableCe = new Button(new Vector2f(300, 200), 400, 50, am.getImg("images/disable_ce_btn_d.png"),
-				am.getImg("images/disable_ce_btn_m.png"), new ButtonAction() {
+		objects.add(enableDisableCe = new Button(new Vector2f(300, 200), 400, 50, am.getImg("images/enable_ce_btn_d.png"),
+				am.getImg("images/enable_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings({"rawtypes", "null"})
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -63,14 +63,14 @@ public class OptionState extends GameState<Breakout>{
 						if(stateData.getIngState().getEnableCE()){
 							logger.trace("Disable CE-Exercise clicked");
 							stateData.getIngState().setEnableCE();
-							enableDisableCe.setDefaultImage(am.getImg("images/disable_ce_btn_d.png"));
-							enableDisableCe.setMouseOverImage(am.getImg("images/disable_ce_btn_m.png"));
+							enableDisableCe.setDefaultImage(am.getImg("images/enable_ce_btn_d.png"));
+							enableDisableCe.setMouseOverImage(am.getImg("images/enable_btn_m.png"));
 						}
 						else{
 							logger.trace("Enable CE-Exercise clicked");
 							stateData.getIngState().setEnableCE();
-							enableDisableCe.setDefaultImage(am.getImg("images/enable_ce_btn_d.png"));
-							enableDisableCe.setMouseOverImage(am.getImg("images/enable_btn_m.png"));
+							enableDisableCe.setDefaultImage(am.getImg("images/disable_ce_btn_d.png"));
+							enableDisableCe.setMouseOverImage(am.getImg("images/disable_ce_btn_m.png"));
 						}}
 						catch(SlickException e){
 							logger.warn("Enable/Disable CE-Exercise clicked", e);
