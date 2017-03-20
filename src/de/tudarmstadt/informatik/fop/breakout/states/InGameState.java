@@ -82,8 +82,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 */
 	public InGameState(final int stateID, final Breakout stateData) {
 		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
-		this.mapLoader = new MapLoader(stateData.getAppGameContainer().getWidth(),
-				stateData.getAppGameContainer().getHeight(), stateData.getAssetManager());
+		this.mapLoader = new MapLoader(stateData.getWidth(),
+				stateData.getHeight(), stateData.getAssetManager());
 		enableCE = false;
 	}
 

@@ -86,15 +86,6 @@ public class Breakout extends StateBasedGame implements GameParameters {
 	}
 
 	/**
-	 * Returns the AppGameContainer
-	 * 
-	 * @return AppGameContainer
-	 */
-	public AppGameContainer getAppGameContainer() {
-		return app;
-	}
-
-	/**
 	 * Creates a new Breakout instance
 	 * 
 	 * @param debug
