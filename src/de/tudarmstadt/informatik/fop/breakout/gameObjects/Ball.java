@@ -106,7 +106,7 @@ public class Ball extends Sprite {
 			if (o instanceof Block) {
 				ing.blockHit((Block) o);
 			} else if (enableCE && o instanceof Stick) {
-				// CE aufgabe
+				// CE Exercise Stick movement influence
 				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f))
 						+ direction.x;
 			}
@@ -197,7 +197,9 @@ public class Ball extends Sprite {
 					lastCollider = object.getID();
 					break;
 				}
-
+        //CE-Gravity
+		if (direction.length() != 0 && enableCE)
+			direction.set(direction.x, (float) (direction.y + (0.001 * delta)));
 		// Calculate new position
 		position.x += direction.x;
 		position.y += direction.y;
@@ -239,26 +241,6 @@ public class Ball extends Sprite {
 	 */
 	public float getSpeed(){
 		return direction.length();
-	}
-	
-	/**
-	 * Returns the current radius of the Ball
-	 * used by items
-	 * 
-	 * @return
-	 */
-	public float getRadius(){
-		return radius;
-	}
-	
-	/**
-	 * Scales the current radius of the Ball
-	 * used by items
-	 * 
-	 * @param d
-	 */
-	public void scaleRadius(float scale){
-		radius =  radius * scale;
 	}
 	
 	/**
