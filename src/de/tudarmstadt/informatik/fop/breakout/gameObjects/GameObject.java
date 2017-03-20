@@ -2,6 +2,7 @@ package de.tudarmstadt.informatik.fop.breakout.gameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -118,8 +119,9 @@ public class GameObject {
 
 	/**
 	 * Update method that shall be called from the game loop
+	 * @throws SlickException 
 	 */
-	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) throws SlickException {
 	}
 
 	/**

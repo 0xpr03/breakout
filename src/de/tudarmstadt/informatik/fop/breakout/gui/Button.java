@@ -43,7 +43,7 @@ public class Button extends GUIElement {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state, int delta) {
+	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state, int delta) throws SlickException {
 		if(isMouseOver(container))
 			image = mouseOverImage;
 		else
