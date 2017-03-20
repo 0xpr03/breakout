@@ -65,7 +65,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 
 	private int level;
 
-	private long score = 0;
+	private int score = 0;
 
 	boolean isPaused = false;
 	boolean isLost = false;
