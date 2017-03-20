@@ -137,7 +137,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			objects.addAll(blockList);
 			objects.addAll(levelData.undestroyableBlockList);
 
-			objects.add(stick = new Stick(getStickPosition(), 100, 25, levelData.pStick));
+			objects.add(stick = new Stick(getStickPosition(), 100, 10, levelData.pStick));
 
 			ball = getNewBall();
 			objects.add(ball);
@@ -296,7 +296,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			final double random = Math.random();
 			if (random > 0.5) {
 				try {
-					asyncAddObject(new Item(new Image("images/block_1.png"), block.getLocation(), block.getHeight(),
+					asyncAddObject(new Item(new Image("images/item.png"), block.getLocation(), block.getHeight(),
 							block.getHeight(), false));
 				} catch (SlickException e) {
 					logger.warn("Unable to creat Item", e);
