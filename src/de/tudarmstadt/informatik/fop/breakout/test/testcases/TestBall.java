@@ -26,6 +26,7 @@ public class TestBall {
 
   @Test
   public void testSetAndGetSpeed() {
+	adapter.changeToGameplayState();
     adapter.setSpeed(2);
     assertEquals("speed should be 2", 2, adapter.getSpeed(), 0);
   }
@@ -72,6 +73,7 @@ public class TestBall {
 
   @Test
   public void testColidesWithRightBorder() {
+	adapter.changeToGameplayState();
     GameObject rightBorder = new BorderFactory(BorderType.RIGHT).createEntity();
     float borderX = rightBorder.getLocation().x - rightBorder.getWidth() * 0.5f;
     // angle not between 179 and 1
@@ -102,6 +104,7 @@ public class TestBall {
 
   @Test
   public void testColidesWithLeftBorder() {
+	adapter.changeToGameplayState();
     GameObject leftBorder = new BorderFactory(BorderType.LEFT).createEntity();
     float borderX = leftBorder.getLocation().x + leftBorder.getWidth() * 0.5f;
     // angle not between 359 and 181
