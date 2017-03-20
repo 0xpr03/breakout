@@ -24,6 +24,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Background;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
+import de.tudarmstadt.informatik.fop.breakout.gui.Label;
 import de.tudarmstadt.informatik.fop.breakout.gui.TextInputField;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
@@ -59,6 +60,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private boolean enableCE;
 
 	private Clock clock;
+	private Label blocksDestroyed;
 
 	private ArrayList<Block> blockList;
 	private ArrayList<Sprite> livesLeft;
@@ -91,6 +93,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		this.isPaused = false;
 		this.isLost = false;
 		this.clock = null; // reset clock
+		this.blocksDestroyed = null;
 		initLevel();
 	}
 
@@ -143,25 +146,30 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		}
 		if (clock == null) // don't reset clock on level switch
 			clock = new Clock(new Vector2f(5, 580));
+		if (blocksDestroyed == null)
+			blocksDestroyed = new Label(new Vector2f(5, 560), "0");
 		objects.add(clock);
+		objects.add(blocksDestroyed);
 	}
-	
+
 	/**
-	 * Generate the 
+	 * Generate the
+	 * 
 	 * @param amount
 	 * @throws SlickException
 	 */
-	private void generateLiveBalls(int amount) throws SlickException{
+	private void generateLiveBalls(int amount) throws SlickException {
 		objects.remove(this.livesLeft);
 		this.livesLeft = new ArrayList<Sprite>();
 		Image ballImg = stateData.getAssetManager().getImg("images/ball.png");
-		
+
 		int livesOffsetX = 780;
 		int livesOffsetY = 580;
 		int Xdifference = 20;
-		
-		for(int i = 0; i < amount; i++){
-			livesLeft.add(new Sprite(ballImg, new Vector2f(livesOffsetX - i*Xdifference, livesOffsetY), 20, 20, false));
+
+		for (int i = 0; i < amount; i++) {
+			livesLeft.add(
+					new Sprite(ballImg, new Vector2f(livesOffsetX - i * Xdifference, livesOffsetY), 20, 20, false));
 		}
 		objects.addAll(livesLeft);
 	}
@@ -197,7 +205,8 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
 						logger.trace("Enter Highscore pressed");
-						stateData.getHighscore().addEntry(new HighscoreEntry(tName.getText(), score, clock.getTimePassed()));
+						stateData.getHighscore()
+								.addEntry(new HighscoreEntry(tName.getText(), score, clock.getTimePassed()));
 						game.enterState(GameParameters.HIGHSCORE_STATE);
 					}
 				});
@@ -292,6 +301,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			}
 			// Removes the Block
 			blockList.remove(block);
+			blocksDestroyed.setText(String.valueOf(Integer.parseInt(blocksDestroyed.getText()) + 1));
 			this.asyncRemoveObject(block);
 			this.score++;
 			if (blockList.size() == 0) {
@@ -360,9 +370,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	public void setEnableCE(boolean enableCE) {
 		this.enableCE = enableCE;
 	}
-	
+
 	/******************************************************
-	 *          Testing Functions
+	 * Testing Functions
 	 ******************************************************/
 
 	/**
@@ -381,7 +391,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Set the amount of lives (balls)<br>
 	 * For testing purposes only
@@ -389,21 +399,21 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	 * @param playerLives
 	 *            the number of lives/balls the player shall have left
 	 */
-	public void setLives(int lives){
+	public void setLives(int lives) {
 		try {
 			generateLiveBalls(lives);
 		} catch (SlickException e) {
-			logger.error("Unable to set lives!",e);
+			logger.error("Unable to set lives!", e);
 		}
 	}
-	
+
 	/**
 	 * Returns the amount of lives the player has left<br>
 	 * For testing purposes only
 	 * 
 	 * @return int lives
 	 */
-	public int getLivesLeft(){
+	public int getLivesLeft() {
 		return livesLeft.size();
 	}
 
