@@ -82,7 +82,6 @@ public class Adapter implements GameParameters {
 			app.exit();
 			app.destroy();
 		}
-		StateBasedEntityManager.getInstance().clearAllStates();
 		breakout = null;
 	}
 
