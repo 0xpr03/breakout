@@ -76,7 +76,7 @@ public class Item extends Sprite {
 			break;
 		// decreases the Ball speed
 		case 3:
-			if(stm.getBall().getSpeed() < stm.getMapDefaultBallVelocity() / 1.8){
+			if(stm.getBall().getSpeed() > stm.getMapDefaultBallVelocity() / 1.8){
 				logger.debug("Ball Velocity = " + stm.getBall().getSpeed());
 				logger.debug("decrease Ball speed");
 				stm.getBall().setSpeed((float) (stm.getBall().getSpeed() / 1.3));
