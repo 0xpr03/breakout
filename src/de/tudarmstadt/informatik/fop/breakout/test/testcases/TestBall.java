@@ -183,7 +183,7 @@ public class TestBall {
 
   @Test
   public void testColidesWithOthers() {
-    Entity dummy = null;
+    GameObject dummy = null;
     assertFalse("no collision with null", adapter.collides(dummy));
 
     dummy = adapter.createBallInstance("ball2");

@@ -24,7 +24,7 @@ public class GameObject {
 	private static int idCounter;
 	
 	private boolean collideable = false;
-
+	
 	/**
 	 * Create a new instance of GameObject
 	 * 
@@ -151,5 +151,13 @@ public class GameObject {
 
 	public int getID() {
 		return id;
+	}
+
+	public boolean isPassable() {
+		return !collideable;
+	}
+
+	public void setPassable(boolean passable) {
+		this.collideable = !passable;
 	}
 }
