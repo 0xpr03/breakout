@@ -86,6 +86,8 @@ public class Item extends Sprite {
 		// decreases the Ball size
 		case 4:
 			if(stm.getBall().getRadius() > stm.getDefaultBallSize() / 1.8){
+				stm.getBall().setWidth((float) ((stm.getBall().getRadius() * 2) / 1.3));
+				stm.getBall().setHeight((float) ((stm.getBall().getRadius() * 2)/ 1.3));
 				stm.getBall().scaleRadius((float) (1 / 1.3));
 			}
 			logger.debug("Ball Size = " + stm.getBall().getSize());
@@ -93,6 +95,8 @@ public class Item extends Sprite {
 		// increases the Ball size
 		case 5:
 			if(stm.getBall().getRadius() < stm.getDefaultBallSize() * 1.8){
+				stm.getBall().setWidth((float) (stm.getBall().getRadius() * 1.3 * 2));
+				stm.getBall().setHeight((float) (stm.getBall().getRadius() * 1.3 * 2));
 				stm.getBall().scaleRadius((float) 1.3); 
 			}
 			logger.debug("Ball SIze = " + stm.getBall().getSize());

@@ -75,5 +75,4 @@ public class Sprite extends GameObject {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
 	}
-
 }
