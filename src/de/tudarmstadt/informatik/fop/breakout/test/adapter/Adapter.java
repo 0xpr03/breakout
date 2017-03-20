@@ -1,5 +1,6 @@
 package de.tudarmstadt.informatik.fop.breakout.test.adapter;
 
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -9,8 +10,6 @@ import de.tudarmstadt.informatik.fop.breakout.gameObjects.Ball;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.GameObject;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
-import eea.engine.entity.Entity;
-import eea.engine.entity.StateBasedEntityManager;
 import eea.engine.test.TestAppGameContainer;
 
 public class Adapter implements GameParameters {
@@ -161,7 +160,7 @@ public class Adapter implements GameParameters {
 	 * @return the orientation angle for the ball (0...360)
 	 */
 	public float getRotation() {
-		breakout.getIngState().getBall().getRotation();
+		return breakout.getIngState().getBall().getRotation();
 	}
 
 	/**
@@ -182,7 +181,7 @@ public class Adapter implements GameParameters {
 	 * @return the size of the ball
 	 */
 	public Vector2f getSize() {
-		breakout.getIngState().getBall().getSize();
+		return breakout.getIngState().getBall().getSize();
 	}
 
 	/**
@@ -191,7 +190,7 @@ public class Adapter implements GameParameters {
 	 * @return the ball's speed
 	 */
 	public float getSpeed() {
-		breakout.getIngState().getBall().getSpeed();
+		return breakout.getIngState().getBall().getSpeed();
 	}
 
 	/**
@@ -299,7 +298,7 @@ public class Adapter implements GameParameters {
 	 * @return number of hits
 	 */
 	public int getHitsLeft(int x, int y) {
-		breakout.getIngState().getBlockAt(x, y).getHitsLeft();
+		return breakout.getIngState().getBlockAt(x, y).getHitsLeft();
 	}
 
 	/**
@@ -356,23 +355,25 @@ public class Adapter implements GameParameters {
 	 *            : z.B. Input.KEY_K, Input.KEY_L
 	 */
 	public void handleKeyDown(int updatetime, Integer input) {
-		// TODO write code that handles a "key pressed" event
-		// note: do not forget to call app.updateGame(updatetime);
+		try {
+			app.updateGame(updatetime);
+			app.getTestInput().setKeyDown(input);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	/**
 	 * This Method should emulate the pressing of the right arrow key.
 	 */
 	public void handleKeyDownRightArrow() {
-		// TODO write code for handling a "right arrow" key press
-		// hint: you may use the above method.
+		handleKeyDown(1, Input.KEY_RIGHT);
 	}
 
 	/**
 	 * This Method should emulate the pressing of the left arrow key.
 	 */
 	public void handleKeyDownLeftArrow() {
-		// TODO write code for handling a "left arrow" key press
-		// hint: you may use the above method.
+		handleKeyDown(1, Input.KEY_LEFT);
 	}
 }

@@ -27,6 +27,9 @@ public class ThemeManager {
 		case 0:
 		default:
 			switch (val) {
+			case 4:
+				path = "block_4.png";
+				break;
 			case 3:
 				path = "block_3.png";
 				break;
@@ -40,8 +43,8 @@ public class ThemeManager {
 				path = "block_m1.png";
 				break;
 			default:
-				if (val > 3) {
-					path = "block_3.png";
+				if (val > 4) {
+					path = "block_4.png";
 					logger.info("Using highest block for theme: {} val: {}", theme, val);
 				} else {
 					path = "block_1.png";

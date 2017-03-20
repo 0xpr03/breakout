@@ -16,15 +16,17 @@ public class BlockSetter extends GUIElement {
 	private Image block1;
 	private Image block2;
 	private Image block3;
+	private Image block4;
 	private int column, row;
 
 	public BlockSetter(Vector2f position, float width, float height, int column, int row, Image indestrBlock,
-			Image block1, Image block2, Image block3) {
+			Image block1, Image block2, Image block3, Image block4) {
 		super(null, position, width, height);
 		this.blockM1 = indestrBlock;
 		this.block1 = block1;
 		this.block2 = block2;
 		this.block3 = block3;
+		this.block4 = block4;
 		this.column = column;
 		this.row = row;
 	}
@@ -33,11 +35,12 @@ public class BlockSetter extends GUIElement {
 	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state,
 			int delta) {
 		if (isClicked(container))
-			blockValue = (blockValue + 1) % 4;
+			blockValue = (blockValue + 1) % 6;
 		else if (isRightClicked(container))
-			blockValue = (blockValue - 1) % 4;
+			blockValue = (blockValue - 1) % 6;
 
 		switch (blockValue) {
+		case 5:
 		case -1:
 			image = blockM1;
 			break;
@@ -49,10 +52,13 @@ public class BlockSetter extends GUIElement {
 		case 2:
 			image = block2;
 			break;
-		case -2:
-			blockValue = 3;
 		case 3:
 			image = block3;
+			break;
+		case -2:
+			blockValue = 4;
+		case 4:
+			image = block4;
 			break;
 		}
 	}

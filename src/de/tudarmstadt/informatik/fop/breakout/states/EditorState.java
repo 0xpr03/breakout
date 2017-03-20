@@ -23,7 +23,7 @@ import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
- * 
+ * A GameState to load, edit and save new maps
  * 
  * @author Simon Kohaut
  */
@@ -38,8 +38,6 @@ public class EditorState extends GameState<Breakout> {
 	 * 
 	 * @param stateID
 	 * @param stateData
-	 * @param width
-	 * @param height
 	 */
 	public EditorState(int stateID, Breakout stateData) {
 		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
@@ -61,8 +59,8 @@ public class EditorState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(150, 500), 200, 50, am.getImg("images/stick.png"),
-				am.getImg("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(150, 500), 200, 50, am.getImg("images/load_btn_d.png"),
+				am.getImg("images/load_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -77,8 +75,8 @@ public class EditorState extends GameState<Breakout> {
 					}
 				}));
 
-		objects.add(new Button(new Vector2f(650, 500), 200, 50, am.getImg("images/stick.png"),
-				am.getImg("images/stick.png"), new ButtonAction() {
+		objects.add(new Button(new Vector2f(650, 500), 200, 50, am.getImg("images/save_btn_d.png"),
+				am.getImg("images/save_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
@@ -96,7 +94,7 @@ public class EditorState extends GameState<Breakout> {
 			for (int y = 0; y < 11; y++)
 				objects.add(new BlockSetter(new Vector2f(x * 50 + 25, y * 30 + 15), 50, 30, x, y,
 						am.getImg("images/block_m1.png"), am.getImg("images/block_1.png"),
-						am.getImg("images/block_2.png"), am.getImg("images/block_3.png")));
+						am.getImg("images/block_2.png"), am.getImg("images/block_3.png"), am.getImg("images/block_4.png")));
 
 		pathInputField = new TextInputField(new Vector2f(400, 550), 750, "Path:");
 
