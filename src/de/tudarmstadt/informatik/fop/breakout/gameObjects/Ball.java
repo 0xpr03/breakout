@@ -107,7 +107,8 @@ public class Ball extends Sprite {
 				ing.blockHit((Block) o);
 			} else if (enableCE && o instanceof Stick) {
 				// CE Exercise Stick movement influence
-				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 1000.0f))
+				if (direction.length() != 0)
+				direction.x = (((Stick) o).getDirection() * ((Stick) o).getPixelPerSecond() * (delta / 3000.0f))
 						+ direction.x;
 			}
 			playSound(o);
