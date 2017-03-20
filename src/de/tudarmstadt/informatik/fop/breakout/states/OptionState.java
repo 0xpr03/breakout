@@ -70,7 +70,7 @@ public class OptionState extends GameState<Breakout>{
 							logger.trace("Enable CE-Exercise clicked");
 							stateData.getIngState().setEnableCE();
 							enableDisableCe.setDefaultImage(am.getImg("images/enable_ce_btn_d.png"));
-							enableDisableCe.setMouseOverImage(am.getImg("images/enabel_ce_btn_m.png"));
+							enableDisableCe.setMouseOverImage(am.getImg("images/enable_btn_m.png"));
 						}}
 						catch(SlickException e){
 							logger.warn("Enable/Disable CE-Exercise clicked", e);
