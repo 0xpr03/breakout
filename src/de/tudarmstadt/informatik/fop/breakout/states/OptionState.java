@@ -16,7 +16,6 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Button;
 import de.tudarmstadt.informatik.fop.breakout.gui.Button.ButtonAction;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
-import de.tudarmstadt.informatik.fop.breakout.gui.Checkbox;
 
 /**
  * Class representing the Option state of the game
@@ -29,6 +28,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Checkbox;
 public class OptionState extends GameState<Breakout>{
 	
 	private Logger logger = LogManager.getLogger();
+	private Button enableDisableCe;
 
 	public OptionState(final int stateID, final Breakout stateData) {
 		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
@@ -54,19 +54,26 @@ public class OptionState extends GameState<Breakout>{
 						game.enterState(GameParameters.MAINMENU_STATE);
 					}
 				}));
-
-		objects.add(new Button(new Vector2f(300, 200), 150, 50, am.getImg("images/clear_btn_d.png"),
-				am.getImg("images/clear_btn_m.png"), new ButtonAction() {
-					@SuppressWarnings("rawtypes")
+		objects.add(enableDisableCe = new Button(new Vector2f(300, 200), 400, 50, am.getImg("images/disable_ce_btn_d.png"),
+				am.getImg("images/disable_ce_btn_m.png"), new ButtonAction() {
+					@SuppressWarnings({"rawtypes", "null"})
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {
+						try{
 						if(stateData.getIngState().getEnableCE()){
 							logger.trace("Disable CE-Exercise clicked");
 							stateData.getIngState().setEnableCE();
+							enableDisableCe.setDefaultImage(am.getImg("images/disable_ce_btn_d.png"));
+							enableDisableCe.setMouseOverImage(am.getImg("images/disable_ce_btn_m.png"));
 						}
 						else{
 							logger.trace("Enable CE-Exercise clicked");
 							stateData.getIngState().setEnableCE();
+							enableDisableCe.setDefaultImage(am.getImg("images/enable_ce_btn_d.png"));
+							enableDisableCe.setMouseOverImage(am.getImg("images/enabel_ce_btn_m.png"));
+						}}
+						catch(SlickException e){
+							logger.warn("Enable/Disable CE-Exercise clicked", e);
 						}
 					}
 				}));

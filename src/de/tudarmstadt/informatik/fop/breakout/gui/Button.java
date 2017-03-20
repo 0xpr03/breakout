@@ -2,6 +2,7 @@ package de.tudarmstadt.informatik.fop.breakout.gui;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -53,6 +54,24 @@ public class Button extends GUIElement {
 	}
 	
 	/**
+	 * Sets a new Default Image
+	 * 
+	 * @param img
+	 */
+	public void setDefaultImage(Image img){
+		defaultImage = img;
+	}
+	
+	/**
+	 * Sets a new MouseOverImage
+	 * 
+	 * @param img
+	 */
+	public void setMouseOverImage(Image img){
+		mouseOverImage = img;
+	}
+	
+	/**
 	 * Button action class
 	 * 
 	 * @author Aron Heinecke
@@ -64,8 +83,9 @@ public class Button extends GUIElement {
 		 * @param game StateBasedGame
 		 * @param state GameState
 		 * @param delta Delta
+		 * @throws SlickException 
 		 */
-		public abstract void action(GameContainer container, StateBasedGame game, GameState state, int delta);
+		public abstract void action(GameContainer container, StateBasedGame game, GameState state, int delta) throws SlickException;
 	}
 	
 }
