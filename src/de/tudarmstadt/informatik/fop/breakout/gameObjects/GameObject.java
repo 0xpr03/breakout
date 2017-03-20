@@ -13,7 +13,7 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * 
  * @author Aron Heinecke, Simon Kohaut
  */
-public abstract class GameObject {
+public class GameObject {
 
 	protected Vector2f position;
 	protected float width;
@@ -119,12 +119,14 @@ public abstract class GameObject {
 	/**
 	 * Update method that shall be called from the game loop
 	 */
-	public abstract void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta);
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) {
+	}
 
 	/**
 	 * Render method that shall be called from the game loop
 	 */
-	public abstract void render(Graphics g);
+	public void render(Graphics g) {
+	}
 
 	/**
 	 * Returns whether the object is collideable or not

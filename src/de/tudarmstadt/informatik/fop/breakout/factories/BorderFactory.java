@@ -3,8 +3,7 @@ package de.tudarmstadt.informatik.fop.breakout.factories;
 import org.newdawn.slick.geom.Vector2f;
 
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
-import eea.engine.entity.Entity;
-import eea.engine.interfaces.IEntityFactory;
+import de.tudarmstadt.informatik.fop.breakout.gameObjects.GameObject;
 
 /**
  * Factory for creating Borders of the field. Borders are not visible and not
@@ -13,7 +12,7 @@ import eea.engine.interfaces.IEntityFactory;
  * @author Tobias Otterbein, Benedikt Wartusch
  * 
  */
-public class BorderFactory implements IEntityFactory, GameParameters {
+public class BorderFactory implements GameParameters {
 
 	private BorderType type;
 
@@ -27,40 +26,19 @@ public class BorderFactory implements IEntityFactory, GameParameters {
 		this.type = type;
 	}
 
-	@Override
-	public Entity createEntity() {
-
-		Entity border;
-		Vector2f size;
-		Vector2f position;
+	public GameObject createEntity() {
 
 		switch (type) {
 
 		case TOP:
-			border = new Entity(TOP_BORDER_ID);
-			position = new Vector2f(WINDOW_WIDTH / 2, 0);
-			size = new Vector2f(WINDOW_WIDTH, BORDER_WIDTH);
-			break;
+			return new GameObject(new Vector2f(WINDOW_WIDTH / 2.0f, 0), WINDOW_WIDTH, BORDER_WIDTH, true);
 		case LEFT:
-			border = new Entity(LEFT_BORDER_ID);
-			position = new Vector2f(0, WINDOW_HEIGHT / 2);
-			size = new Vector2f(BORDER_WIDTH, WINDOW_HEIGHT);
-			break;
+			return new GameObject(new Vector2f(0, WINDOW_HEIGHT / 2.0f), BORDER_WIDTH, WINDOW_HEIGHT, true);
 		case RIGHT:
-			border = new Entity(RIGHT_BORDER_ID);
-			position = new Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT / 2);
-			size = new Vector2f(BORDER_WIDTH, WINDOW_HEIGHT);
-			break;
+			return new GameObject(new Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT / 2.0f), BORDER_WIDTH, WINDOW_HEIGHT, true);
 		default:
 			return null;
 		}
-
-		border.setPosition(position);
-		border.setSize(size);
-		border.setVisible(false);
-		border.setPassable(false);
-
-		return border;
 	}
 
 }

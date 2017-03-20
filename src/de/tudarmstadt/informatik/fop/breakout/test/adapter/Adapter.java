@@ -119,7 +119,7 @@ public class Adapter implements GameParameters {
 	 * @return an entity representing a ball with the ID passed in as ballID
 	 */
 	public Ball createBallInstance(String ballID) {
-		return breakout.getIngState().getBall();
+		return breakout.getIngState().getNewBall();
 	}
 
 	/**
@@ -221,6 +221,8 @@ public class Adapter implements GameParameters {
 	 *         collide with the top border if the orientation is fitting).
 	 */
 	public boolean collides(GameObject otherEntity) {
+		if(otherEntity == null)
+			return false;
 		// TODO write code to test if the ball collides with 'otherEntity'
 		return false;
 	}
