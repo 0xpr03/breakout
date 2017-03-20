@@ -146,7 +146,9 @@ public class Ball extends Sprite {
 	}
 
 	public boolean collides(GameObject o) {
-		if (surfaceCollisionTest(o) || cornerCollisionTest(o))
+		if(this == o)
+			return false;
+		else if (surfaceCollisionTest(o) || cornerCollisionTest(o))
 			return true;
 		else
 			return false;
