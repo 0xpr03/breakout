@@ -26,14 +26,12 @@ public class TestBall {
 
   @Test
   public void testSetAndGetSpeed() {
-	adapter.changeToGameplayState();
     adapter.setSpeed(2);
     assertEquals("speed should be 2", 2, adapter.getSpeed(), 0);
   }
 
   @Test
   public void testColidesWithTopBorder() {
-    adapter.changeToGameplayState();
     GameObject topBorder = new BorderFactory(BorderType.TOP).createEntity();
     float borderY = topBorder.getLocation().y + topBorder.getHeight() * 0.5f;
 
@@ -73,7 +71,6 @@ public class TestBall {
 
   @Test
   public void testColidesWithRightBorder() {
-	adapter.changeToGameplayState();
     GameObject rightBorder = new BorderFactory(BorderType.RIGHT).createEntity();
     float borderX = rightBorder.getLocation().x - rightBorder.getWidth() * 0.5f;
     // angle not between 179 and 1
@@ -104,7 +101,6 @@ public class TestBall {
 
   @Test
   public void testColidesWithLeftBorder() {
-	adapter.changeToGameplayState();
     GameObject leftBorder = new BorderFactory(BorderType.LEFT).createEntity();
     float borderX = leftBorder.getLocation().x + leftBorder.getWidth() * 0.5f;
     // angle not between 359 and 181
@@ -132,7 +128,7 @@ public class TestBall {
     assertTrue("collision at right border with angle 359 and right position", adapter.collides(leftBorder));
   }
 
-  /*@Test
+  @Test
   public void testColidesWithStick() {
     // stick has collision offset of 10. to read in the exercise
     Entity stick = new Entity(GameParameters.STICK_ID);
@@ -195,6 +191,6 @@ public class TestBall {
     dummy.setPassable(true);
     assertFalse("no collision with passable entities", adapter.collides(dummy));
 
-  }*/
+  }
 
 }
