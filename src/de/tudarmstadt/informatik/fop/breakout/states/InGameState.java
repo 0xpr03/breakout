@@ -61,7 +61,7 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 	private Clock clock;
 
 	private ArrayList<Block> blockList;
-	private ArrayList<Sprite> livesLeft;
+	private ArrayList<Sprite> livesLeft = new ArrayList<>();;
 
 	private int level;
 
@@ -91,7 +91,9 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 		this.isPaused = false;
 		this.isLost = false;
 		this.clock = null; // reset clock
+		livesLeft.clear();
 		initLevel();
+		generateLiveBalls(3);
 	}
 
 	/**
@@ -131,12 +133,12 @@ public class InGameState extends GameState<Breakout> implements GameEvent {
 			objects.addAll(blockList);
 			objects.addAll(levelData.undestroyableBlockList);
 
-			generateLiveBalls(3);
-
 			objects.add(stick = new Stick(getStickPosition(), 100, 25, levelData.pStick));
 
 			ball = getNewBall();
 			objects.add(ball);
+			
+			objects.addAll(livesLeft);
 
 		} catch (SlickException e) {
 			logger.error("Error at loading Map: ", e);
