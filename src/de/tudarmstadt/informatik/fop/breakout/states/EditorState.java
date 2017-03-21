@@ -91,8 +91,8 @@ public class EditorState extends GameState<Breakout> {
 				}));
 
 		for (int x = 0; x < 16; x++)
-			for (int y = 0; y < 11; y++)
-				objects.add(new BlockSetter(new Vector2f(x * 50 + 25, y * 30 + 15), 50, 30, x, y,
+			for (int y = 0; y < 10; y++)
+				objects.add(new BlockSetter(new Vector2f(x * 50 + 25, y * 30 + 15), 50, 30, y, x,
 						am.getImg("images/block_m1.png"), am.getImg("images/block_1.png"),
 						am.getImg("images/block_2.png"), am.getImg("images/block_3.png"), am.getImg("images/block_4.png")));
 

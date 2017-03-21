@@ -70,10 +70,10 @@ public class BlockSetter extends GUIElement {
 	}
 	
 	public void writeMap(Map map) {
-		map.setBlock(row, column, blockValue);;
+		map.setBlock(column, row, blockValue);;
 	}
 	
 	public void readMap(Map map) {
-		blockValue = map.getMap().get(row).get(column);
+		blockValue = map.getMap().get(column).get(row);
 	}
 }
