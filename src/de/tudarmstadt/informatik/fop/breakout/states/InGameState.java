@@ -27,7 +27,7 @@ import de.tudarmstadt.informatik.fop.breakout.gui.Clock;
 import de.tudarmstadt.informatik.fop.breakout.gui.Label;
 import de.tudarmstadt.informatik.fop.breakout.gui.TextInputField;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
-import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
+import de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor;
 import de.tudarmstadt.informatik.fop.breakout.lib.HighscoreLib.HighscoreEntry;
 import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.lib.MapLoader;
@@ -40,7 +40,7 @@ import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
  * 
  * @author Aron Heinecke
  */
-public class InGameState extends GameState<Breakout> implements GameEvent {
+public class InGameState extends GameState<Breakout> implements EventAceptor {
 
 	private final Logger logger = LogManager.getLogger(this);
 

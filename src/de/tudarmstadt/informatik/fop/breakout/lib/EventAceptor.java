@@ -10,7 +10,7 @@ import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
  * @author Aron Heinecke
  *
  */
-public interface GameEvent {
+public interface EventAceptor {
 	/**
 	 * Event fired on ball loss
 	 * 
@@ -26,5 +26,4 @@ public interface GameEvent {
 	 *            hit block
 	 */
 	public void blockHit(Block block);
-	// public void itemCollected(Item e);
 }

@@ -12,7 +12,7 @@ import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.GameObject;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.Stick;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
-import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
+import de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import eea.engine.test.TestAppGameContainer;
 
