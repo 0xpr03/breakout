@@ -67,7 +67,7 @@ public class Item extends Sprite {
 		// increases the Ball speed
 		case 2:
 			logger.debug("Ball: {}",stm.getBall().toString());
-			if(stm.getBall().getSpeed() < stm.getMapDefaultBallVelocity() * 1.8){
+			if(stm.getBall().getSpeed() < stm.getMapDefaultBallVelocity() * 1.6){
 				logger.debug("Ball Velocity = " + stm.getBall().getSpeed());
 				logger.debug("increase Ball speed");
 				stm.getBall().setSpeed((float) (stm.getBall().getSpeed() * 1.3));
@@ -76,7 +76,7 @@ public class Item extends Sprite {
 			break;
 		// decreases the Ball speed
 		case 3:
-			if(stm.getBall().getSpeed() > stm.getMapDefaultBallVelocity() / 1.8){
+			if(stm.getBall().getSpeed() > stm.getMapDefaultBallVelocity() / 1.6){
 				logger.debug("Ball Velocity = " + stm.getBall().getSpeed());
 				logger.debug("decrease Ball speed");
 				stm.getBall().setSpeed((float) (stm.getBall().getSpeed() / 1.3));
