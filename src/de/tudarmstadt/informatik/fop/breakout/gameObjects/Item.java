@@ -112,8 +112,8 @@ public class Item extends Sprite {
 		position.y += (delta / 1000.0f) * pixelPerSecond;
 		InGameState stm = (InGameState) state;
 		// collides with the stick
-		if (position.y > stm.getStick().position.y - (stm.getStick().height) / 2 - (height) / 2)
-			if (Math.abs(position.x - stm.getStick().position.x) < (stm.getStick().width) / 2 - (width) / 2) {
+		if (Math.abs(position.y - stm.getStick().position.y) < (stm.getStick().height) / 2 + (height) / 2)
+			if (Math.abs(position.x - stm.getStick().position.x) < (stm.getStick().width) / 2 + (width) / 2) {
 				applyEffect(stm);
 				stm.asyncRemoveObject(this);
 			}
