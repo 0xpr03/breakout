@@ -106,7 +106,6 @@ public class BlockSetter extends GUIElement {
 	 */
 	public void writeMap(Map map) {
 		map.setBlock(column, row, blockValue);
-		;
 	}
 
 	/**

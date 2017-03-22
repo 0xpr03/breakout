@@ -44,6 +44,15 @@ public class vector_test {
 
 	}
 
+	/**
+	 * Change length of vector2f
+	 * 
+	 * @param length
+	 *            new length
+	 * @param vec
+	 *            vector to change
+	 * @return new vector with changed length
+	 */
 	private Vector2f changeLength(float length, Vector2f vec) {
 		return vec.scale(length / vec.length());
 	}
