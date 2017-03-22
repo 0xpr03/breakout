@@ -60,8 +60,8 @@ public class Adapter implements GameParameters {
 		} else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
 			System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/native/macosx");
 		} else {
-			System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/native/"
-					+ System.getProperty("os.name").toLowerCase());
+			System.setProperty("org.lwjgl.librarypath",
+					System.getProperty("user.dir") + "/native/" + System.getProperty("os.name").toLowerCase());
 		}
 
 		// Initialize the game in debug mode (no GUI output)
@@ -126,9 +126,8 @@ public class Adapter implements GameParameters {
 	public Ball createBallInstance(String ballID) {
 		AssetManager am = new AssetManager();
 		am.setTestMode(true);
-		return new Ball(new Vector2f(50, 50), 15, null,
-				5f, null, GameParameters.WINDOW_HEIGHT, GameParameters.WINDOW_WIDTH, am,
-				null, false);
+		return new Ball(new Vector2f(50, 50), 15, null, 5f, null, GameParameters.WINDOW_HEIGHT,
+				GameParameters.WINDOW_WIDTH, am, null, false);
 	}
 
 	/**
@@ -234,7 +233,7 @@ public class Adapter implements GameParameters {
 	 *         collide with the top border if the orientation is fitting).
 	 */
 	public boolean collides(GameObject otherEntity) {
-		if(otherEntity == null)
+		if (otherEntity == null)
 			return false;
 		return breakout.getIngState().getBall().collides(otherEntity);
 	}
@@ -324,7 +323,7 @@ public class Adapter implements GameParameters {
 	 */
 	public void addHitsLeft(int hitsLeft, int x, int y) {
 		Block block = breakout.getIngState().getBlockAt(x, y);
-		block.setHitsLeft(block.getHitsLeft()+hitsLeft);
+		block.setHitsLeft(block.getHitsLeft() + hitsLeft);
 	}
 
 	/**
@@ -373,7 +372,7 @@ public class Adapter implements GameParameters {
 			app.getTestInput().setKeyDown(input);
 		} catch (SlickException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	/**
