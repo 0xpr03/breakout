@@ -368,8 +368,8 @@ public class Adapter implements GameParameters {
 	 */
 	public void handleKeyDown(int updatetime, Integer input) {
 		try {
-			app.updateGame(updatetime);
 			app.getTestInput().setKeyDown(input);
+			app.updateGame(updatetime);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -379,7 +379,7 @@ public class Adapter implements GameParameters {
 	 * This Method should emulate the pressing of the right arrow key.
 	 */
 	public void handleKeyDownRightArrow() {
-		handleKeyDown(1, Input.KEY_RIGHT);
+		handleKeyDown(100, Input.KEY_RIGHT);
 	}
 
 	/**
