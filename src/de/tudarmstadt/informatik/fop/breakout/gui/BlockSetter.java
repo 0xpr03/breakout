@@ -9,6 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import de.tudarmstadt.informatik.fop.breakout.lib.Map;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
+/**
+ * A GUI element to set a Block in the editor by clicking on the setter
+ * 
+ * @author Simon Kohaut
+ */
 public class BlockSetter extends GUIElement {
 
 	private int blockValue = 0;
@@ -19,6 +24,30 @@ public class BlockSetter extends GUIElement {
 	private Image block4;
 	private int column, row;
 
+	/**
+	 * Create a new BlockSetter
+	 * 
+	 * @param position
+	 *            the center position of the setter
+	 * @param width
+	 *            the width of the setter
+	 * @param height
+	 *            the height of the setter
+	 * @param column
+	 *            the column in the map
+	 * @param row
+	 *            the row in the map
+	 * @param indestrBlock
+	 *            the image for a indestructible block
+	 * @param block1
+	 *            the image for a block with 1 life
+	 * @param block2
+	 *            the image for a block with 2 lifes
+	 * @param block3
+	 *            the image for a block with 3 lifes
+	 * @param block4
+	 *            the image for a block with 4 lifes
+	 */
 	public BlockSetter(Vector2f position, float width, float height, int column, int row, Image indestrBlock,
 			Image block1, Image block2, Image block3, Image block4) {
 		super(null, position, width, height);
@@ -68,11 +97,24 @@ public class BlockSetter extends GUIElement {
 		if (blockValue != 0)
 			super.render(g);
 	}
-	
+
+	/**
+	 * Write the block value to the map
+	 * 
+	 * @param map
+	 *            the map to edit
+	 */
 	public void writeMap(Map map) {
-		map.setBlock(column, row, blockValue);;
+		map.setBlock(column, row, blockValue);
+		;
 	}
-	
+
+	/**
+	 * Read the block value from a map
+	 * 
+	 * @param map
+	 *            the map to read from
+	 */
 	public void readMap(Map map) {
 		blockValue = map.getMap().get(column).get(row);
 	}

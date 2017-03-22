@@ -39,7 +39,7 @@ public class AboutState extends GameState<Breakout> {
 	 * @param stateData
 	 */
 	public AboutState(final int stateID, final Breakout stateData) {
-		super(stateID, stateData,stateData.getWidth(),stateData.getHeight());
+		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class AboutState extends GameState<Breakout> {
 		AssetManager am = stateData.getAssetManager();
 		objects.add(new Background(am.getImg("images/menu.png"), this));
 
-		objects.add(new Button(new Vector2f(370, 500), 200, 50, am.getImg("images/back_btn_d.png"), am.getImg("images/back_btn_m.png"),
-				new ButtonAction() {
+		objects.add(new Button(new Vector2f(370, 500), 200, 50, am.getImg("images/back_btn_d.png"),
+				am.getImg("images/back_btn_m.png"), new ButtonAction() {
 					@SuppressWarnings("rawtypes")
 					@Override
 					public void action(GameContainer container, StateBasedGame game, GameState state, int delta) {

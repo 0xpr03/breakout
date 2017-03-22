@@ -60,7 +60,6 @@ public class TextInputField extends Label implements KeyListener {
 		else
 			g.setColor(new Color(255, 255, 255, 180));	
 		Vector2f topLeft = getTopLeft();
-		Vector2f bottomRight = getBottomRight();
 		g.fillRect(topLeft.x, topLeft.y, width, height);
 		g.setColor(Color.black);
 		super.render(g);

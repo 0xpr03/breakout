@@ -1,6 +1,5 @@
 package de.tudarmstadt.informatik.fop.breakout.test.adapter;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
@@ -10,9 +9,7 @@ import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.Ball;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.Block;
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.GameObject;
-import de.tudarmstadt.informatik.fop.breakout.gameObjects.Stick;
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
-import de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor;
 import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import eea.engine.test.TestAppGameContainer;
 
@@ -128,7 +125,7 @@ public class Adapter implements GameParameters {
 		AssetManager am = new AssetManager();
 		am.setTestMode(true);
 		return new Ball(new Vector2f(50, 50), 15, null,
-				5f, 0f, null, GameParameters.WINDOW_HEIGHT, GameParameters.WINDOW_WIDTH, am,
+				5f, null, GameParameters.WINDOW_HEIGHT, GameParameters.WINDOW_WIDTH, am,
 				null, false);
 	}
 

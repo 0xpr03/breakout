@@ -133,8 +133,8 @@ public class Map {
 				// map data
 				for (ArrayList<Integer> row : map) {
 					int start = row.remove(0);
-					bw.write(row.stream().map((s) -> Integer.toString(s))
-							.reduce(Integer.toString(start), (x, y) -> x + "," + y));
+					bw.write(row.stream().map((s) -> Integer.toString(s)).reduce(Integer.toString(start),
+							(x, y) -> x + "," + y));
 					bw.newLine();
 				}
 

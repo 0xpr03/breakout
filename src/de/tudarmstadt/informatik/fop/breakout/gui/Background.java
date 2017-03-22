@@ -8,7 +8,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.gameObjects.GameObject;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
-import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 
 /**
  * Background object

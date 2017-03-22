@@ -73,8 +73,8 @@ public class HighscoreLib {
 					if (split.length < 3) {
 						logger.error("Unable to parse line! {}", line);
 					} else {
-						HighscoreEntry highscoreEntry = new HighscoreEntry(split[C_NAME_POS], Integer.valueOf(split[C_BLOCKS_POS]),
-								Float.valueOf(split[C_TIME_POS]));
+						HighscoreEntry highscoreEntry = new HighscoreEntry(split[C_NAME_POS],
+								Integer.valueOf(split[C_BLOCKS_POS]), Float.valueOf(split[C_TIME_POS]));
 						highscore.add(highscoreEntry);
 					}
 				}
@@ -183,6 +183,7 @@ public class HighscoreLib {
 
 		/**
 		 * Returns the numer of destroyed blocks
+		 * 
 		 * @return the amount of destroyed blocks
 		 */
 		public int getNumberOfDestroyedBlocks() {
@@ -191,6 +192,7 @@ public class HighscoreLib {
 
 		/**
 		 * Returns the name of the player
+		 * 
 		 * @return the name
 		 */
 		public String getPlayerName() {
@@ -199,6 +201,7 @@ public class HighscoreLib {
 
 		/**
 		 * Returns the elapsed time
+		 * 
 		 * @return the time
 		 */
 		public float getElapsedTime() {
@@ -218,7 +221,7 @@ public class HighscoreLib {
 				return this.blocks < o.getNumberOfDestroyedBlocks() ? 1 : -1;
 			}
 		}
-		
+
 		@Override
 		public double getPoints() {
 			return getNumberOfDestroyedBlocks();

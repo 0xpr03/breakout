@@ -19,12 +19,12 @@ public class GameObject {
 	protected Vector2f position;
 	protected float width;
 	protected float height;
-	
+
 	protected final int id;
 	private static int idCounter;
-	
+
 	private boolean collideable = false;
-	
+
 	/**
 	 * Create a new instance of GameObject
 	 * 
@@ -119,9 +119,11 @@ public class GameObject {
 
 	/**
 	 * Update method that shall be called from the game loop
-	 * @throws SlickException 
+	 * 
+	 * @throws SlickException
 	 */
-	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, GameState<?> state, int delta)
+			throws SlickException {
 	}
 
 	/**
@@ -149,14 +151,29 @@ public class GameObject {
 		this.collideable = collideable;
 	}
 
+	/**
+	 * Returns the unique ID of the GameObject
+	 * 
+	 * @return the unique ID of the GameObject
+	 */
 	public int getID() {
 		return id;
 	}
 
+	/**
+	 * Returns if the GameObject is passable
+	 * 
+	 * @return if the GameObject is passable
+	 */
 	public boolean isPassable() {
 		return !collideable;
 	}
 
+	/**
+	 * Set if the GameObject is passable
+	 * 
+	 * @param passable if the GameObject is passable
+	 */
 	public void setPassable(boolean passable) {
 		this.collideable = !passable;
 	}

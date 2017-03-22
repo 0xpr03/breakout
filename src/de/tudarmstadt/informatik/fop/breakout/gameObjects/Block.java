@@ -38,9 +38,10 @@ public class Block extends Sprite implements IHitable {
 	 *            The life of the Block
 	 * @param image
 	 *            The Image to represent the Block on screen
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
-	public Block(Vector2f position, float width, float height, int life, AssetManager am, int theme) throws SlickException {
+	public Block(Vector2f position, float width, float height, int life, AssetManager am, int theme)
+			throws SlickException {
 		super(am.getImg(ThemeManager.getBlockPicturePath(life, theme)), position, width, height, true);
 		this.life = life;
 		this.am = am;
@@ -60,52 +61,62 @@ public class Block extends Sprite implements IHitable {
 	public int getLife() {
 		return life;
 	}
-	
-	private Image getPicture() throws SlickException{
+
+	/**
+	 * Returns the appropriate image for the Block
+	 * 
+	 * @return the appropriate image for the Block
+	 * @throws SlickException
+	 */
+	private Image getPicture() throws SlickException {
 		return am.getImg(ThemeManager.getBlockPicturePath(life, theme));
 	}
-	
-	private void updatePicture(){
-		try{
-		this.setImage(getPicture());
-		}catch(SlickException e){
-			logger.error("Error on block picture change! {}",e);
+
+	/**
+	 * Update the picture that represents the Block
+	 */
+	private void updatePicture() {
+		try {
+			this.setImage(getPicture());
+		} catch (SlickException e) {
+			logger.error("Error on block picture change! {}", e);
 		}
 	}
 
 	/**
 	 * Decrement the life by 1
-	 * @throws SlickException 
+	 * 
+	 * @throws SlickException
 	 */
 	public void decreaseLife() {
-		if(life > 0){
+		if (life > 0) {
 			life--;
-			if(life != 0)
+			if (life != 0)
 				updatePicture();
 		}
 	}
-	
+
 	/*******************************************
-	 *      Testing Functions
+	 * Testing Functions
 	 *******************************************/
-	
+
 	/**
 	 * Set the amount of hits untill block destruction<br>
 	 * For testing purposes only
 	 * 
 	 * @param hits
 	 */
-	public void setHitsLeft(int hitsLeft){
+	public void setHitsLeft(int hitsLeft) {
 		this.life = hitsLeft;
 	}
-	
+
 	/**
 	 * Returns the amount of hits left untill block destruction<br>
 	 * For testing purposes only
 	 * 
 	 * @return int left hits
 	 */
-	public int getHitsLeft(){
+	public int getHitsLeft() {
 		return this.life;
 	}
 

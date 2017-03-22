@@ -14,20 +14,14 @@ import de.tudarmstadt.informatik.fop.breakout.states.GameState;
  * @author Tim Jäger
  */
 public class Stick extends Sprite {
-	
-	
 
 	/**
 	 * Can be -1 for Moving left or 1 for Moving right
 	 */
 	private int direction;
-	/**
-	 * Magicnumber how fast the Stick moves (can be changed for better Gameflow)
-	 */
-	
 	private final float pixelPerSecond = 400f;
 	private final float defaultWidth;
-	
+
 	/**
 	 * Create a new instance of Stick
 	 * 
@@ -44,11 +38,11 @@ public class Stick extends Sprite {
 		super(image, position, width, height, true);
 		defaultWidth = width;
 	}
-	
+
 	/**
 	 * Reset width to default
 	 */
-	public void resetWidth(){
+	public void resetWidth() {
 		this.width = defaultWidth;
 	}
 
@@ -58,14 +52,15 @@ public class Stick extends Sprite {
 		Input in = container.getInput();
 		Vector2f topLeft = getTopLeft();
 		Vector2f bottomRight = getBottomRight();
-		
+
 		if (in.isKeyDown(Input.KEY_LEFT) && topLeft.x > 0) {
 			position.x -= (delta / 1000.0f) * pixelPerSecond;
 			direction = -1;
 		} else if (in.isKeyDown(Input.KEY_RIGHT) && bottomRight.x < state.getWidth()) {
 			position.x += (delta / 1000.0f) * pixelPerSecond;
 			direction = 1;
-		} else direction = 0;
+		} else
+			direction = 0;
 	}
 
 	/**
@@ -76,8 +71,6 @@ public class Stick extends Sprite {
 	public float getPixelPerSecond() {
 		return pixelPerSecond;
 	}
-	
-	
 
 	/**
 	 * Direction can be -1 for Moving left and 1 for Moving right

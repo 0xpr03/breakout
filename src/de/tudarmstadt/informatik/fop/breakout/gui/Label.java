@@ -50,6 +50,8 @@ public class Label extends GUIElement {
 	}
 
 	/**
+	 * Reutrns the text
+	 * 
 	 * @return the text
 	 */
 	public String getText() {

@@ -5,13 +5,11 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.lib.AssetManager;
-import de.tudarmstadt.informatik.fop.breakout.lib.GameEvent;
+import de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor;
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
 /**
@@ -27,10 +25,9 @@ public class Ball extends Sprite {
 
 	private Logger logger = LogManager.getLogger(this);
 	private float basicVelocity;
-	private float gravity;
 	private float radius;
 	private int delta;
-	private GameEvent ing;
+	private EventAceptor ing;
 	private int windowHeight;
 	private int windowWidth;
 
@@ -52,11 +49,10 @@ public class Ball extends Sprite {
 	 * @param image
 	 *            The image to represent the Ball on screen
 	 */
-	public Ball(Vector2f position, float radius, Image image, float velocity, float gravity, GameEvent ing,
+	public Ball(Vector2f position, float radius, Image image, float velocity, EventAceptor ing,
 			int windowHeight, int windowWidth, AssetManager am, Stick stick, final boolean enableCE) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
-		this.gravity = gravity;
 		this.radius = radius;
 		this.ing = ing;
 		this.windowHeight = windowHeight;
@@ -72,7 +68,6 @@ public class Ball extends Sprite {
 	 * @param o
 	 *            The object which may be colliding with the Ball
 	 * @return If the Ball collides with the object
-	 * @throws SlickException
 	 */
 	public boolean surfaceCollisionTest(GameObject o) {
 		if (!o.isCollideable())
@@ -80,7 +75,6 @@ public class Ball extends Sprite {
 
 		Vector2f half = new Vector2f(o.width / 2.0f, o.height / 2.0f);
 		Vector2f distance = new Vector2f(Math.abs(position.x - o.position.x), Math.abs(position.y - o.position.y));
-		Vector2f vDelta = new Vector2f(distance.x - half.x, distance.y - half.y);
 
 		if (distance.x > (half.x + radius) || distance.y > (half.y + radius))
 			return false;
@@ -117,7 +111,13 @@ public class Ball extends Sprite {
 		return collided;
 	}
 
-	// Corner
+	/**
+	 * Test if the Ball collides at the corner of GameObject o
+	 * 
+	 * @param o
+	 *            The GameObject to test for collision
+	 * @return If the Ball collides with o
+	 */
 	public boolean cornerCollisionTest(GameObject o) {
 		if (!o.isCollideable())
 			return false;
@@ -145,8 +145,15 @@ public class Ball extends Sprite {
 		return false;
 	}
 
+	/**
+	 * Test if the Ball collides with the specified GameObject
+	 * 
+	 * @param o
+	 *            The GameObject to test for collision
+	 * @return If the Ball collides with o
+	 */
 	public boolean collides(GameObject o) {
-		if(this == o)
+		if (this == o)
 			return false;
 		else if (surfaceCollisionTest(o) || cornerCollisionTest(o))
 			return true;
@@ -207,6 +214,12 @@ public class Ball extends Sprite {
 		position.y += direction.y;
 	}
 
+	/**
+	 * Play the appropriate sound when colliding with another GameObject
+	 * 
+	 * @param o
+	 *            The GameObject wich Ball collided with
+	 */
 	public void playSound(GameObject o) {
 		if (o instanceof Block) {
 			am.playSound("sounds/hitBlock.wav");

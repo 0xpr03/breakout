@@ -41,6 +41,12 @@ public class AssetManager {
 		return images.get(path);
 	}
 
+	/**
+	 * Play a sound
+	 * 
+	 * @param path
+	 *            the path where the sound is stored
+	 */
 	public void playSound(final String path) {
 		if (testMode)
 			return;
@@ -57,6 +63,12 @@ public class AssetManager {
 
 	}
 
+	/**
+	 * Loop a sound
+	 * 
+	 * @param path
+	 *            the path where the sound is stored
+	 */
 	public void loopSound(final String path) {
 		if (testMode)
 			return;
@@ -73,6 +85,13 @@ public class AssetManager {
 
 	}
 
+	/**
+	 * Set the test mode on or off. Is used for tests where no images or sounds
+	 * should be used.
+	 * 
+	 * @param flag
+	 *            True to set the test mode on, false to turn it off.
+	 */
 	public void setTestMode(boolean flag) {
 		testMode = flag;
 	}

@@ -35,7 +35,9 @@ public class Clock extends Label {
 	}
 
 	/**
-	 * @return the timePassed
+	 * Returns the passed time
+	 * 
+	 * @return the passed time
 	 */
 	public float getTimePassed() {
 		return timePassed;

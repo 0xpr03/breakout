@@ -82,8 +82,7 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 	 */
 	public InGameState(final int stateID, final Breakout stateData) {
 		super(stateID, stateData, stateData.getWidth(), stateData.getHeight());
-		this.mapLoader = new MapLoader(stateData.getWidth(),
-				stateData.getHeight(), stateData.getAssetManager());
+		this.mapLoader = new MapLoader(stateData.getWidth(), stateData.getHeight(), stateData.getAssetManager());
 		enableCE = false;
 	}
 
@@ -141,7 +140,7 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 
 			ball = getNewBall();
 			objects.add(ball);
-			
+
 			objects.addAll(livesLeft);
 
 		} catch (SlickException e) {
@@ -156,10 +155,12 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 	}
 
 	/**
-	 * Generate the
+	 * Generate the Sprites to show the life the player has
 	 * 
 	 * @param amount
+	 *            the amount of lives
 	 * @throws SlickException
+	 *             if the Image could not be loaded
 	 */
 	private void generateLiveBalls(int amount) throws SlickException {
 		objects.remove(this.livesLeft);
@@ -320,9 +321,9 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 	 * @return Ball
 	 */
 	public Ball getNewBall() {
-		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), defautlBallSize, levelData.pBall,
-				map.getBallVelocity(), map.getGravity(), this, getHeight(), getWidth(), stateData.getAssetManager(),
-				stick, enableCE);
+		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), defautlBallSize,
+				levelData.pBall, map.getBallVelocity(), this, getHeight(), getWidth(),
+				stateData.getAssetManager(), stick, enableCE);
 	}
 
 	/**
@@ -338,12 +339,16 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 			return -1;
 		}
 	}
-	
-	public float getDefaultBallSize(){
-		if(map != null){
+
+	/**
+	 * Returns the default ball size
+	 * 
+	 * @return the default ball size
+	 */
+	public float getDefaultBallSize() {
+		if (map != null) {
 			return defautlBallSize;
-		}
-		else{
+		} else {
 			logger.warn("getDefaultBallSize request on null map!");
 			return -1;
 		}
@@ -376,16 +381,20 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 		return this.ball;
 	}
 
+	/**
+	 * Returns if the CE simulation is enabled
+	 * 
+	 * @return if the CE simulation is enabled
+	 */
 	public boolean isEnableCE() {
 		return enableCE;
 	}
 
-	public void setEnableCE() {
+	/**
+	 * Toggle the CE simulation
+	 */
+	public void toggleCE() {
 		this.enableCE = !this.enableCE;
-	}
-	
-	public boolean getEnableCE(){
-		return enableCE;
 	}
 
 	/******************************************************

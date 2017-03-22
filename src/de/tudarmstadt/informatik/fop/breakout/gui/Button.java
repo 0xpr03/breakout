@@ -8,18 +8,17 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import de.tudarmstadt.informatik.fop.breakout.states.GameState;
 
-
 /**
  * A Button with mouse over visualization and click recognition
  * 
- * @author Simon Kohaut 
+ * @author Simon Kohaut
  */
 public class Button extends GUIElement {
 
 	private Image defaultImage;
 	private Image mouseOverImage;
 	private ButtonAction action;
-	
+
 	/**
 	 * Create a new Button
 	 * 
@@ -35,7 +34,8 @@ public class Button extends GUIElement {
 	 *            The Image to represent the Button if the cursor is hovering
 	 *            over the Button
 	 */
-	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage, ButtonAction action) {
+	public Button(Vector2f position, float width, float height, Image defaultImage, Image mouseOverImage,
+			ButtonAction action) {
 		super(defaultImage, position, width, height);
 		this.defaultImage = defaultImage;
 		this.mouseOverImage = mouseOverImage;
@@ -43,34 +43,35 @@ public class Button extends GUIElement {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state, int delta) throws SlickException {
-		if(isMouseOver(container))
+	public void update(GameContainer container, StateBasedGame game, @SuppressWarnings("rawtypes") GameState state,
+			int delta) throws SlickException {
+		if (isMouseOver(container))
 			image = mouseOverImage;
 		else
 			image = defaultImage;
-		
-		if(isClicked(container))
+
+		if (isClicked(container))
 			action.action(container, game, state, delta);
 	}
-	
+
 	/**
 	 * Sets a new Default Image
 	 * 
 	 * @param img
 	 */
-	public void setDefaultImage(Image img){
+	public void setDefaultImage(Image img) {
 		defaultImage = img;
 	}
-	
+
 	/**
 	 * Sets a new MouseOverImage
 	 * 
 	 * @param img
 	 */
-	public void setMouseOverImage(Image img){
+	public void setMouseOverImage(Image img) {
 		mouseOverImage = img;
 	}
-	
+
 	/**
 	 * Button action class
 	 * 
@@ -79,13 +80,19 @@ public class Button extends GUIElement {
 	public static abstract class ButtonAction {
 		/**
 		 * Action on button click
-		 * @param container GameContainer
-		 * @param game StateBasedGame
-		 * @param state GameState
-		 * @param delta Delta
-		 * @throws SlickException 
+		 * 
+		 * @param container
+		 *            GameContainer
+		 * @param game
+		 *            StateBasedGame
+		 * @param state
+		 *            GameState
+		 * @param delta
+		 *            Delta
+		 * @throws SlickException
 		 */
-		public abstract void action(GameContainer container, StateBasedGame game, GameState state, int delta) throws SlickException;
+		public abstract void action(GameContainer container, StateBasedGame game,
+				@SuppressWarnings("rawtypes") GameState state, int delta) throws SlickException;
 	}
-	
+
 }
