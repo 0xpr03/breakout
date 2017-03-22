@@ -1,0 +1,3 @@
+<map id="de.tudarmstadt.informatik.fop.breakout.test.adapter.IHitable" name="de.tudarmstadt.informatik.fop.breakout.test.adapter.IHitable">
+<area shape="rect" id="node2" href="$classde_1_1tudarmstadt_1_1informatik_1_1fop_1_1breakout_1_1game_objects_1_1_block.html" title="{de.tudarmstadt.informatik.fop.breakout.game\lObjects.Block\n||+ Block()\l+ update()\l+ getLife()\l+ decreaseLife()\l+ setHitsLeft()\l+ getHitsLeft()\l+ addHitsLeft()\l+ hasHitsLeft()\l}" alt="" coords="25,189,308,384"/>
+</map>

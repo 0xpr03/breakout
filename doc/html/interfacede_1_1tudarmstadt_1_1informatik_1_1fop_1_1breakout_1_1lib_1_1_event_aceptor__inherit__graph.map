@@ -1,0 +1,3 @@
+<map id="de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor" name="de.tudarmstadt.informatik.fop.breakout.lib.EventAceptor">
+<area shape="rect" id="node2" href="$classde_1_1tudarmstadt_1_1informatik_1_1fop_1_1breakout_1_1states_1_1_in_game_state.html" title="{de.tudarmstadt.informatik.fop.breakout.states.\lInGameState\n|~ isPaused\l~ isLost\l|+ InGameState()\l+ enter()\l+ init()\l+ render()\l+ update()\l+ ballLost()\l+ blockHit()\l+ getNewBall()\l+ getMapDefaultBallVelocity()\l+ getDefaultBallSize()\land 7 more...\l}" alt="" coords="5,160,296,413"/>
+</map>

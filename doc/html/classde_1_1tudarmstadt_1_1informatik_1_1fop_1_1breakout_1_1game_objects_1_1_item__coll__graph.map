@@ -1,0 +1,4 @@
+<map id="de.tudarmstadt.informatik.fop.breakout.gameObjects.Item" name="de.tudarmstadt.informatik.fop.breakout.gameObjects.Item">
+<area shape="rect" id="node2" href="$classde_1_1tudarmstadt_1_1informatik_1_1fop_1_1breakout_1_1game_objects_1_1_sprite.html" title="{de.tudarmstadt.informatik.fop.breakout.game\lObjects.Sprite\n||+ Sprite()\l+ getTopLeft()\l+ getBottomRight()\l+ setImage()\l+ render()\l}" alt="" coords="151,535,433,685"/>
+<area shape="rect" id="node3" href="$classde_1_1tudarmstadt_1_1informatik_1_1fop_1_1breakout_1_1game_objects_1_1_game_object.html" title="{de.tudarmstadt.informatik.fop.breakout.game\lObjects.GameObject\n|# width\l# height\l# id\l|+ GameObject()\l+ setLocation()\l+ setLocation()\l+ getLocation()\l+ setWidth()\l+ setHeight()\l+ getHeight()\l+ getWidth()\l+ update()\l+ render()\l+ isCollideable()\l+ setCollideable()\l+ getID()\l+ isPassable()\l+ setPassable()\l}" alt="" coords="5,145,288,472"/>
+</map>
