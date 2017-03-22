@@ -133,7 +133,7 @@ public class TestBall {
 		// stick has collision offset of 10. to read in the exercise
 		GameObject stick = new GameObject(
 				new Vector2f(GameParameters.WINDOW_WIDTH / 2, GameParameters.WINDOW_HEIGHT - 10),
-				20, 5, true);
+				20, 1, true);
 		// angle not between 91 and 269
 		adapter.setRotation(90);
 		assertFalse("no collision with stick with angle 90", adapter.collides(stick));

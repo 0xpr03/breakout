@@ -72,6 +72,8 @@ public class Adapter implements GameParameters {
 			breakout.getAssetManager().setTestMode(true);
 			app.start(0);
 			changeToGameplayState();
+			app.getTestInput().setKeyDown(Input.KEY_SPACE);
+			app.updateGame(0);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
