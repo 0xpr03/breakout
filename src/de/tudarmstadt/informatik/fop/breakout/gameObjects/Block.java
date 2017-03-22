@@ -36,7 +36,9 @@ public class Block extends Sprite implements IHitable {
 	 *            The height of the Block
 	 * @param life
 	 *            The life of the Block
-	 * @param image
+	 * @param am
+	 *            Manages pictures and sound needed
+	 * @param theme
 	 *            The Image to represent the Block on screen
 	 * @throws SlickException
 	 */
@@ -56,7 +58,7 @@ public class Block extends Sprite implements IHitable {
 	/**
 	 * Returns the life the Block has left
 	 * 
-	 * @return the life the Blick has left
+	 * @return the life the Block has left
 	 */
 	public int getLife() {
 		return life;

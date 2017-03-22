@@ -48,9 +48,24 @@ public class Ball extends Sprite {
 	 *            The radius of the ball
 	 * @param image
 	 *            The image to represent the Ball on screen
+	 * @param velocity
+	 *            The velocity of the ball
+	 * @param ing
+	 *            The EventAceptor to call if something happens
+	 * @param windowHeight
+	 *            The height of the game window
+	 * @param windowWidht
+	 *            The width of the game window
+	 * @param am
+	 *            Manages the pictures and sound needed for the game
+	 * @param stick
+	 *            The stick of the game
+	 * @param enableCE
+	 *            Determines if the CE-mode is enabled
+	 * 
 	 */
-	public Ball(Vector2f position, float radius, Image image, float velocity, EventAceptor ing,
-			int windowHeight, int windowWidth, AssetManager am, Stick stick, final boolean enableCE) {
+	public Ball(Vector2f position, float radius, Image image, float velocity, EventAceptor ing, int windowHeight,
+			int windowWidth, AssetManager am, Stick stick, final boolean enableCE) {
 		super(image, position, radius * 2, radius * 2, false);
 		this.basicVelocity = velocity;
 		this.radius = radius;
