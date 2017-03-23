@@ -322,7 +322,7 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 	 * @return Ball
 	 */
 	public Ball getNewBall() {
-		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), defautlBallSize,
+		return new Ball(new Vector2f(stick.getLocation().x, stick.getLocation().y - 7.5f), 15,
 				levelData.pBall, map.getBallVelocity(), this, getHeight(), getWidth(),
 				stateData.getAssetManager(), stick, enableCE);
 	}
