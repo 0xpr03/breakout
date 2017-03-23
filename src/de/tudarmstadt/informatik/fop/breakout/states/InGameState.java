@@ -90,6 +90,7 @@ public class InGameState extends GameState<Breakout> implements EventAceptor {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		super.enter(container, game);
 		this.level = 1;
+		this.score = 0;
 		this.isPaused = false;
 		this.isLost = false;
 		this.clock = null; // reset clock
