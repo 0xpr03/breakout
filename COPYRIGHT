@@ -1,5 +1,5 @@
 The fop_17 project is copyright under the MIT License by the following Persons:
-Aron Heinecke, Tim Jäger, Simon Kohaut, Niko under 
+Aron Heinecke, Niko Mitura, Tim Jäger, Simon Kohaut 
 
 The project includes music & pictures by third parties.
 The following third party packages are included and carry their own copyright notices and license terms:
@@ -13,3 +13,6 @@ The files starting with log4j are copyright by the apache software foundation un
 (http://logging.apache.org/log4j/2.x/license.html)
 
 The files starting with slick are copyright by the slick2d developers.
+
+All files starting in lwjgl-2.9.3/ and native/ are copyright by the lwjgl developers.
+See lwjgl-2.9.3/doc/LICENSE
